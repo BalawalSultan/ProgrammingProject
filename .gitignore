@@ -1,3 +1,5 @@
 .settings
 .vscode
 bash.exe.stackdump
+.classpath
+.project
