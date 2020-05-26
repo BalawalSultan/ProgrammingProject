@@ -1,29 +1,97 @@
 package pp201920.project.a5;
 
-import java.io.*;
-import java.net.*;
-import java.util.*;
-import com.google.gson.*;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 
 public class App{
     public static void main(String[] args){
         String json = fetchAndHandle("http://tourism.opendatahub.bz.it/api/Activity");
 
-        if(json != null){
+        int n =  getObjectsToRetrive(); // Number of Objects to retrive
+
+        if(json != null && n != 0){
             JsonObject jsonResponse = new JsonParser().parse(json).getAsJsonObject();
-            JsonArray Items = jsonResponse.get("Items").getAsJsonArray();
+            JsonArray Objects = jsonResponse.get("Items").getAsJsonArray();
 
             ArrayList<Activity> list = new ArrayList<Activity>();
 
-            for (JsonElement element : Items) {
-                Activity activity = getActivityObject(element.getAsJsonObject());
-                list.add(activity);
-                generateJsonFile(activity);
+            if(n > Objects.size()){
+
+                for (JsonElement object : Objects) {
+                    Activity activity = getActivityObject(object.getAsJsonObject());
+                    list.add(activity);
+                    generateJsonFile(activity);
+                }
+                System.out.printf("There were only %d object available.\n", Objects.size());
+            
+            }else if(n < Objects.size()){
+
+                for(int i = 0; i < n; i++){
+                    JsonElement object = Objects.get(i);
+                    Activity activity = getActivityObject(object.getAsJsonObject());
+                    list.add(activity);
+                    generateJsonFile(activity);
+                }
+                System.out.printf("%d objects have been retrived", n);
             }
             
             regionWithMostActivities(list);
         }
 
+    }
+
+    public static int getObjectsToRetrive(){
+        int result = 0;
+        String path = "src/main/resources/";
+        File inputFile = new File(path + "input.txt");
+
+        try{
+            FileReader fileReader = new FileReader(inputFile);
+            BufferedReader reader = new BufferedReader(fileReader);
+
+            try{
+                String s = reader.readLine();
+
+                if(s != null){
+                    try{
+                        result = Integer.parseInt(s);
+                    }catch(NumberFormatException e){
+                        System.err.println("Input.txt does not contain a parsable integer!");
+                        e.printStackTrace();
+                    }
+                }
+
+                reader.close();
+                fileReader.close();
+            }catch(IOException e) {
+                System.err.println("An error occurred while reading the file: input.txt");
+                e.printStackTrace();
+            }
+
+        }catch(FileNotFoundException e){
+            System.err.println("The file \"input.txt\" does not exist or is not in the specified path: " + path);
+            e.printStackTrace();
+        }
+
+        return result;
     }
 
     public static String getLanguage(JsonObject Detail, JsonObject RegionName){
