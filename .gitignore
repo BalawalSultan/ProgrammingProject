@@ -1,6 +1,8 @@
 .settings
 .vscode
+results/*
 bin
 bash.exe.stackdump
 .classpath
 .project
+target
