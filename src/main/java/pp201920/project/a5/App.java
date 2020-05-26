@@ -6,7 +6,6 @@ import java.util.*;
 import com.google.gson.*;
 
 public class App{
-// random comment
     public static void main(String[] args){
         String json = fetchAndHandle("http://tourism.opendatahub.bz.it/api/Activity");
 
