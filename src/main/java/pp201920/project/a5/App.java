@@ -1,39 +1,29 @@
 package pp201920.project.a5;
 
-import java.io.BufferedReader;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.URL;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
+import java.io.*;
+import java.net.*;
+import java.util.*;
+import com.google.gson.*;
 
 public class App{
 
-    public static void main(String[] args) throws Exception {
+    public static void main(String[] args){
+        String json = fetchAndHandle("http://tourism.opendatahub.bz.it/api/Activity");
 
-        String json = readUrl("http://tourism.opendatahub.bz.it/api/Activity");
+        if(json != null){
+            JsonObject jsonResponse = new JsonParser().parse(json).getAsJsonObject();
+            JsonArray Items = jsonResponse.get("Items").getAsJsonArray();
 
-        JsonObject jsonResponse = new JsonParser().parse(json).getAsJsonObject();
-        JsonArray Items = jsonResponse.get("Items").getAsJsonArray();
+            ArrayList<Activity> list = new ArrayList<Activity>();
 
-        ArrayList<Activity> list = new ArrayList<Activity>();
-
-        for (JsonElement element : Items) {
-            Activity activity = getActivityObject(element.getAsJsonObject());
-            list.add(activity);
-            generateJsonFile(activity);
+            for (JsonElement element : Items) {
+                Activity activity = getActivityObject(element.getAsJsonObject());
+                list.add(activity);
+                generateJsonFile(activity);
+            }
+            
+            regionWithMostActivities(list);
         }
-        
-        regionWithMostActivities(list);
 
     }
 
@@ -52,15 +42,22 @@ public class App{
     public static Activity getActivityObject(JsonObject Activity){
 
         JsonObject Detail = Activity.getAsJsonObject("Detail");
-        JsonObject RegionInfo = Activity.getAsJsonObject("LocationInfo").getAsJsonObject("RegionInfo");
         JsonArray ODHTags = Activity.getAsJsonArray("ODHTags");
+        JsonObject RegionInfo = Activity.getAsJsonObject("LocationInfo").
+                                        getAsJsonObject("RegionInfo");
 
         String language = getLanguage(Detail, RegionInfo.getAsJsonObject("Name"));
 
         String Id = Activity.get("Id").getAsString();
-        String Name = Detail.getAsJsonObject(language).get("Title").getAsString();
-        String Description = Detail.getAsJsonObject(language).get("BaseText").getAsString();
-        String RegionName = RegionInfo.getAsJsonObject("Name").get(language).getAsString();
+
+        String Name = Detail.getAsJsonObject(language).
+                             get("Title").getAsString();
+
+        String Description = Detail.getAsJsonObject(language).
+                                    get("BaseText").getAsString();
+
+        String RegionName = RegionInfo.getAsJsonObject("Name").
+                                       get(language).getAsString();
 
         boolean hasGPSTrack = false;
 
@@ -81,32 +78,24 @@ public class App{
     }
 
     public static void generateJsonFile(Activity activity){
-
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
         String json = gson.toJson(activity);
         String path = "results/";
 
         try{
-
             FileWriter writer = new FileWriter(path + "Activity_" + activity.getId() + ".json");
-            
             writer.write(json);
-
             writer.close();
             
             System.out.println("Successfully generated Activity_" + activity.getId() + ".json.");
-
         }catch(IOException e){
-
             System.out.println("An error occurred while generating Activity_" + activity.getId() + ".json.");
             e.printStackTrace();
-
         }
 
     }
 
     public static void regionWithMostActivities(ArrayList<Activity> list){
-
         HashMap<String, Integer> map = new HashMap<>();
 
         for (Activity activity : list) {
@@ -139,23 +128,61 @@ public class App{
 
     }
 
-    public static String readUrl(String urlString) throws Exception {
-
-        BufferedReader reader = null;
-        try {
-            URL url = new URL(urlString);
-            reader = new BufferedReader(new InputStreamReader(url.openStream()));
-            StringBuffer buffer = new StringBuffer();
-            int read;
-            char[] chars = new char[1024];
-            while ((read = reader.read(chars)) != -1)
-                buffer.append(chars, 0, read); 
-    
-            return buffer.toString();
-        }finally{
-            if (reader != null)
-                reader.close();
+    public static String fetchAndHandle(String url){
+        String response = null;
+        
+        try{
+            try{
+                try{
+                    try{
+                        response = fetch(new URL(url));
+                    }catch(MalformedURLException e){
+                        System.err.println("MalformedURLException!");
+                        e.printStackTrace();
+                    }
+                }catch(NullPointerException e){
+                    System.err.println("Empty Response!");
+                    e.printStackTrace();
+                }
+            }catch(FileNotFoundException e){
+                System.err.println("Error 404: FileNotFoundException!");
+                e.printStackTrace();
+            }
+        }catch(IOException e){
+            System.err.println("IOException!");
+            e.printStackTrace();
         }
 
+        return response;
+    }
+
+    public static String fetch(URL url) throws IOException{        
+        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+        connection.setRequestMethod("GET");
+        connection.setConnectTimeout(5000);
+        connection.setReadTimeout(5000);
+
+        int status = connection.getResponseCode();
+
+        StringBuilder response = new StringBuilder();
+        BufferedReader reader;
+        String line;
+
+        if (status == 404)
+            throw new FileNotFoundException();
+        if (status > 299)
+            reader = new BufferedReader(new InputStreamReader(connection.getErrorStream()));
+        else
+            reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+        
+        while ((line = reader.readLine()) != null)
+            response.append(line);
+            
+        reader.close();
+
+        if(response.toString().isEmpty())
+            throw new NullPointerException();
+
+        return response.toString();
     }
 }
