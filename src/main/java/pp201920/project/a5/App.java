@@ -23,25 +23,25 @@ import com.google.gson.JsonParser;
 
 public class App{
     public static void main(String[] args){
-        int numOfObjects =  getObjectsToRetrive(); // Number of Objects to retrive
+        int numOfObjects =  10000; // Number of Objects to retrive
         String url = "https://tourism.opendatahub.bz.it/api/Activity?pagenumber=1&pagesize=" + numOfObjects;
         String json = fetchAndHandle(url);
 
-        if(json != null && numOfObjects != 0){
-            JsonObject jsonResponse = new JsonParser().parse(json).getAsJsonObject();
-            JsonArray Objects = jsonResponse.get("Items").getAsJsonArray();
+        // if(json != null && numOfObjects != 0){
+        //     JsonObject jsonResponse = new JsonParser().parse(json).getAsJsonObject();
+        //     JsonArray Objects = jsonResponse.get("Items").getAsJsonArray();
 
-            ArrayList<Activity> list = new ArrayList<Activity>();
+        //     ArrayList<Activity> list = new ArrayList<Activity>();
 
-            for (JsonElement object : Objects) {
-                Activity activity = getActivityObject(object.getAsJsonObject());
-                list.add(activity);
-                generateJsonFile(activity);
-            }
+        //     for (JsonElement object : Objects) {
+        //         Activity activity = getActivityObject(object.getAsJsonObject());
+        //         list.add(activity);
+        //         generateJsonFile(activity);
+        //     }
             
-            regionWithMostActivities(list);
-        }
-
+        //     regionWithMostActivities(list);
+        // }
+            System.out.println("I have finished.");
     }
 
     public static int getObjectsToRetrive(){

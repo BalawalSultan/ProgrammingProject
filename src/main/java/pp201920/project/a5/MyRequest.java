@@ -8,12 +8,12 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-public class Request implements Runnable {
+public class MyRequest implements Runnable {
 
     URL url;
     Response response;
 
-    public Request(String url, Response response){
+    public MyRequest(String url, Response response){
         try{
             this.url = new URL(url);
         }catch(MalformedURLException e){
