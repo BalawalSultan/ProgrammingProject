@@ -23,7 +23,7 @@ import com.google.gson.JsonParser;
 
 public class App{
     public static void main(String[] args){
-        int numOfObjects =  getObjectsToRetrive(); // Number of Objects to retrive
+        int numOfObjects =  getObjectsToRetrieve(); // Number of Objects to retrive
         String url = "https://tourism.opendatahub.bz.it/api/Activity?pagenumber=1&pagesize=" + numOfObjects;
         String json = fetchAndHandle(url);
 
@@ -44,7 +44,7 @@ public class App{
 
     }
 
-    public static int getObjectsToRetrive(){
+    public static int getObjectsToRetrieve(){
         int result = 0;
         String path = "src/main/resources/";
         File inputFile = new File(path + "input.txt");
@@ -53,28 +53,24 @@ public class App{
             FileReader fileReader = new FileReader(inputFile);
             BufferedReader reader = new BufferedReader(fileReader);
 
-            try{
-                String s = reader.readLine();
+            String s = reader.readLine();
 
-                if(s != null){
-                    try{
-                        result = Integer.parseInt(s);
-                    }catch(NumberFormatException e){
-                        System.err.println("Input.txt does not contain a parsable integer!");
-                        e.printStackTrace();
-                    }
-                }
+            if(s != null)
+                result = Integer.parseInt(s);
+            reader.close();
+            fileReader.close();
 
-                reader.close();
-                fileReader.close();
-            }catch(IOException e) {
-                System.err.println("An error occurred while reading the file: input.txt");
-                e.printStackTrace();
-            }
+        }catch(NumberFormatException e){
+            System.err.println("Input.txt does not contain a parsable integer!");
+            e.printStackTrace();
 
-        }catch(FileNotFoundException e){
+        } catch(FileNotFoundException e){
             System.err.println("The file \"input.txt\" does not exist or is not in the specified path: " + path);
             e.printStackTrace();
+
+        } catch(IOException e) {
+                System.err.println("An error occurred while reading the file: input.txt");
+                e.printStackTrace();
         }
 
         return result;
@@ -187,22 +183,20 @@ public class App{
         String response = null;
         
         try{
-            try{
-                try{
-                    try{
-                        response = fetch(new URL(url));
-                    }catch(MalformedURLException e){
-                        System.err.println("MalformedURLException!");
-                        e.printStackTrace();
-                    }
-                }catch(NullPointerException e){
-                    System.err.println("Empty Response!");
-                    e.printStackTrace();
-                }
-            }catch(FileNotFoundException e){
-                System.err.println("Error 404: FileNotFoundException!");
-                e.printStackTrace();
-            }
+            response = fetch(new URL(url));
+
+        }catch(MalformedURLException e){
+            System.err.println("MalformedURLException!");
+            e.printStackTrace();
+
+        }catch(NullPointerException e){
+            System.err.println("Empty Response!");
+            e.printStackTrace();
+
+        }catch(FileNotFoundException e){
+            System.err.println("Error 404: FileNotFoundException!");
+            e.printStackTrace();
+
         }catch(IOException e){
             System.err.println("IOException!");
             e.printStackTrace();
