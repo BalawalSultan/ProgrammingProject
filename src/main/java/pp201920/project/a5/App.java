@@ -23,34 +23,20 @@ import com.google.gson.JsonParser;
 
 public class App{
     public static void main(String[] args){
-        String json = fetchAndHandle("http://tourism.opendatahub.bz.it/api/Activity");
+        int numOfObjects =  getObjectsToRetrive(); // Number of Objects to retrive
+        String url = "http://tourism.opendatahub.bz.it/api/Activity/pagenumber=1&pagesize=" + numOfObjects;
+        String json = fetchAndHandle(url);
 
-        int n =  getObjectsToRetrive(); // Number of Objects to retrive
-
-        if(json != null && n != 0){
+        if(json != null && numOfObjects != 0){
             JsonObject jsonResponse = new JsonParser().parse(json).getAsJsonObject();
             JsonArray Objects = jsonResponse.get("Items").getAsJsonArray();
 
             ArrayList<Activity> list = new ArrayList<Activity>();
 
-            if(n > Objects.size()){
-
-                for (JsonElement object : Objects) {
-                    Activity activity = getActivityObject(object.getAsJsonObject());
-                    list.add(activity);
-                    generateJsonFile(activity);
-                }
-                System.out.printf("There were only %d object available.\n", Objects.size());
-            
-            }else if(n < Objects.size()){
-
-                for(int i = 0; i < n; i++){
-                    JsonElement object = Objects.get(i);
-                    Activity activity = getActivityObject(object.getAsJsonObject());
-                    list.add(activity);
-                    generateJsonFile(activity);
-                }
-                System.out.printf("%d objects have been retrived", n);
+            for (JsonElement object : Objects) {
+                Activity activity = getActivityObject(object.getAsJsonObject());
+                list.add(activity);
+                generateJsonFile(activity);
             }
             
             regionWithMostActivities(list);
