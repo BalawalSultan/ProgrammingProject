@@ -108,6 +108,7 @@ public class App{
 
         String Description = Detail.getAsJsonObject(language).
                                     get("BaseText").getAsString();
+         Description = Description.replaceall("<[a-zA-Z0-9]+>|<\/[a-zA-Z0-9]+>","");
 
         String RegionName = RegionInfo.getAsJsonObject("Name").
                                        get(language).getAsString();
