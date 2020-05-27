@@ -31,7 +31,7 @@ public class App{
             JsonObject jsonResponse = new JsonParser().parse(json).getAsJsonObject();
             JsonArray Objects = jsonResponse.get("Items").getAsJsonArray();
 
-            ArrayList<Activity> list = new ArrayList<Activity>();
+            ArrayList<Activity> list = new ArrayList<>();
 
             for (JsonElement object : Objects) {
                 Activity activity = getActivityObject(object.getAsJsonObject());
@@ -108,7 +108,7 @@ public class App{
 
         String Description = Detail.getAsJsonObject(language).
                                     get("BaseText").getAsString();
-         Description = Description.replaceall("<[a-zA-Z0-9]+>|<\/[a-zA-Z0-9]+>","");
+         Description = Description.replaceAll("<[a-zA-Z0-9]+>|/[a-zA-Z0-9]+>","");
 
         String RegionName = RegionInfo.getAsJsonObject("Name").
                                        get(language).getAsString();
@@ -163,22 +163,22 @@ public class App{
             }
         } 
 
-        ArrayList<String> max_regions = new ArrayList<String>();
-        ArrayList<String> min_regions = new ArrayList<String>();
+        ArrayList<String> max_regions = new ArrayList<>();
+        ArrayList<String> min_regions = new ArrayList<>();
 
         int max = Collections.max(map.values());
         int min = Collections.min(map.values());   
 
-        map.entrySet().forEach(entry->{
-            if(entry.getValue() == max)
-                max_regions.add(entry.getKey());
+        map.forEach((key, value) -> {
+            if (value == max)
+                max_regions.add(key);
 
-            if(entry.getValue() == min)
-                min_regions.add(entry.getKey());
+            if (value == min)
+                min_regions.add(key);
         });
 
         System.out.println("\nThe region(s) that have most activities are " + max_regions);
-        System.out.println("The region(s) that have least activities are " + min_regions);
+        System.out.println("The region(s) that have the least activities are " + min_regions);
 
     }
 
