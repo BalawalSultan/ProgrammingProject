@@ -7,18 +7,25 @@ public class Runner {
         Response response = new Response(10);
 
         for(int i = 1; i <= 10; i++){
-            String s = "https://tourism.opendatahub.bz.it/api/Activity?pagenumber="+i+"&pagesize=1000";
+            String s = "https://tourism.opendatahub.bz.it/api/Activity?pagenumber="+i+"&pagesize=50";
             MyRequest request = new MyRequest(s,response);
             Thread a = new Thread(request);
             a.start();
         }
 
-        while(Thread.activeCount() > 1){
-            // System.out.printf("Currently there are %d results.\n", response.getResults().size());
+        while(Thread.activeCount() > 1){}
+
+        ActivityList list = new ActivityList(500);
+
+        for (String json : response.getResults()) {
+            ActivityParser parser = new ActivityParser(list,json);
+            Thread a = new Thread(parser);
+            a.start();
         }
 
-        System.out.printf("Currently there are %d results.\n", response.getResults().size());
+        while(Thread.activeCount() > 1){}
 
+        System.out.printf("There are %d activities.", list.getActivities().size());
     }
 
 }
