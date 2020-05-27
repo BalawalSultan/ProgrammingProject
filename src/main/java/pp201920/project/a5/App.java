@@ -23,34 +23,20 @@ import com.google.gson.JsonParser;
 
 public class App{
     public static void main(String[] args){
-        String json = fetchAndHandle("http://tourism.opendatahub.bz.it/api/Activity");
+        int numOfObjects =  getObjectsToRetrive(); // Number of Objects to retrive
+        String url = "https://tourism.opendatahub.bz.it/api/Activity?pagenumber=1&pagesize=" + numOfObjects;
+        String json = fetchAndHandle(url);
 
-        int n =  getObjectsToRetrive(); // Number of Objects to retrive
-
-        if(json != null && n != 0){
+        if(json != null && numOfObjects != 0){
             JsonObject jsonResponse = new JsonParser().parse(json).getAsJsonObject();
             JsonArray Objects = jsonResponse.get("Items").getAsJsonArray();
 
-            ArrayList<Activity> list = new ArrayList<Activity>();
+            ArrayList<Activity> list = new ArrayList<>();
 
-            if(n > Objects.size()){
-
-                for (JsonElement object : Objects) {
-                    Activity activity = getActivityObject(object.getAsJsonObject());
-                    list.add(activity);
-                    generateJsonFile(activity);
-                }
-                System.out.printf("There were only %d object available.\n", Objects.size());
-            
-            }else if(n < Objects.size()){
-
-                for(int i = 0; i < n; i++){
-                    JsonElement object = Objects.get(i);
-                    Activity activity = getActivityObject(object.getAsJsonObject());
-                    list.add(activity);
-                    generateJsonFile(activity);
-                }
-                System.out.printf("%d objects have been retrived", n);
+            for (JsonElement object : Objects) {
+                Activity activity = getActivityObject(object.getAsJsonObject());
+                list.add(activity);
+                generateJsonFile(activity);
             }
             
             regionWithMostActivities(list);
@@ -122,6 +108,8 @@ public class App{
 
         String Description = Detail.getAsJsonObject(language).
                                     get("BaseText").getAsString();
+                                    
+         Description = Description.replaceAll("<[a-zA-Z0-9]+>","").replaceAll("</[a-zA-Z0-9]+>","");
 
         String RegionName = RegionInfo.getAsJsonObject("Name").
                                        get(language).getAsString();
@@ -176,22 +164,22 @@ public class App{
             }
         } 
 
-        ArrayList<String> max_regions = new ArrayList<String>();
-        ArrayList<String> min_regions = new ArrayList<String>();
+        ArrayList<String> max_regions = new ArrayList<>();
+        ArrayList<String> min_regions = new ArrayList<>();
 
         int max = Collections.max(map.values());
         int min = Collections.min(map.values());   
 
-        map.entrySet().forEach(entry->{
-            if(entry.getValue() == max)
-                max_regions.add(entry.getKey());
+        map.forEach((key, value) -> {
+            if (value == max)
+                max_regions.add(key);
 
-            if(entry.getValue() == min)
-                min_regions.add(entry.getKey());
+            if (value == min)
+                min_regions.add(key);
         });
 
         System.out.println("\nThe region(s) that have most activities are " + max_regions);
-        System.out.println("The region(s) that have least activities are " + min_regions);
+        System.out.println("The region(s) that have the least activities are " + min_regions);
 
     }
 

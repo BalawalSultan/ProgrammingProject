@@ -6,3 +6,6 @@ bash.exe.stackdump
 .classpath
 .project
 target
+.iml
+.idea
+programming-project.iml
