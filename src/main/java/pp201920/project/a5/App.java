@@ -24,7 +24,7 @@ import com.google.gson.JsonParser;
 public class App{
     public static void main(String[] args){
         int numOfObjects =  getObjectsToRetrive(); // Number of Objects to retrive
-        String url = "http://tourism.opendatahub.bz.it/api/Activity/pagenumber=1&pagesize=" + numOfObjects;
+        String url = "https://tourism.opendatahub.bz.it/api/Activity?pagenumber=1&pagesize=" + numOfObjects;
         String json = fetchAndHandle(url);
 
         if(json != null && numOfObjects != 0){
