@@ -59,9 +59,10 @@ public class ActivityParser implements Runnable {
         if(LocationInfo.isJsonNull())
             RegionInfo = null;
         else{
-            RegionInfo = LocationInfo.getAsJsonObject("RegionInfo");
-            if(RegionInfo.isJsonNull())
+            if(LocationInfo.getAsJsonObject("RegionInfo"))
                 RegionInfo = null;
+            else
+                RegionInfo = LocationInfo.getAsJsonObject("RegionInfo");
         }
 
         String language = getLanguage(Detail);
@@ -86,17 +87,20 @@ public class ActivityParser implements Runnable {
 
         boolean hasGPSTrack = true;
 
-        JsonObject GpsPoints = Activity.getAsJsonObject("GpsPoints");
-        JsonArray GpsTrack = Activity.getAsJsonArray("GpsTrack");
-        JsonArray GpsInfo = Activity.getAsJsonArray("GpsInfo");
+        Boolean GpsPoints = true;
+        Boolean GpsTrack = true;
+        Boolean GpsInfo = true;
 
-        if(GpsPoints.isJsonNull())
-                hasGPSTrack = false;
+        if(Activity.getAsJsonObject("GpsPoints") == null)
+            GpsPoints = false;
 
-        if(GpsTrack.isJsonNull())
-            hasGPSTrack = false;
-        
-        if(GpsInfo.isJsonNull())
+        if(Activity.getAsJsonArray("GpsTrack") == null)
+            GpsTrack = false;
+            
+        if(Activity.getAsJsonArray("GpsInfo") == null)
+            GpsInfo = false;
+
+        if(GpsInfo == false || GpsTrack == false || GpsPoints == false)
             hasGPSTrack = false;
 
         String[] Types = new String[ODHTags.size()];

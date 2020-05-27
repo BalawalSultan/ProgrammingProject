@@ -28,16 +28,16 @@ public class App{
         String json = fetchAndHandle(url);
 
         // if(json != null && numOfObjects != 0){
-        //     JsonObject jsonResponse = new JsonParser().parse(json).getAsJsonObject();
-        //     JsonArray Objects = jsonResponse.get("Items").getAsJsonArray();
+            JsonObject jsonResponse = new JsonParser().parse(json).getAsJsonObject();
+            JsonArray Objects = jsonResponse.get("Items").getAsJsonArray();
 
-        //     ArrayList<Activity> list = new ArrayList<Activity>();
+            ArrayList<Activity> list = new ArrayList<Activity>();
 
-        //     for (JsonElement object : Objects) {
-        //         Activity activity = getActivityObject(object.getAsJsonObject());
-        //         list.add(activity);
-        //         generateJsonFile(activity);
-        //     }
+            for (JsonElement object : Objects) {
+                Activity activity = getActivityObject(object.getAsJsonObject());
+                list.add(activity);
+                generateJsonFile(activity);
+            }
             
         //     regionWithMostActivities(list);
         // }
