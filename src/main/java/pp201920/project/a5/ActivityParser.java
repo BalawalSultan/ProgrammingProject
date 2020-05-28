@@ -1,5 +1,10 @@
 package pp201920.project.a5;
 
+import java.io.FileWriter;
+import java.io.IOException;
+
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -7,11 +12,11 @@ import com.google.gson.JsonParser;
 
 public class ActivityParser implements Runnable {
     
-    ActivityList list;
+    ActivityMap map;
     JsonArray Items;
 
-    public ActivityParser(ActivityList list, String json){
-        this.list = list;
+    public ActivityParser(ActivityMap map, String json){
+        this.map = map;
         this.Items = getItems(json);
     }
 
@@ -28,11 +33,30 @@ public class ActivityParser implements Runnable {
             Activity activity = getActivityObject(item.getAsJsonObject());
         
             if(activity != null){
-                synchronized(this.list){
-                    list.addActivity(activity);
+                synchronized(this.map){
+                    map.addActivity(activity);
                 }
+                generateJsonFile(activity);
             }
         }
+    }
+
+    public void generateJsonFile(Activity activity){
+        Gson gson = new GsonBuilder().setPrettyPrinting().create();
+        String json = gson.toJson(activity);
+        String path = "results/";
+
+        try{
+            FileWriter writer = new FileWriter(path + "Activity_" + activity.getId() + ".json");
+            writer.write(json);
+            writer.close();
+            
+            System.out.println("Successfully generated Activity_" + activity.getId() + ".json.");
+        }catch(IOException e){
+            System.out.println("An error occurred while generating Activity_" + activity.getId() + ".json.");
+            e.printStackTrace();
+        }
+
     }
 
     public String getLanguage(JsonObject Detail){
@@ -59,7 +83,7 @@ public class ActivityParser implements Runnable {
         if(LocationInfo.isJsonNull())
             RegionInfo = null;
         else{
-            if(LocationInfo.getAsJsonObject("RegionInfo"))
+            if(LocationInfo.get("RegionInfo").isJsonNull() == true)
                 RegionInfo = null;
             else
                 RegionInfo = LocationInfo.getAsJsonObject("RegionInfo");
@@ -69,7 +93,6 @@ public class ActivityParser implements Runnable {
         Detail = Detail.getAsJsonObject(language);
 
         Id = Activity.get("Id").getAsString();
-
         Name = Detail.get("Title").getAsString();
 
         if(Detail.get("BaseText").isJsonNull()){
@@ -78,30 +101,22 @@ public class ActivityParser implements Runnable {
             Description = Detail.get("BaseText").getAsString();
         }
         
-        if(RegionInfo.isJsonNull() || RegionInfo == null){
+        if(RegionInfo == null){
             RegionName = null;
         }else{
             RegionName = RegionInfo.getAsJsonObject("Name").
                                        get(language).getAsString();
         }
 
-        boolean hasGPSTrack = true;
+        boolean hasGPSTrack = false;
 
-        Boolean GpsPoints = true;
-        Boolean GpsTrack = true;
-        Boolean GpsInfo = true;
+        String[] gpsInfo = {"GpsPoints", "GpsTrack", "GpsInfo"};
 
-        if(Activity.getAsJsonObject("GpsPoints") == null)
-            GpsPoints = false;
-
-        if(Activity.getAsJsonArray("GpsTrack") == null)
-            GpsTrack = false;
-            
-        if(Activity.getAsJsonArray("GpsInfo") == null)
-            GpsInfo = false;
-
-        if(GpsInfo == false || GpsTrack == false || GpsPoints == false)
-            hasGPSTrack = false;
+        for (String field : gpsInfo) {
+            JsonElement e = Activity.get(field);
+            if(e.isJsonNull() == false)
+                hasGPSTrack = true;
+        }
 
         String[] Types = new String[ODHTags.size()];
 

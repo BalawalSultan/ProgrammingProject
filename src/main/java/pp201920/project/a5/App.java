@@ -23,7 +23,7 @@ import com.google.gson.JsonParser;
 
 public class App{
     public static void main(String[] args){
-        int numOfObjects =  10000; // Number of Objects to retrive
+        int numOfObjects =  5000; // Number of Objects to retrive
         String url = "https://tourism.opendatahub.bz.it/api/Activity?pagenumber=1&pagesize=" + numOfObjects;
         String json = fetchAndHandle(url);
 
@@ -39,7 +39,7 @@ public class App{
                 generateJsonFile(activity);
             }
             
-        //     regionWithMostActivities(list);
+            regionWithMostActivities(list);
         // }
             System.out.println("I have finished.");
     }
@@ -80,46 +80,64 @@ public class App{
         return result;
     }
 
-    public static String getLanguage(JsonObject Detail, JsonObject RegionName){
+    public static String getLanguage(JsonObject Detail){
         String language = "en";
 
-        if(Detail.getAsJsonObject(language) == null || RegionName.get(language) == null)
-            if(Detail.getAsJsonObject("it") != null || RegionName.get("it") != null)
-                language = "it";
-            else
-                language = "de";
+        if(Detail.getAsJsonObject(language) == null)
+            language = "it";
+        
+        if(Detail.getAsJsonObject(language) == null)
+            language = "de";
 
         return language;
     }
 
     public static Activity getActivityObject(JsonObject Activity){
 
+        String Id, Name, Description, RegionName;
+
         JsonObject Detail = Activity.getAsJsonObject("Detail");
         JsonArray ODHTags = Activity.getAsJsonArray("ODHTags");
-        JsonObject RegionInfo = Activity.getAsJsonObject("LocationInfo").
-                                        getAsJsonObject("RegionInfo");
+        JsonObject LocationInfo = Activity.getAsJsonObject("LocationInfo");
+        JsonObject RegionInfo;
 
-        String language = getLanguage(Detail, RegionInfo.getAsJsonObject("Name"));
+        if(LocationInfo.isJsonNull())
+            RegionInfo = null;
+        else{
+            if(LocationInfo.get("RegionInfo").isJsonNull() == true)
+                RegionInfo = null;
+            else
+                RegionInfo = LocationInfo.getAsJsonObject("RegionInfo");
+        }
 
-        String Id = Activity.get("Id").getAsString();
+        String language = getLanguage(Detail);
+        Detail = Detail.getAsJsonObject(language);
 
-        String Name = Detail.getAsJsonObject(language).
-                             get("Title").getAsString();
+        Id = Activity.get("Id").getAsString();
+        Name = Detail.get("Title").getAsString();
 
-        String Description = Detail.getAsJsonObject(language).
-                                    get("BaseText").getAsString();
-
-        String RegionName = RegionInfo.getAsJsonObject("Name").
+        if(Detail.get("BaseText").isJsonNull()){
+            Description = null;
+        }else{
+            Description = Detail.get("BaseText").getAsString();
+        }
+        
+        if(RegionInfo == null){
+            RegionName = null;
+        }else{
+            RegionName = RegionInfo.getAsJsonObject("Name").
                                        get(language).getAsString();
+        }
 
         boolean hasGPSTrack = false;
 
-        JsonObject GpsPoints = Activity.getAsJsonObject("GpsPoints");
-        JsonArray GpsTrack = Activity.getAsJsonArray("GpsTrack");
-        JsonArray GpsInfo = Activity.getAsJsonArray("GpsInfo");
+        String[] gpsInfo = {"GpsPoints", "GpsTrack", "GpsInfo"};
 
-        if(GpsInfo != null || GpsTrack != null || GpsPoints != null)
-            hasGPSTrack = true;
+        for (String field : gpsInfo) {
+            JsonElement e = Activity.get(field);
+            if(e.isJsonNull() == false)
+                hasGPSTrack = true;
+        }
 
         String[] Types = new String[ODHTags.size()];
 
