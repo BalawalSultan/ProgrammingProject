@@ -5,6 +5,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
+import java.net.SocketTimeoutException;
 import java.net.URL;
 
 public class MyRequest{
@@ -18,6 +19,10 @@ public class MyRequest{
         
         try{     
             response = fetch(url);
+
+        }catch(SocketTimeoutException e){
+            System.err.println("SocketTimeoutException!");
+            e.printStackTrace();
             
         }catch(NullPointerException e){
             System.err.println("Empty Response!");
@@ -38,8 +43,8 @@ public class MyRequest{
     public static String fetch(URL url) throws IOException{        
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
         connection.setRequestMethod("GET");
-        connection.setConnectTimeout(5000);
-        connection.setReadTimeout(7000);
+        connection.setConnectTimeout(10000);
+        connection.setReadTimeout(10000);
 
         int status = connection.getResponseCode();
 

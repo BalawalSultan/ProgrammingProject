@@ -1,20 +1,20 @@
 package pp201920.project.a5;
 
-import java.util.Vector;
+import java.util.ArrayList;
 
-public class ActivityVector{
+public class ActivityList{
     
-    Vector<Activity> list;
+    ArrayList<Activity> list;
 
-    public ActivityVector(int size){
-        this.list = new Vector<Activity>(size);
+    public ActivityList(int size){
+        this.list = new ArrayList<Activity>(size);
     }
 
     public void addActivity(Activity activity){
         this.list.add(activity);
     }
 
-    public Vector<Activity> getVector(){
+    public  ArrayList<Activity> getList(){
         return this.list;
     }
     

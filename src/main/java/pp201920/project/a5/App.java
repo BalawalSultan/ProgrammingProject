@@ -11,25 +11,27 @@ public class App{
         URL url = new URL("https://tourism.opendatahub.bz.it/api/Activity?pagenumber=1&pagesize=" + numOfObjects);
         String results = MyRequest.fetchAndHandle(url);
 
-        ActivityVector vector = new ActivityVector(numOfObjects);
-        Analysis analyst = new Analysis();
+        if(results != null){
+            ActivityList list = new ActivityList(numOfObjects);
+            Analysis analyst = new Analysis();
 
-        ActivityParser parser = new ActivityParser(vector, results);
-        parser.parse();
+            ActivityParser parser = new ActivityParser(list, results);
+            parser.parse();
 
-        for (Activity activity : vector.getVector()){
-            analyst.performAnalysis(activity);
+            for (Activity activity : list.getList()){
+                analyst.performAnalysis(activity);
+            }
+
+            for(Activity activity : list.getList()){
+                String fileName = "Activity_" + activity.getId();
+                fileManager.generateJsonFile(activity, fileName);
+            }
+
+            fileManager.generateJsonFile(
+                fileManager.getAnalysisAsJsonObject(analyst),
+                "analysis"
+            );
         }
-
-        for(Activity activity : vector.getVector()){
-            String fileName = "Activity_" + activity.getId();
-            fileManager.generateJsonFile(activity, fileName);
-        }
-
-        fileManager.generateJsonFile(
-            fileManager.getAnalysisAsJsonObject(analyst),
-            "analysis"
-        );
     }  
 
 }

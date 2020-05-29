@@ -7,18 +7,18 @@ import com.google.gson.JsonParser;
 
 public class ActivityParser{
     
-    ActivityVector vector;
+    ActivityList list;
     JsonArray Items;
 
-    public ActivityParser(ActivityVector vector, String json){
-        this.vector = vector;
+    public ActivityParser(ActivityList list, String json){
+        this.list = list;
         this.Items = getItems(json);
     }
 
     public void parse(){
         for (JsonElement item : this.Items) {
             Activity activity = getActivityObject(item.getAsJsonObject());
-            vector.addActivity(activity);
+            list.addActivity(activity);
         }
     }
 
@@ -51,14 +51,10 @@ public class ActivityParser{
         JsonObject LocationInfo = Activity.getAsJsonObject("LocationInfo");
         JsonObject RegionInfo;
 
-        if(LocationInfo.isJsonNull())
+        if(LocationInfo.get("RegionInfo").isJsonNull())
             RegionInfo = null;
-        else{
-            if(LocationInfo.get("RegionInfo").isJsonNull() == true)
-                RegionInfo = null;
-            else
-                RegionInfo = LocationInfo.getAsJsonObject("RegionInfo");
-        }
+        else
+            RegionInfo = LocationInfo.getAsJsonObject("RegionInfo");
 
         String language = getLanguage(Detail);
         Detail = Detail.getAsJsonObject(language);
@@ -82,14 +78,26 @@ public class ActivityParser{
                                        get(language).getAsString();
         }
 
+        String[] gpsInfo = {"GpsPoints", "GpsTrack", "GpsInfo"};
         boolean hasGPSTrack = false;
 
-        String[] gpsInfo = {"GpsPoints", "GpsTrack", "GpsInfo"};
-
         for (String field : gpsInfo) {
-            JsonElement e = Activity.get(field);
-            if(e.isJsonNull() == false)
-                hasGPSTrack = true;
+            JsonElement element = Activity.get(field);
+
+            if(element.isJsonObject()){
+                JsonObject object = element.getAsJsonObject();
+
+                if(object.toString().length() == 2)
+                    hasGPSTrack = false;
+                else
+                    hasGPSTrack = true;
+                    
+            }else if(element.isJsonArray()){
+                JsonArray array = element.getAsJsonArray();
+                    if(array.size() > 0)
+                        hasGPSTrack = true;
+                        
+            }    
         }
 
         String[] Types = new String[ODHTags.size()];
