@@ -9,9 +9,9 @@ public class Analysis{
     ArrayList<String> trackedActivityIds;
 
     public Analysis(){
-        this.regionActivities = new HashMap<String, Integer>();
-        this.activityTypes = new HashMap<String, Integer>();
-        this.trackedActivityIds = new ArrayList<String>();
+        regionActivities = new HashMap<String, Integer>();
+        activityTypes = new HashMap<String, Integer>();
+        trackedActivityIds = new ArrayList<String>();
     }
 
     public void performAnalysis(Activity activity){
@@ -24,7 +24,7 @@ public class Analysis{
 
     public void showAnalysisResult(){
         System.out.println("activitiesTypes{");
-        this.activityTypes.entrySet().forEach(entry->{
+        activityTypes.entrySet().forEach(entry->{
             System.out.println("\t" + entry.getKey() + ": " + entry.getValue());
         });System.out.println("}");
 
@@ -45,52 +45,37 @@ public class Analysis{
 
         for (String type : typeStrings) {
             if(type != null){
-                if(this.activityTypes.containsKey(type) == false)
-                    this.activityTypes.put(type,0);
+                if(activityTypes.containsKey(type) == false)
+                    activityTypes.put(type, 1);
                 else
-                    this.activityTypes.put(type, activityTypes.get(type) + 1);
+                    activityTypes.put(type, activityTypes.get(type) + 1);
             }
         }
     }
 
     public void regionAnalysis(Activity activity){
-        String region = activity.getRegion();
+        String Id = activity.getId();
         int activity_number = activity.getTypes().length;
 
-        if(region != null){
-            if(this.regionActivities.containsKey(region) == false)
-                this.regionActivities.put(region,activity_number);
-            else
-                this.regionActivities.put(region, regionActivities.get(region) + activity_number);
-        }
-    }
-
-    public void addActivity(Activity activity){
-        String region = activity.getRegion();
-        int activity_number = activity.getTypes().length;
-
-        if(region != null){
-            if(this.regionActivities.containsKey(region) == false)
-                this.regionActivities.put(region,activity_number);
-            else
-                this.regionActivities.put(region, regionActivities.get(region) + activity_number);
-        }
-        
+        if(regionActivities.containsKey(Id) == false)
+            regionActivities.put(Id, activity_number);
+        else
+            regionActivities.put(Id, regionActivities.get(Id) + activity_number);
     }
 
     public int getMostActivities(){
-        return Collections.max(this.regionActivities.values());
+        return Collections.max(regionActivities.values());
     }
 
     public int getLeastActivities(){
-        return Collections.min(this.regionActivities.values());
+        return Collections.min(regionActivities.values());
     }
 
     public ArrayList<String> getRegionsWithMostActivities(){
         ArrayList<String> regions = new ArrayList<String>();
         int max = getMostActivities();
         
-        this.regionActivities.entrySet().forEach(entry->{
+        regionActivities.entrySet().forEach(entry->{
             if(entry.getValue() == max)
                 regions.add(entry.getKey());
         });
@@ -102,12 +87,20 @@ public class Analysis{
         ArrayList<String> regions = new ArrayList<String>();
         int min = getLeastActivities();
         
-        this.regionActivities.entrySet().forEach(entry->{
+        regionActivities.entrySet().forEach(entry->{
             if(entry.getValue() == min)
                 regions.add(entry.getKey());
         });
 
         return regions;
+    }
+
+    public ArrayList<String> getTrackedActivityIds(){
+        return trackedActivityIds;
+    }
+
+    public HashMap<String, Integer> getActivitiesTypes(){
+        return activityTypes;
     }
 
 }

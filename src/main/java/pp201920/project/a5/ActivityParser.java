@@ -1,10 +1,5 @@
 package pp201920.project.a5;
 
-import java.io.FileWriter;
-import java.io.IOException;
-
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -13,11 +8,9 @@ import com.google.gson.JsonParser;
 public class ActivityParser{
     
     ActivityVector vector;
-    Analysis analyst;
     JsonArray Items;
 
-    public ActivityParser(Analysis analyst, ActivityVector vector, String json){
-        this.analyst = analyst;
+    public ActivityParser(ActivityVector vector, String json){
         this.vector = vector;
         this.Items = getItems(json);
     }
@@ -25,7 +18,6 @@ public class ActivityParser{
     public void parse(){
         for (JsonElement item : this.Items) {
             Activity activity = getActivityObject(item.getAsJsonObject());
-            analyst.performAnalysis(activity);
             vector.addActivity(activity);
         }
     }
@@ -36,24 +28,6 @@ public class ActivityParser{
                                 getAsJsonObject();
 
         return jsonResponse.get("Items").getAsJsonArray();
-    }
-
-    public void generateJsonFile(Activity activity){
-        Gson gson = new GsonBuilder().serializeNulls().disableHtmlEscaping().setPrettyPrinting().create();
-        String json = gson.toJson(activity);
-        String path = "results/";
-
-        try{
-            FileWriter writer = new FileWriter(path + "Activity_" + activity.getId() + ".json");
-            writer.write(json);
-            writer.close();
-            
-            // System.out.println("Successfully generated Activity_" + activity.getId() + ".json.");
-        }catch(IOException e){
-            System.out.println("An error occurred while generating Activity_" + activity.getId() + ".json.");
-            e.printStackTrace();
-        }
-
     }
 
     public String getLanguage(JsonObject Detail){
