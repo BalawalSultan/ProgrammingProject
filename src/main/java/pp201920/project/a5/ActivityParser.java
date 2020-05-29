@@ -13,11 +13,11 @@ import com.google.gson.JsonParser;
 public class ActivityParser{
     
     ActivityVector vector;
-    ActivityMap map;
+    Analysis analyst;
     JsonArray Items;
 
-    public ActivityParser(ActivityMap map, ActivityVector vector, String json){
-        this.map = map;
+    public ActivityParser(Analysis analyst, ActivityVector vector, String json){
+        this.analyst = analyst;
         this.vector = vector;
         this.Items = getItems(json);
     }
@@ -25,7 +25,7 @@ public class ActivityParser{
     public void parse(){
         for (JsonElement item : this.Items) {
             Activity activity = getActivityObject(item.getAsJsonObject());
-            map.addActivity(activity);
+            analyst.performAnalysis(activity);
             vector.addActivity(activity);
         }
     }
