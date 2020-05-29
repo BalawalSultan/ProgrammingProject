@@ -1,47 +1,31 @@
 package pp201920.project.a5;
 
+import java.net.MalformedURLException;
+import java.net.URL;
+
 public class Runner {
     
-    public static void main(String[] args) {
-        
-        Response response = new Response(10);
+    public static void main(String[] args)throws MalformedURLException{
 
-        for(int i = 1; i <= 10; i++){
-            String s = "https://tourism.opendatahub.bz.it/api/Activity?pagenumber="+i+"&pagesize=500";
-            MyRequest request = new MyRequest(s,response);
-            Thread a = new Thread(request);
-            a.start();
-        }
+        int numOfObjects = 500;
+        URL url = new URL("https://tourism.opendatahub.bz.it/api/Activity?pagenumber=1&pagesize=" + numOfObjects);
+        String results = MyRequest.fetchAndHandle(url);
 
-        while(Thread.activeCount() > 1){}
-
+        ActivityVector vector = new ActivityVector(numOfObjects);
         ActivityMap map = new ActivityMap();
 
-        for (String json : response.getResults()) {
-            ActivityParser parser = new ActivityParser(map,json);
-            Thread a = new Thread(parser);
-            a.start();
+        ActivityParser parser = new ActivityParser(map, vector, results);
+        parser.parse();
+
+        for (Activity activity : vector.getVector()){
+            parser.generateJsonFile(activity);
         }
 
-        while(Thread.activeCount() > 1){}
+        System.out.println("The regions with " + map.getMostActivities() +
+                           " activities are: " + map.getRegionsWithMostActivities());
 
-        try {
-            Thread.sleep(4000);
-        } catch (Exception e) {
-            System.err.println("Exception!");
-        }
-
-        System.out.printf("The regions with most activities are: ");
-
-        for (String region : map.getRegionsWithMostActivities()) {
-            System.out.printf("%s,", region);
-        }
-
-        System.out.printf(";\nThe regions with least activities are: ");
-
-        for (String region : map.getRegionsWithLeastActivities()) {
-            System.out.printf("%s,", region);
-        }
+        System.out.println("The regions with " + map.getLeastActivities() +
+                           " activities are: " + map.getRegionsWithLeastActivities());
 
     }
 

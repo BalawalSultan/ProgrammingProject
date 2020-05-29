@@ -10,14 +10,24 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
-public class ActivityParser implements Runnable {
+public class ActivityParser{
     
+    ActivityVector vector;
     ActivityMap map;
     JsonArray Items;
 
-    public ActivityParser(ActivityMap map, String json){
+    public ActivityParser(ActivityMap map, ActivityVector vector, String json){
         this.map = map;
+        this.vector = vector;
         this.Items = getItems(json);
+    }
+
+    public void parse(){
+        for (JsonElement item : this.Items) {
+            Activity activity = getActivityObject(item.getAsJsonObject());
+            map.addActivity(activity);
+            vector.addActivity(activity);
+        }
     }
 
     public JsonArray getItems(String json){
@@ -28,21 +38,8 @@ public class ActivityParser implements Runnable {
         return jsonResponse.get("Items").getAsJsonArray();
     }
 
-    public void run(){
-        for (JsonElement item : this.Items) {
-            Activity activity = getActivityObject(item.getAsJsonObject());
-        
-            if(activity != null){
-                synchronized(this.map){
-                    map.addActivity(activity);
-                }
-                generateJsonFile(activity);
-            }
-        }
-    }
-
     public void generateJsonFile(Activity activity){
-        Gson gson = new GsonBuilder().setPrettyPrinting().create();
+        Gson gson = new GsonBuilder().serializeNulls().disableHtmlEscaping().setPrettyPrinting().create();
         String json = gson.toJson(activity);
         String path = "results/";
 
@@ -51,7 +48,7 @@ public class ActivityParser implements Runnable {
             writer.write(json);
             writer.close();
             
-            System.out.println("Successfully generated Activity_" + activity.getId() + ".json.");
+            // System.out.println("Successfully generated Activity_" + activity.getId() + ".json.");
         }catch(IOException e){
             System.out.println("An error occurred while generating Activity_" + activity.getId() + ".json.");
             e.printStackTrace();

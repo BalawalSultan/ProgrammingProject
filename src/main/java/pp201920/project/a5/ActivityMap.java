@@ -2,33 +2,42 @@ package pp201920.project.a5;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.concurrent.ConcurrentHashMap;
+import java.util.HashMap;
 
 public class ActivityMap {
-    ConcurrentHashMap<String, Integer> map;
+    HashMap<String, Integer> regionActivities, activityTypes;
+
 
     public ActivityMap(){
-        this.map = new ConcurrentHashMap<String, Integer>();
+        this.regionActivities = new HashMap<String, Integer>();
     }
 
-    public synchronized void addActivity(Activity activity){
+    public void addActivity(Activity activity){
         String region = activity.getRegion();
         int activity_number = activity.getTypes().length;
 
         if(region != null){
-            if(this.map.containsKey(region) == false)
-                this.map.put(region,activity_number);
+            if(this.regionActivities.containsKey(region) == false)
+                this.regionActivities.put(region,activity_number);
             else
-                this.map.put(region, map.get(region) + activity_number);
+                this.regionActivities.put(region, regionActivities.get(region) + activity_number);
         }
         
     }
 
+    public int getMostActivities(){
+        return Collections.max(this.regionActivities.values());
+    }
+
+    public int getLeastActivities(){
+        return Collections.min(this.regionActivities.values());
+    }
+
     public ArrayList<String> getRegionsWithMostActivities(){
-        int max = Collections.max(map.values());
         ArrayList<String> regions = new ArrayList<String>();
+        int max = getMostActivities();
         
-        this.map.entrySet().forEach(entry->{
+        this.regionActivities.entrySet().forEach(entry->{
             if(entry.getValue() == max)
                 regions.add(entry.getKey());
         });
@@ -37,10 +46,10 @@ public class ActivityMap {
     }
 
     public ArrayList<String> getRegionsWithLeastActivities(){
-        int min = Collections.min(map.values());
         ArrayList<String> regions = new ArrayList<String>();
+        int min = getLeastActivities();
         
-        this.map.entrySet().forEach(entry->{
+        this.regionActivities.entrySet().forEach(entry->{
             if(entry.getValue() == min)
                 regions.add(entry.getKey());
         });

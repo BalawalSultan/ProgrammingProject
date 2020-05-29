@@ -23,7 +23,7 @@ import com.google.gson.JsonParser;
 
 public class App{
     public static void main(String[] args){
-        int numOfObjects =  5000; // Number of Objects to retrive
+        int numOfObjects =  1000; // Number of Objects to retrive
         String url = "https://tourism.opendatahub.bz.it/api/Activity?pagenumber=1&pagesize=" + numOfObjects;
         String json = fetchAndHandle(url);
 
@@ -158,7 +158,7 @@ public class App{
             writer.write(json);
             writer.close();
             
-            System.out.println("Successfully generated Activity_" + activity.getId() + ".json.");
+            // System.out.println("Successfully generated Activity_" + activity.getId() + ".json.");
         }catch(IOException e){
             System.out.println("An error occurred while generating Activity_" + activity.getId() + ".json.");
             e.printStackTrace();

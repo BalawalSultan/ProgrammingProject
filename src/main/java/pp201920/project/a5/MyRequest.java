@@ -5,35 +5,15 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 import java.net.URL;
 
-public class MyRequest implements Runnable {
+public class MyRequest{
 
-    URL url;
-    Response response;
-
-    public MyRequest(String url, Response response){
-        try{
-            this.url = new URL(url);
-        }catch(MalformedURLException e){
-            e.printStackTrace();
-        }
-
-        this.response = response;
+    public MyRequest(){
+        super();
     }
 
-    public void run(){
-        String result = fetchAndHandle(this.url);
-
-        if(result != null){
-            synchronized(response){
-                response.addResult(result);
-            }
-        }
-    }
-
-    public String fetchAndHandle(URL url){
+    public static String fetchAndHandle(URL url){
         String response = null;
         
         try{     
@@ -55,11 +35,11 @@ public class MyRequest implements Runnable {
         return response;
     }
 
-    public String fetch(URL url) throws IOException{        
+    public static String fetch(URL url) throws IOException{        
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
         connection.setRequestMethod("GET");
-        connection.setConnectTimeout(10000);
-        connection.setReadTimeout(10000);
+        connection.setConnectTimeout(5000);
+        connection.setReadTimeout(7000);
 
         int status = connection.getResponseCode();
 
