@@ -26,8 +26,10 @@ public class App{
             fileManager.generateJsonFile(activity, fileName);
         }
 
-        fileManager.generateJsonFile(fileManager.getAnalysisAsJsonObject(analyst), "analysis");
-        // analyst.showAnalysisResult();
+        fileManager.generateJsonFile(
+            fileManager.getAnalysisAsJsonObject(analyst),
+            "analysis"
+        );
     }  
 
 }

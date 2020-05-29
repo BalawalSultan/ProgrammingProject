@@ -70,6 +70,9 @@ public class ActivityParser{
             Description = null;
         }else{
             Description = Detail.get("BaseText").getAsString();
+            
+            Description = Description.replaceAll("<[a-zA-Z0-9]+>","").
+                          replaceAll("</[a-zA-Z0-9]+>","");
         }
         
         if(RegionInfo == null){

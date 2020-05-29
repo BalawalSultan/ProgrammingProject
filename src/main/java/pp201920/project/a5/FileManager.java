@@ -66,25 +66,24 @@ public class FileManager {
 
         String activitiesTypes = gson.toJson(analyst.getActivitiesTypes());
         String trackedActivityIds = gson.toJson(analyst.getTrackedActivityIds());
-        String mostActivityRegions = gson.toJson(analyst.getRegionsWithMostActivities());
-        String leastActivityRegions = gson.toJson(analyst.getRegionsWithLeastActivities());
+        String regionsWithMostActivitiesId = gson.toJson(analyst.getRegionsWithMostActivities());
+        String regionsWithLeastActivitiesId = gson.toJson(analyst.getRegionsWithLeastActivities());
 
-        JsonObject regionsWithMostActivities = new JsonObject();
-        regionsWithMostActivities.addProperty("numberOfActivities", analyst.getMostActivities());
-        regionsWithMostActivities.addProperty("regionIds", mostActivityRegions);
-
-        JsonObject regionsWithLeastActivities = new JsonObject();
-        regionsWithLeastActivities.addProperty("numberOfActivities", analyst.getLeastActivities());
-        regionsWithLeastActivities.addProperty("regionIds", leastActivityRegions);
-
-        String json = "{" + 
+        String json ="{" + 
                         "activitiesTypes:" + activitiesTypes + "," +
                         "trackedActivityIds:" + trackedActivityIds + "," + 
-                        "regionsWithMostActivities:" + regionsWithMostActivities + "," +
-                        "regionsWithLeastActivities:" + regionsWithLeastActivities + 
+                        "regionsWithMostActivities:{" +
+                            "numberOfActivities:" + analyst.getMostActivities() + "," +
+                            "regionIds:" + regionsWithMostActivitiesId +
+                        "}," +
+                        "regionsWithLeastActivities:{" +
+                            "numberOfActivities:" + analyst.getLeastActivities() + "," +
+                            "regionIds:" + regionsWithLeastActivitiesId +
+                        "}" +
                     "}";
 
-        JsonObject analysis = new JsonParser().parse(json).getAsJsonObject();
+        JsonObject analysis = new JsonParser().
+                            parse(json).getAsJsonObject();
 
         return analysis;
     }
