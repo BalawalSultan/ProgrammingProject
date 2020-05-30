@@ -18,9 +18,8 @@ public class App{
             ActivityParser parser = new ActivityParser(list, results);
             parser.parse();
 
-            for (Activity activity : list.getList()){
+            for (Activity activity : list.getList())
                 analyst.performAnalysis(activity);
-            }
 
             for(Activity activity : list.getList()){
                 String fileName = "Activity_" + activity.getId();

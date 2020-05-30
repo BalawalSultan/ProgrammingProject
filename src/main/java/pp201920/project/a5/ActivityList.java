@@ -17,9 +17,5 @@ public class ActivityList{
     public  ArrayList<Activity> getList(){
         return this.list;
     }
-    
-    public int getSize(){
-        return this.list.size();
-    }
 
 }

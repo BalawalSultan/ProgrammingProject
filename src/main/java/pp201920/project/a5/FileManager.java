@@ -14,6 +14,10 @@ import com.google.gson.JsonParser;
 
 public class FileManager {
     
+    public FileManager(){
+        super();
+    }
+
     public int getNumOfObjects(){
         int result = 0;
         String path = "src/main/resources/";
@@ -26,7 +30,7 @@ public class FileManager {
 
             if(s != null)
                 result = Integer.parseInt(s);
-                
+
             reader.close();
             fileReader.close();
 
