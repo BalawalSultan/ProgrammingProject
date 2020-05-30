@@ -1,6 +1,7 @@
 package pp201920.project.a5;
 
 import java.net.MalformedURLException;
+import java.util.ArrayList;
 import java.net.URL;
 
 public class App{
@@ -12,16 +13,16 @@ public class App{
         String results = MyRequest.fetchAndHandle(url);
 
         if(results != null){
-            ActivityList list = new ActivityList(numOfObjects);
+            ArrayList<Activity> list = new ArrayList<Activity>(numOfObjects);
             Analysis analyst = new Analysis();
 
             ActivityParser parser = new ActivityParser(list, results);
-            parser.parse();
+            parser.parseAndFillActivityList();
 
-            for (Activity activity : list.getList())
+            for (Activity activity : list)
                 analyst.performAnalysis(activity);
 
-            for(Activity activity : list.getList()){
+            for(Activity activity : list){
                 String fileName = "Activity_" + activity.getId();
                 fileManager.generateJsonFile(activity, fileName);
             }

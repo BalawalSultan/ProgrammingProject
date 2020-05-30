@@ -1,5 +1,7 @@
 package pp201920.project.a5;
 
+import java.util.ArrayList;
+
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -7,18 +9,22 @@ import com.google.gson.JsonParser;
 
 public class ActivityParser{
     
-    ActivityList list;
+    ArrayList<Activity> list;
     JsonArray Items;
 
-    public ActivityParser(ActivityList list, String json){
+    public ActivityParser(ArrayList<Activity> list, String json){
         this.list = list;
         this.Items = getItems(json);
     }
 
-    public void parse(){
+    public void parseAndFillActivityList(){
         for (JsonElement item : this.Items) {
-            Activity activity = getActivityObject(item.getAsJsonObject());
-            list.addActivity(activity);
+
+            Activity activity = parseJsonObject(
+                item.getAsJsonObject()
+            );
+
+            list.add(activity);
         }
     }
 
@@ -42,7 +48,7 @@ public class ActivityParser{
         return language;
     }
 
-    public Activity getActivityObject(JsonObject Activity){
+    public Activity parseJsonObject(JsonObject Activity){
 
         String Id, Name, Description, RegionName;
 
@@ -65,10 +71,10 @@ public class ActivityParser{
         if(Detail.get("BaseText").isJsonNull()){
             Description = null;
         }else{
-            Description = Detail.get("BaseText").getAsString();
-            
-            Description = Description.replaceAll("<[a-zA-Z0-9]+>","").
-                          replaceAll("</[a-zA-Z0-9]+>","");
+            Description = Detail.get("BaseText").
+                        getAsString().
+                        replaceAll("<[a-zA-Z0-9]+>",""). //Remove opening HTML-tags
+                        replaceAll("</[a-zA-Z0-9]+>",""); //Remove closing HTML-tags
         }
         
         if(RegionInfo == null){
@@ -87,17 +93,14 @@ public class ActivityParser{
             if(element.isJsonObject()){
                 JsonObject object = element.getAsJsonObject();
 
-                if(object.toString().length() == 2)
-                    hasGPSTrack = false;
-                else
+                if(object.toString().length() > 2)
                     hasGPSTrack = true;
                     
             }else if(element.isJsonArray()){
                 JsonArray array = element.getAsJsonArray();
-                    if(array.size() > 0)
-                        hasGPSTrack = true;
-                        
-            }    
+                if(array.size() > 0)
+                    hasGPSTrack = true;
+            } 
         }
 
         String[] Types = new String[ODHTags.size()];

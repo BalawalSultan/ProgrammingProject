@@ -1,6 +1,7 @@
 package pp201920.project.a5;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -55,10 +56,10 @@ public class FileManager {
         String json = gson.toJson(object);
         String path = "results/";
 
-        try{
-            FileWriter writer = new FileWriter(path + fileName + ".json");
-            writer.write(json);
-            writer.close();
+        try(FileWriter fileWriter = new FileWriter(path + fileName + ".json")){
+            BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);            
+            bufferedWriter.write(json);
+            bufferedWriter.close();
         }catch(IOException e){
             System.out.println("An error occurred while generating " + fileName + ".json.");
             e.printStackTrace();

@@ -22,24 +22,6 @@ public class Analysis{
         regionAnalysis(activity);
     }
 
-    public void showAnalysisResult(){
-        System.out.println("activitiesTypes{");
-        activityTypes.entrySet().forEach(entry->{
-            System.out.println("\t" + entry.getKey() + ": " + entry.getValue());
-        });System.out.println("}");
-
-        System.out.println("trackedActivityIds[");
-        for (String id : trackedActivityIds) {
-            System.out.println("\t" + id);
-        }System.out.println("]");
-
-        System.out.println("The regions with " + getMostActivities() +
-                           " activities are: " + getRegionsWithMostActivities());
-
-        System.out.println("The regions with " + getLeastActivities() +
-                           " activities are: " + getRegionsWithLeastActivities());
-    }
-
     public void activityTypesAnalysis(Activity activity){
         String[] typeStrings = activity.getTypes();
 
