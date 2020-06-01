@@ -13,7 +13,7 @@ public class App{
         String results = MyRequest.fetchAndHandle(url);
 
         if(results != null){
-            ArrayList<Activity> list = new ArrayList<Activity>(numOfObjects);
+            ArrayList<Activity> list = new ArrayList<>(numOfObjects);
             Analysis analyst = new Analysis();
 
             ActivityParser parser = new ActivityParser(list, results);
