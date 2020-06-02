@@ -3,6 +3,7 @@ package pp201920.project.a5;
 public class Activity {
 
     String id, name, description, region;
+    transient String regionId;
     String[] types;
     boolean hasGPSTrack;
 
@@ -10,13 +11,14 @@ public class Activity {
         super();
     }
 
-    public Activity(String id, String name, String description, String region, String[] types, boolean hasGPSTrack) {
+    public Activity(String id, String name, String description, String region, String[] types, boolean hasGPSTrack, String regionId) {
         this.id = id;
         this.name = name;
         this.description = description;
         this.region = region;
         this.types = types;
         this.hasGPSTrack = hasGPSTrack;
+        this.regionId = regionId;
     }
 
     public String getId() {
@@ -65,6 +67,14 @@ public class Activity {
 
     public void setHasGPSTrack(boolean hasGPSTrack) {
         this.hasGPSTrack = hasGPSTrack;
+    }
+
+    public String getRegionId() {
+        return regionId;
+    }
+
+    public void setRegionId(String regionId) {
+        this.regionId = regionId;
     }
 
 }

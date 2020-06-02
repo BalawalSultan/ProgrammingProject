@@ -7,6 +7,6 @@ bash.exe.stackdump
 .project
 target
 .iml
-.idea
-programming-project.iml
 profiles.xml
+programming-project.iml
+.idea
