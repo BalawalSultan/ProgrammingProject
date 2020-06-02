@@ -21,14 +21,17 @@ public class App{
             for (Activity activity : list)
                 analyst.performAnalysis(activity);
 
+            String path = "results/";
+            
             for(Activity activity : list){
                 String fileName = "Activity_" + activity.getId();
-                fileManager.generateJsonFile(activity, fileName);
+                fileManager.generateJsonFile(activity, fileName, path);
             }
 
             fileManager.generateJsonFile(
                 fileManager.getAnalysisAsJsonObject(analyst),
-                "analysis"
+                "analysis",
+                path
             );
         }
     }  

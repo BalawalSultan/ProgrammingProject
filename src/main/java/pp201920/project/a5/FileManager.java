@@ -52,11 +52,9 @@ public class FileManager {
         return result;
     }
 
-    public void generateJsonFile(Object object, String fileName){
+    public void generateJsonFile(Object object, String fileName, String path){
         Gson gson = new GsonBuilder().serializeNulls().disableHtmlEscaping().setPrettyPrinting().create();
         String json = gson.toJson(object);
-        String path = "results/";
-
         File folder = new File("results");
 
         if(!folder.isDirectory())
