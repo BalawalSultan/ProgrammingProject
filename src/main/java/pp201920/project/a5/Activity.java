@@ -2,10 +2,12 @@ package pp201920.project.a5;
 
 public class Activity {
 
-    String id, name, description, region;
-    transient String regionId;
+    String id, name, description;
     String[] types;
     boolean hasGPSTrack;
+    String region;
+    transient String regionId;
+
 
     public Activity(){
         super();
