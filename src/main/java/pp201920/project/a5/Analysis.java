@@ -27,22 +27,23 @@ public class Analysis{
 
         for (String type : typeStrings) {
             if(type != null){
-                if(activityTypes.containsKey(type) == false)
-                    activityTypes.put(type, 1);
-                else
+                if(activityTypes.containsKey(type))
                     activityTypes.put(type, activityTypes.get(type) + 1);
+                else
+                    activityTypes.put(type, 1);
             }
         }
     }
 
     public void regionAnalysis(Activity activity){
-        String Id = activity.getId();
+        String Id = activity.getRegionId();
         int activity_number = activity.getTypes().length;
 
-        if(regionActivities.containsKey(Id) == false)
-            regionActivities.put(Id, activity_number);
-        else
+        if(regionActivities.containsKey(Id))
             regionActivities.put(Id, regionActivities.get(Id) + activity_number);
+        else
+            regionActivities.put(Id, activity_number);
+
     }
 
     public int getMostActivities(){
