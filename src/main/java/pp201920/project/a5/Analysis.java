@@ -15,17 +15,26 @@ public class Analysis{
     }
 
     public void performAnalysis(Activity activity){
-        if(activity.getHasGPSTrack())
-            trackedActivityIds.add(activity.getId());
+        hasGPSTrackAnalysis (
+            activity.getHasGPSTrack(),
+            activity.getId()
+        );   
 
-        activityTypesAnalysis(activity);
-        regionAnalysis(activity);
+        activityTypesAnalysis(activity.getTypes());
+
+        regionAnalysis(
+            activity.getRegionId(),
+            activity.getTypes().length
+        );
     }
 
-    public void activityTypesAnalysis(Activity activity){
-        String[] typeStrings = activity.getTypes();
+    public void hasGPSTrackAnalysis(boolean activityHasGPSTrack, String Id){
+        if(activityHasGPSTrack)
+            trackedActivityIds.add(Id);
+    }
 
-        for (String type : typeStrings) {
+    public void activityTypesAnalysis(String[] types){
+        for (String type : types) {
             if(type != null){
                 if(activityTypes.containsKey(type))
                     activityTypes.put(type, activityTypes.get(type) + 1);
@@ -35,9 +44,7 @@ public class Analysis{
         }
     }
 
-    public void regionAnalysis(Activity activity){
-        String Id = activity.getRegionId();
-        int activity_number = activity.getTypes().length;
+    public void regionAnalysis(String Id, int activity_number){
 
         if(regionActivities.containsKey(Id))
             regionActivities.put(Id, regionActivities.get(Id) + activity_number);
