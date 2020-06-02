@@ -22,6 +22,7 @@ public class FileManager {
     public int getNumOfObjects(){
         int result = 0;
         String path = "src/main/resources/";
+        
         File inputFile = new File(path + "input.txt");
 
         try{
@@ -55,6 +56,11 @@ public class FileManager {
         Gson gson = new GsonBuilder().serializeNulls().disableHtmlEscaping().setPrettyPrinting().create();
         String json = gson.toJson(object);
         String path = "results/";
+
+        File folder = new File("results");
+
+        if(!folder.isDirectory())
+            folder.mkdirs();
 
         try(FileWriter fileWriter = new FileWriter(path + fileName + ".json")){
             BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);            
