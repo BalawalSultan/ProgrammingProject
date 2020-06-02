@@ -12,6 +12,10 @@ public class ActivityParser{
     ArrayList<Activity> list;
     JsonArray Items;
 
+    public ActivityParser(){
+        super();
+    }
+
     public ActivityParser(ArrayList<Activity> list, String json){
         this.list = list;
         this.Items = getItems(json);
