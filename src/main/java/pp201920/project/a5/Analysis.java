@@ -21,11 +21,7 @@ public class Analysis{
         );   
 
         activityTypesAnalysis(activity.getTypes());
-
-        regionAnalysis(
-            activity.getRegionId(),
-            activity.getTypes().length
-        );
+        regionAnalysis(activity.getRegionId());
     }
 
     public void hasGPSTrackAnalysis(boolean activityHasGPSTrack, String Id){
@@ -44,12 +40,12 @@ public class Analysis{
         }
     }
 
-    public void regionAnalysis(String Id, int activity_number){
+    public void regionAnalysis(String Id){
 
         if(regionActivities.containsKey(Id))
-            regionActivities.put(Id, regionActivities.get(Id) + activity_number);
+            regionActivities.put(Id, regionActivities.get(Id) + 1);
         else
-            regionActivities.put(Id, activity_number);
+            regionActivities.put(Id, 1);
 
     }
 
@@ -91,6 +87,10 @@ public class Analysis{
 
     public HashMap<String, Integer> getActivitiesTypes(){
         return activityTypes;
+    }
+
+    public HashMap<String, Integer> getRegionActivities() {
+        return regionActivities;
     }
 
 }
