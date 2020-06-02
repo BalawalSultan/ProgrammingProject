@@ -8,12 +8,12 @@ public class Activity {
     String region;
     transient String regionId;
 
-
-    public Activity(){
+    public Activity() {
         super();
     }
 
-    public Activity(String id, String name, String description, String region, String[] types, boolean hasGPSTrack, String regionId) {
+    public Activity(String id, String name, String description, String region, String[] types, boolean hasGPSTrack,
+            String regionId) {
         this.id = id;
         this.name = name;
         this.description = description;
@@ -77,6 +77,46 @@ public class Activity {
 
     public void setRegionId(String regionId) {
         this.regionId = regionId;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null)
+            return false;
+
+        if ((obj instanceof Activity) == false)
+            return false;
+
+        Activity activity = (Activity) obj;
+
+        if (id != activity.getId())
+            return false;
+
+        if (name != activity.getName())
+            return false;
+
+        if (description != activity.getDescription())
+            return false;
+
+        if (hasGPSTrack != activity.getHasGPSTrack())
+            return false;
+
+        if (region != activity.getRegion())
+            return false;
+
+        if (regionId != activity.getRegionId())
+            return false;
+
+        String[] tempTypes = activity.getTypes();
+        if(tempTypes.length == types.length){
+            for(int i = 0; i < types.length; i++){
+                if(types[i] != tempTypes[i])
+                    return false;
+            }
+        }else
+            return false;
+
+        return true;
     }
 
 }
