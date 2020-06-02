@@ -50,7 +50,7 @@ public class ActivityParser{
 
     public Activity parseJsonObject(JsonObject Activity){
 
-        String Id, Name, Description, RegionName;
+        String Id, Name, Description, RegionName, RegionId;
 
         JsonObject Detail = Activity.getAsJsonObject("Detail");
         JsonArray ODHTags = Activity.getAsJsonArray("ODHTags");
@@ -79,9 +79,12 @@ public class ActivityParser{
         
         if(RegionInfo == null){
             RegionName = null;
+            RegionId = null;
         }else{
             RegionName = RegionInfo.getAsJsonObject("Name").
                                        get(language).getAsString();
+
+            RegionId = RegionInfo.get("Id").getAsString();
         }
 
         String[] gpsInfo = {"GpsPoints", "GpsTrack", "GpsInfo"};
@@ -108,7 +111,7 @@ public class ActivityParser{
         for(int i = 0; i < ODHTags.size(); i++)
             Types[i] = ODHTags.get(i).getAsJsonObject().get("Id").getAsString();
 
-        return new Activity(Id, Name, Description, RegionName, Types, hasGPSTrack);
+        return new Activity(Id, Name, Description, RegionName, Types, hasGPSTrack, RegionId);
     }
 
 }

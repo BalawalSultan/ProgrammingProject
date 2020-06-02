@@ -87,10 +87,8 @@ public class FileManager {
                         "}" +
                     "}";
 
-        JsonObject analysis = new JsonParser().
+        return new JsonParser().
                             parse(json).getAsJsonObject();
-
-        return analysis;
     }
 
 }

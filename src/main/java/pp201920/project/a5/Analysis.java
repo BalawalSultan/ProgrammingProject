@@ -9,9 +9,9 @@ public class Analysis{
     ArrayList<String> trackedActivityIds;
 
     public Analysis(){
-        regionActivities = new HashMap<String, Integer>();
-        activityTypes = new HashMap<String, Integer>();
-        trackedActivityIds = new ArrayList<String>();
+        regionActivities = new HashMap<>();
+        activityTypes = new HashMap<>();
+        trackedActivityIds = new ArrayList<>();
     }
 
     public void performAnalysis(Activity activity){
@@ -27,22 +27,23 @@ public class Analysis{
 
         for (String type : typeStrings) {
             if(type != null){
-                if(activityTypes.containsKey(type) == false)
-                    activityTypes.put(type, 1);
-                else
+                if(activityTypes.containsKey(type))
                     activityTypes.put(type, activityTypes.get(type) + 1);
+                else
+                    activityTypes.put(type, 1);
             }
         }
     }
 
     public void regionAnalysis(Activity activity){
-        String Id = activity.getId();
+        String Id = activity.getRegionId();
         int activity_number = activity.getTypes().length;
 
-        if(regionActivities.containsKey(Id) == false)
-            regionActivities.put(Id, activity_number);
-        else
+        if(regionActivities.containsKey(Id))
             regionActivities.put(Id, regionActivities.get(Id) + activity_number);
+        else
+            regionActivities.put(Id, activity_number);
+
     }
 
     public int getMostActivities(){
@@ -54,24 +55,24 @@ public class Analysis{
     }
 
     public ArrayList<String> getRegionsWithMostActivities(){
-        ArrayList<String> regions = new ArrayList<String>();
+        ArrayList<String> regions = new ArrayList<>();
         int max = getMostActivities();
         
-        regionActivities.entrySet().forEach(entry->{
-            if(entry.getValue() == max)
-                regions.add(entry.getKey());
+        regionActivities.forEach((key, value) -> {
+            if (value == max)
+                regions.add(key);
         });
 
         return regions;
     }
 
     public ArrayList<String> getRegionsWithLeastActivities(){
-        ArrayList<String> regions = new ArrayList<String>();
+        ArrayList<String> regions = new ArrayList<>();
         int min = getLeastActivities();
         
-        regionActivities.entrySet().forEach(entry->{
-            if(entry.getValue() == min)
-                regions.add(entry.getKey());
+        regionActivities.forEach((key, value) -> {
+            if (value == min)
+                regions.add(key);
         });
 
         return regions;
