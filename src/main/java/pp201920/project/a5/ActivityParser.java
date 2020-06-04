@@ -40,18 +40,6 @@ public class ActivityParser{
         return jsonResponse.get("Items").getAsJsonArray();
     }
 
-    public String getLanguage(JsonObject Detail){
-        String language = "en";
-
-        if(Detail.getAsJsonObject(language) == null)
-            language = "it";
-        
-        if(Detail.getAsJsonObject(language) == null)
-            language = "de";
-
-        return language;
-    }
-
     public Activity parseJsonObject(JsonObject Activity){
         String Id, Name, Description, RegionName, RegionId;
 
@@ -100,6 +88,18 @@ public class ActivityParser{
         return false;
     }
 
+    public String getLanguage(JsonObject Detail){
+        String language = "en";
+
+        if(Detail.getAsJsonObject(language) == null)
+            language = "it";
+        
+        if(Detail.getAsJsonObject(language) == null)
+            language = "de";
+
+        return language;
+    }
+    
     public String[] getTypes(JsonArray ODHTags){
         String[] Types = new String[ODHTags.size()];
 
@@ -124,7 +124,6 @@ public class ActivityParser{
         regionData[0] = RegionInfo.get("Id").getAsString();
         regionData[1] = RegionInfo.getAsJsonObject("Name").
                                 get(language).getAsString();
-
 
         return regionData;
     }
