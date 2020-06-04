@@ -53,46 +53,33 @@ public class ActivityParser{
     }
 
     public Activity parseJsonObject(JsonObject Activity){
-
         String Id, Name, Description, RegionName, RegionId;
 
         JsonObject Detail = Activity.getAsJsonObject("Detail");
         JsonArray ODHTags = Activity.getAsJsonArray("ODHTags");
         JsonObject LocationInfo = Activity.getAsJsonObject("LocationInfo");
-        JsonObject RegionInfo;
-
-        if(LocationInfo.get("RegionInfo").isJsonNull())
-            RegionInfo = null;
-        else
-            RegionInfo = LocationInfo.getAsJsonObject("RegionInfo");
 
         String language = getLanguage(Detail);
+
         Detail = Detail.getAsJsonObject(language);
 
         Id = Activity.get("Id").getAsString();
         Name = Detail.get("Title").getAsString();
 
-        if(Detail.get("BaseText").isJsonNull()){
-            Description = null;
-        }else{
-            Description = Detail.get("BaseText").
-                        getAsString().
-                        replaceAll("<[a-zA-Z0-9]+>",""). //Remove opening HTML-tags
-                        replaceAll("</[a-zA-Z0-9]+>",""); //Remove closing HTML-tags
-        }
+        Description = getDescription(Detail);
         
-        if(RegionInfo == null){
-            RegionName = null;
-            RegionId = null;
-        }else{
-            RegionName = RegionInfo.getAsJsonObject("Name").
-                                       get(language).getAsString();
+        String[] regionData = getRegionData(LocationInfo, language);  
+        RegionId = regionData[0];
+        RegionName = regionData[1];
 
-            RegionId = RegionInfo.get("Id").getAsString();
-        }
+        boolean hasGPSTrack = checkIfActivityHasGpsTracking(Activity);
+        String[] Types = getTypes(ODHTags);
 
+        return new Activity(Id, Name, Description, RegionName, Types, hasGPSTrack, RegionId);
+    }
+
+    public boolean checkIfActivityHasGpsTracking(JsonObject Activity){
         String[] gpsInfo = {"GpsPoints", "GpsTrack", "GpsInfo"};
-        boolean hasGPSTrack = false;
 
         for (String field : gpsInfo) {
             JsonElement element = Activity.get(field);
@@ -101,21 +88,60 @@ public class ActivityParser{
                 JsonObject object = element.getAsJsonObject();
 
                 if(object.toString().length() > 2)
-                    hasGPSTrack = true;
+                    return true;
                     
             }else if(element.isJsonArray()){
                 JsonArray array = element.getAsJsonArray();
                 if(array.size() > 0)
-                    hasGPSTrack = true;
+                    return true;
             } 
         }
 
+        return false;
+    }
+
+    public String[] getTypes(JsonArray ODHTags){
         String[] Types = new String[ODHTags.size()];
 
         for(int i = 0; i < ODHTags.size(); i++)
             Types[i] = ODHTags.get(i).getAsJsonObject().get("Id").getAsString();
-
-        return new Activity(Id, Name, Description, RegionName, Types, hasGPSTrack, RegionId);
+        
+        return Types;
     }
 
+    public String[] getRegionData(JsonObject LocationInfo, String language){
+        String[] regionData = new String[2];
+        JsonObject RegionInfo;
+
+        regionData[0] = null;
+        regionData[1] = null;
+
+        if(LocationInfo.get("RegionInfo").isJsonNull())
+            return regionData;
+        else
+            RegionInfo = LocationInfo.getAsJsonObject("RegionInfo");
+
+        regionData[0] = RegionInfo.get("Id").getAsString();
+        regionData[1] = RegionInfo.getAsJsonObject("Name").
+                                get(language).getAsString();
+
+
+        return regionData;
+    }
+
+    public String getDescription(JsonObject Detail){
+        String Description = null;
+
+        if(Detail.get("BaseText").isJsonNull()){
+            return Description;
+        }else{
+            Description = Detail.get("BaseText").
+                        getAsString().
+                        replaceAll("<[a-zA-Z0-9]+>",""). //Remove opening HTML-tags
+                        replaceAll("</[a-zA-Z0-9]+>",""); //Remove closing HTML-tags
+        }
+
+        return Description;
+    }
+    
 }
