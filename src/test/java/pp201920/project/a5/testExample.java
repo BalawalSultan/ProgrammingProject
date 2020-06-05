@@ -20,4 +20,36 @@ public class testExample {
 
         assertEquals(true, description.equals("AAA"),description);
     }
+
+    @Test
+    public void myNullTest(){
+        String json = "{"+
+                "'BaseText':"+"null"+
+        "}";
+
+        JsonObject Detail = new JsonParser().
+                                parse(json).
+                                getAsJsonObject();
+
+        ActivityParser parser = new ActivityParser();
+        String description = parser.getDescription(Detail);
+
+        assertEquals(true, (description == null),description);
+    }
+
+    @Test
+    public void myEmptyTest(){
+        String json = "{"+
+                "'BaseText':"+"''"+
+        "}";
+
+        JsonObject Detail = new JsonParser().
+                                parse(json).
+                                getAsJsonObject();
+
+        ActivityParser parser = new ActivityParser();
+        String description = parser.getDescription(Detail);
+
+        assertEquals(true, description.isEmpty(),description);
+    }
 }
