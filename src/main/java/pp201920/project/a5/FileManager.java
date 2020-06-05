@@ -55,10 +55,13 @@ public class FileManager {
     public void generateJsonFile(Object object, String fileName, String path){
         Gson gson = new GsonBuilder().serializeNulls().disableHtmlEscaping().setPrettyPrinting().create();
         String json = gson.toJson(object);
-        File folder = new File("results");
+        File folder = new File(path);
 
         if(!folder.isDirectory())
             folder.mkdirs();
+
+        //Replaces "&" with it's unicode so that in the json file you see & instead of \u0026
+        json.replaceAll("&", "\\u0026");
 
         try(FileWriter fileWriter = new FileWriter(path + fileName + ".json")){
             BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);            
