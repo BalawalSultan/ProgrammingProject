@@ -84,6 +84,7 @@ public class AnalysisTest{
         analyst.regionAnalysis("Region_2_ID");
 
         int result = analyst.getMostActivities();
+        
         assertEquals(2, result, "The regions with the most activities should have 2 activities.");
     }
 
