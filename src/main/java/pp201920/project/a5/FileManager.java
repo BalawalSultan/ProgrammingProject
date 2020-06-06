@@ -26,24 +26,32 @@ public class FileManager {
 
         if(path != null)
              inputFile = new File(path);
-        
-        try{
+
+        try {
             assert inputFile != null;
             FileReader fileReader = new FileReader(inputFile);
             BufferedReader reader = new BufferedReader(fileReader);
             String s = reader.readLine();
 
-            if(s != null)
+            if (s != null)
                 result = Integer.parseInt(s);
+
 
             reader.close();
             fileReader.close();
 
-        }catch(NumberFormatException e){
+            if (Integer.parseInt(String.valueOf(result)) == 0)
+                throw new IllegalArgumentException();
+
+        } catch(NumberFormatException e){
             System.err.println("Input.txt does not contain a parsable integer!");
             e.printStackTrace();
 
-        }catch(FileNotFoundException e){
+        } catch(IllegalArgumentException e){
+            System.err.println("Input can't be empty or 0!");
+            e.printStackTrace();
+
+        } catch(FileNotFoundException e){
             System.err.println("The file \"input.txt\" does not exist or is not in the specified path: " + path);
             e.printStackTrace();
 
@@ -51,6 +59,8 @@ public class FileManager {
             System.err.println("An error occurred while reading the file: input.txt");
             e.printStackTrace();
         }
+
+
 
         return result;
     }
