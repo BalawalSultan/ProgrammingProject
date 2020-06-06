@@ -19,30 +19,10 @@ public class FileManager {
         super();
     }
 
-    public int getNumOfObjects(String path){
+    public int getAndHandle(String path){
         int result = 0;
-
-        File inputFile = null;
-
-        if(path != null)
-             inputFile = new File(path);
-
         try {
-            assert inputFile != null;
-            FileReader fileReader = new FileReader(inputFile);
-            BufferedReader reader = new BufferedReader(fileReader);
-            String s = reader.readLine();
-
-            if (s != null)
-                result = Integer.parseInt(s);
-
-
-            reader.close();
-            fileReader.close();
-
-            if (Integer.parseInt(String.valueOf(result)) == 0)
-                throw new IllegalArgumentException();
-
+            result = getNumOfObjects(path);
         } catch(NumberFormatException e){
             System.err.println("Input.txt does not contain a parsable integer!");
             e.printStackTrace();
@@ -59,9 +39,30 @@ public class FileManager {
             System.err.println("An error occurred while reading the file: input.txt");
             e.printStackTrace();
         }
+        return result;
+    }
 
+    public int getNumOfObjects(String path) throws NumberFormatException,IllegalArgumentException,FileNotFoundException,IOException {
+        int result = 0;
 
+        File inputFile = null;
 
+        if(path != null)
+             inputFile = new File(path);
+        assert inputFile != null;
+        FileReader fileReader = new FileReader(inputFile);
+        BufferedReader reader = new BufferedReader(fileReader);
+        String s = reader.readLine();
+
+        if (s != null)
+            result = Integer.parseInt(s);
+
+        reader.close();
+        fileReader.close();
+
+        //if the file is empty
+        if (Integer.parseInt(String.valueOf(result)) == 0)
+            throw new IllegalArgumentException();
         return result;
     }
 

@@ -1,8 +1,12 @@
 package pp201920.project.a5;
 
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
+import java.io.IOException;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class FileManagerTest {
 
@@ -10,7 +14,7 @@ public class FileManagerTest {
 
 
     @Test
-    public void getNumOfObjectsTest() {
+    public void getNumOfObjectsTest() throws IOException {
 
         assertEquals(12,fileManager.getNumOfObjects("src/test/resources/FileManagerTest/TestInput.txt"));
 
@@ -19,24 +23,22 @@ public class FileManagerTest {
     @Test
     public void getNumOfObjectsDouble() {
 
-        assertEquals(17,fileManager.getNumOfObjects("src/test/resources/FileManagerTest/TestInputDouble.txt"));
+        assertThrows(NumberFormatException.class,()->fileManager.getNumOfObjects("src/test/resources/FileManagerTest/TestInputDouble.txt"));
 
     }
 
-    /*@Test
+    @Test
     public void getNumOfObjectsNull() {
 
-        assertEquals(0,fileManager.getNumOfObjects("src/test/resources/FileManagerTest/TestInputNull.txt"));
+        assertThrows(IllegalArgumentException.class,()->fileManager.getNumOfObjects("src/test/resources/FileManagerTest/TestInputNull.txt"));
 
     }
 
     @Test
     public void getNumOfObjectsString(){
 
-
+        assertThrows(NumberFormatException.class,()->fileManager.getNumOfObjects("src/test/resources/FileManagerTest/TestInputString.txt"));
 
     }
-
-     */
 
 }
