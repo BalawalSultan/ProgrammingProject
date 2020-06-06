@@ -18,14 +18,17 @@ public class FileManager {
     public FileManager(){
         super();
     }
-    
+
     public int getNumOfObjects(String path){
         int result = 0;
 
-        
-        File inputFile = new File(path + "input.txt");
+        File inputFile = null;
 
+        if(path != null)
+             inputFile = new File(path);
+        
         try{
+            assert inputFile != null;
             FileReader fileReader = new FileReader(inputFile);
             BufferedReader reader = new BufferedReader(fileReader);
             String s = reader.readLine();
