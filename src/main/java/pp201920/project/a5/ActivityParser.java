@@ -73,8 +73,10 @@ public class ActivityParser{
         }else{
             Description = Detail.get("BaseText").
                         getAsString().
-                        replaceAll("<[a-zA-Z0-9]+>",""). //Remove opening HTML-tags
-                        replaceAll("</[a-zA-Z0-9]+>",""); //Remove closing HTML-tags
+                        .replaceAll("\\<[^>]*>", "").replaceAll("href=\"", "")
+			            .replaceAll("<(\\\"[^\\\"]*\\\"|'[^']*'|[^'\\\">])*>","")
+                        .replaceAll("<[a-zA-Z0-9]+>","") //Remove opening HTML-tags
+                        .replaceAll("</[a-zA-Z0-9]+>",""); //Remove closing HTML-tags
         }
         
         if(RegionInfo == null){
