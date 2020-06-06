@@ -45,7 +45,7 @@ public class FileManagerTest {
     public void getNumOfObjectsString(){
 
         path = "src/test/resources/FileManagerTest/TestInputString.txt";
-        message = "The file \"TestInputDouble.txt\" should throw a NumberFormatException";
+        message = "The file \"TestInputString.txt\" should throw a NumberFormatException";
         assertThrows(NumberFormatException.class,()->fileManager.readNumOfObjects(path),message);
 
 
