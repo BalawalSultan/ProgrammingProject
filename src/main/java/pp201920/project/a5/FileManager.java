@@ -40,7 +40,7 @@ public class FileManager {
             reader.close();
             fileReader.close();
 
-            if (Integer.parseInt(String.valueOf(result)) == 0)
+            if (Integer.parseInt(String.valueOf(result)) <= 0)
                 throw new IllegalArgumentException();
 
         } catch(NumberFormatException e){
