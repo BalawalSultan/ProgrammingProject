@@ -7,7 +7,7 @@ import java.net.URL;
 public class App{
     public static void main(String[] args)throws MalformedURLException{
         FileManager fileManager = new FileManager();
-        int numOfObjects = fileManager.getNumOfObjects();
+        int numOfObjects = fileManager.getNumOfObjects("src/main/resources/");
         URL url = new URL("https://tourism.opendatahub.bz.it/api/Activity?pagenumber=1&pagesize=" + numOfObjects);
         String results = MyRequest.fetchAndHandle(url);
 

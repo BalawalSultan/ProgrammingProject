@@ -18,10 +18,10 @@ public class FileManager {
     public FileManager(){
         super();
     }
-
-    public int getNumOfObjects(){
+    
+    public int getNumOfObjects(String path){
         int result = 0;
-        String path = "src/main/resources/";
+
         
         File inputFile = new File(path + "input.txt");
 
