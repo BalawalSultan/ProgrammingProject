@@ -52,8 +52,7 @@ public class MyRequest{
         BufferedReader reader;
         String line;
 
-        if (status == 404)
-            throw new FileNotFoundException();
+       
         if (status > 299)
             reader = new BufferedReader(new InputStreamReader(connection.getErrorStream()));
         else
