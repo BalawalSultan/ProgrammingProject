@@ -74,9 +74,9 @@ public class ActivityParser{
             Description = Detail.get("BaseText").
                         getAsString().
                         .replaceAll("\\<[^>]*>", "").replaceAll("href=\"", "")  //enhanced cleaning of html formatting 
-			            .replaceAll("<(\\\"[^\\\"]*\\\"|'[^']*'|[^'\\\">])*>","");
-                        replaceAll("<[a-zA-Z0-9]+>",""). //Remove opening HTML-tags - could be not needed anymore due to the upper included regex
-                        replaceAll("</[a-zA-Z0-9]+>",""); //Remove closing HTML-tags- could be not needed anymore due to the upper included regex
+			            .replaceAll("<(\\\"[^\\\"]*\\\"|'[^']*'|[^'\\\">])*>","")
+                         .replaceAll("<[a-zA-Z0-9]+>",""). //Remove opening HTML-tags - could be not needed anymore due to the upper included regex
+                        .replaceAll("</[a-zA-Z0-9]+>",""); //Remove closing HTML-tags- could be not needed anymore due to the upper included regex
         }
         
         if(RegionInfo == null){
