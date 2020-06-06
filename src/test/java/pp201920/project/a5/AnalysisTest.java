@@ -65,7 +65,7 @@ public class AnalysisTest{
     }
 
     @Test
-    public void regionAnalysisTest(){
+    public void getRegionActivitiesTest(){
         Analysis analyst = new Analysis();
         analyst.regionAnalysis("Region_1_ID");
         
