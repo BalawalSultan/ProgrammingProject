@@ -5,11 +5,36 @@ import com.google.gson.JsonParser;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.jupiter.api.Test;
 public class ActivityParserTest {
+
+    private String getDescriptionAsJson(String baseText){
+        return  "{"+
+                baseText +
+        "}";
+    }        
+
+    private String getActivityAsJson(String GpsPointsProperty, String GpsInfo, String GpsTrack){
+        return "{"+ 
+                "'GpsPoints':" + GpsPointsProperty + ","+
+                "'GpsInfo':" + GpsInfo + "," +
+                "'GpsTrack':" + GpsTrack +
+        "}";
+    }
+
+    private String getLocationInfoAsJson(String Id, String Name){
+        if(Id == null && Name == null)
+                return "{'RegionInfo': null}";
+
+        return "{"+
+                "'RegionInfo':{" +
+                        Id + "," +
+                        Name +
+                "}"+
+        "}";
+    }
+
     @Test
     public void getDescriptionTest(){
-        String json = "{"+
-                "'BaseText':"+"'AAA'"+
-        "}";
+        String json = getDescriptionAsJson("'BaseText': 'AAA'");
 
         JsonObject Detail = new JsonParser().
                                 parse(json).
@@ -24,9 +49,7 @@ public class ActivityParserTest {
 
     @Test
     public void getDescriptionNullTest(){
-        String json = "{"+
-                "'BaseText':"+"null"+
-        "}";
+        String json = getDescriptionAsJson("'BaseText': null");
 
         JsonObject Detail = new JsonParser().
                                 parse(json).
@@ -41,9 +64,7 @@ public class ActivityParserTest {
 
     @Test
     public void getDescriptionEmptyTest(){
-        String json = "{"+
-                "'BaseText':"+"''"+
-        "}";
+        String json = getDescriptionAsJson("'BaseText': ''");
 
         JsonObject Detail = new JsonParser().
                                 parse(json).
@@ -58,14 +79,7 @@ public class ActivityParserTest {
 
     @Test
     public void getRegionDataIdTest(){
-        String json = "{"+
-                "'RegionInfo':{"+
-                        "'Id':'123',"+
-                        "'Name':{"+
-                                "'it':'Trentino-Alto Adige'"+
-                        "}"+
-                "}"+
-        "}";
+        String json = getLocationInfoAsJson("'Id': '123'", "'Name':{'it': 'Trentino-Alto Adige'}");
 
         JsonObject LocationInfo = new JsonParser().
                                 parse(json).
@@ -80,14 +94,7 @@ public class ActivityParserTest {
 
     @Test
     public void getRegionDataNameTest(){
-        String json = "{"+
-                "'RegionInfo':{"+
-                        "'Id':'123',"+
-                        "'Name':{"+
-                                "'it':'Trentino-Alto Adige'"+
-                        "}"+
-                "}"+
-        "}";
+        String json = getLocationInfoAsJson("'Id': '123'", "'Name':{'it': 'Trentino-Alto Adige'}");
 
         JsonObject LocationInfo = new JsonParser().
                                 parse(json).
@@ -102,9 +109,7 @@ public class ActivityParserTest {
 
     @Test
     public void getRegionDataNullTest(){
-        String json = "{"+
-                "'RegionInfo': null"+
-        "}";
+        String json = getLocationInfoAsJson(null, null);
 
         JsonObject LocationInfo = new JsonParser().
                                 parse(json).
@@ -119,13 +124,7 @@ public class ActivityParserTest {
 
     @Test
     public void checkIfActivityHasGpsTrackingTest(){
-        String json = "{"+ 
-                "'GpsPoints':{"+
-                        "'property': 'property value'"+
-                "},"+
-                "'GpsInfo':[{}],"+
-                "'GpsTrack':[{},{}]"+
-        "}";
+        String json = getActivityAsJson("{'property': 'property value'}","[{}]","[{},{}]");
 
         JsonObject Activity = new JsonParser().
                                 parse(json).
@@ -139,11 +138,7 @@ public class ActivityParserTest {
 
     @Test
     public void checkIfActivityHasGpsTrackingIsFalseTest(){
-        String json = "{"+ 
-                "'GpsPoints': null,"+
-                "'GpsInfo':[],"+
-                "'GpsTrack':[]"+
-        "}";
+        String json = getActivityAsJson("null","[]","[]");
 
         JsonObject Activity = new JsonParser().
                                 parse(json).
@@ -157,11 +152,7 @@ public class ActivityParserTest {
 
     @Test
     public void checkIfActivityHasGpsTrackingNoGpsPointsTest(){
-        String json = "{"+ 
-                "'GpsPoints': null,"+
-                "'GpsInfo':[],"+
-                "'GpsTrack':[{},{}]"+
-        "}";
+        String json = getActivityAsJson("null","[{}]","[]");
 
         JsonObject Activity = new JsonParser().
                                 parse(json).
@@ -175,13 +166,7 @@ public class ActivityParserTest {
 
     @Test
     public void checkIfActivityHasGpsTrackingNoGpsInfoTest(){
-        String json = "{"+ 
-                "'GpsPoints':{"+
-                        "'property': 'property value'"+
-                "},"+
-                "'GpsInfo':[],"+
-                "'GpsTrack':[{},{}]"+
-        "}";
+        String json = getActivityAsJson("{'property': 'property value'}","[]","[{},{}]");
 
         JsonObject Activity = new JsonParser().
                                 parse(json).
@@ -195,13 +180,7 @@ public class ActivityParserTest {
 
     @Test
     public void checkIfActivityHasGpsTrackingNoGpsTrackTest(){
-        String json = "{"+ 
-                "'GpsPoints':{"+
-                        "'property': 'property value'"+
-                "},"+
-                "'GpsInfo':[{}],"+
-                "'GpsTrack':[]"+
-        "}";
+        String json = getActivityAsJson("{'property': 'property value'}","[{}]","[]");
 
         JsonObject Activity = new JsonParser().
                                 parse(json).
