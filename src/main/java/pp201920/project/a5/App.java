@@ -27,13 +27,14 @@ public class App{
             
             for(Activity activity : list){
                 String fileName = "Activity_" + activity.getId();
-                fileManager.generateJsonFile(activity, fileName, pathToResultsFolder);
+                fileManager.generateJsonFile(activity, fileName, pathToResultsFolder, 0);
             }
 
             fileManager.generateJsonFile(
                 fileManager.getAnalysisAsJsonObject(analyst),
                 "analysis",
-                pathToResultsFolder
+                pathToResultsFolder,
+                1
             );
         }
     }  

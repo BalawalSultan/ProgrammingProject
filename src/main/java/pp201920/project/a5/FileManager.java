@@ -118,7 +118,7 @@ public class FileManager {
         return result;
     }
 
-    public void generateJsonFile(Object object, String fileName, String path){
+    public void generateJsonFile(Object object, String fileName, String path, int schemaOption){
         Gson gson = new GsonBuilder().serializeNulls().disableHtmlEscaping().setPrettyPrinting().create();
         String json = gson.toJson(object);
         File folder = new File(path);
@@ -129,7 +129,7 @@ public class FileManager {
         //Replaces "&" with it's unicode so that in the json file you see & instead of \u0026
         json.replaceAll("&", "\\u0026");
 
-        if(validateSchema(json, 1)){
+        if(validateSchema(json, schemaOption)){
             try(FileWriter fileWriter = new FileWriter(path + fileName + ".json")){
                 BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);            
                 bufferedWriter.write(json);
@@ -138,6 +138,8 @@ public class FileManager {
                 System.out.println("An error occurred while generating " + fileName + ".json.");
                 e.printStackTrace();
             }
+        }else{
+            System.out.println(fileName + " does not respect the json schema.");
         }
     }
 

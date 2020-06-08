@@ -73,7 +73,7 @@ public class ActivityParserTest {
         ActivityParser parser = new ActivityParser();
         String description = parser.getDescription(Detail);
         boolean result = description.isEmpty();
-
+        
         assertEquals(true, result, "The description should be empty.");
     }
 

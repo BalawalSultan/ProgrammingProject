@@ -1,5 +1,6 @@
 .settings
 .vscode
+.factorypath
 results/*
 bin
 bash.exe.stackdump
