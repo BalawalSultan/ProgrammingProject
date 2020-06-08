@@ -36,7 +36,10 @@
     "description": {
       "title": "Description",
       "description": "Description of the activity",
-      "type": "string",
+      "type": [
+        "string",
+        "null"
+      ],
       "examples": [
         "A lonely hike from summit to summit in between...",
         "La pista sportiva dello stadio di sci da fondo di Dobbiacco viene spesso utilizzata come circuito d'allenamento dei teams sportivi di varie nazioni..."
