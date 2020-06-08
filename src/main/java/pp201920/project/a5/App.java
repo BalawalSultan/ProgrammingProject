@@ -7,7 +7,9 @@ import java.net.URL;
 public class App{
     public static void main(String[] args)throws MalformedURLException{
         FileManager fileManager = new FileManager();
-        int numOfObjects = fileManager.getNumOfObjects("src/main/resources/input.txt");
+        String pathToInputFile = "src/main/resources/input.txt";
+        int numOfObjects = fileManager.getNumOfObjects(pathToInputFile);
+
         URL url = new URL("https://tourism.opendatahub.bz.it/api/Activity?pagenumber=1&pagesize=" + numOfObjects);
         String results = MyRequest.fetchAndHandle(url);
 
@@ -21,17 +23,17 @@ public class App{
             for (Activity activity : list)
                 analyst.performAnalysis(activity);
 
-            String path = "results/";
+            String pathToResultsFolder = "results/";
             
             for(Activity activity : list){
                 String fileName = "Activity_" + activity.getId();
-                fileManager.generateJsonFile(activity, fileName, path);
+                fileManager.generateJsonFile(activity, fileName, pathToResultsFolder);
             }
 
             fileManager.generateJsonFile(
                 fileManager.getAnalysisAsJsonObject(analyst),
                 "analysis",
-                path
+                pathToResultsFolder
             );
         }
     }  
