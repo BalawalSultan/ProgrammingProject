@@ -20,7 +20,7 @@
         "01CFEFF8DA586E548327E539276C42F3"
       ],
       "pattern": "([A-Z]|[0-9])",
-      "minLength": 1,
+      "minLength": 32,
       "maxLength": 32
     },
     "name": {
@@ -41,7 +41,7 @@
         "A lonely hike from summit to summit in between...",
         "La pista sportiva dello stadio di sci da fondo di Dobbiacco viene spesso utilizzata come circuito d'allenamento dei teams sportivi di varie nazioni..."
       ],
-      "pattern": "[A-Z]([A-Z]*[a-z]* *)*.*"
+      "pattern": "([A-Z]*[a-z]* *)*.*"
     },
     "types": {
       "title": "Types",
