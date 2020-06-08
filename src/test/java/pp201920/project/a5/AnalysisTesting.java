@@ -6,7 +6,7 @@ class analysisTest{
 	
 	@Test
 
-	public void performAnalysis(Activity testActivity)
+	public void performAnalysis(Activity activity)
 	{
 		 hasGPSTrackAnalysis (
 		            activity.getHasGPSTrack(),
@@ -14,9 +14,9 @@ class analysisTest{
 		        );  
 
 		
-		assertEquals(baseUrl.activityTypesAnalysis(testActivity),activityTypesAnalysis(testActivity));
+		assertEquals(baseUrl.activityTypesAnalysis(activity),activityTypesAnalysis(activity));
 		
-		assertEquals(baseUrl.performAnalysis(testActivity) ,regionAnalysis(testActivity));
+		assertEquals(baseUrl.performAnalysis(activity) ,regionAnalysis(activity));
 		
 	}
 	@Test
@@ -29,7 +29,7 @@ class analysisTest{
 	
 	@Test
 	
-	public void activityTypesAnalysis(String[] testTypes) {
+	public void activityTypesAnalysis(String[] types) {
 		
 		
 	
@@ -41,7 +41,7 @@ class analysisTest{
                 else
                     activityTypes.put(type, 1);
             }
-            assertEquals(baseUrl.activityTypesAnalysis(testTypes), types);
+            assertEquals(baseUrl.activityTypesAnalysis(types), types);
             
         }
 	
