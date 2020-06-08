@@ -49,7 +49,10 @@
     "types": {
       "title": "Types",
       "description": "Categories which this activity belongs",
-      "type": "array",
+      "type": [
+        "array",
+        "null"
+      ],
       "examples": [
         [
           "berg",
@@ -66,7 +69,10 @@
     "hasGPSTrack": {
       "name": "GPSTrack",
       "description": "boolean variable stating wheter an activity has some GPSTracks or not",
-      "type": "boolean",
+      "type": [
+        "boolean",
+        "null"
+      ],
       "examples": [
         true,
         false
@@ -75,7 +81,10 @@
     "region": {
       "title": "Regions",
       "description": "Regions in which this activity can be practiced",
-      "type": "string",
+      "type": [
+        "string",
+        "null"
+      ],
       "examples": [
         "Brunico/Bruneck and environs",
         "Regione dolomitica Tre Cime"
