@@ -25,7 +25,7 @@
     },
     "trackedActivities":{
       "type": "array",
-      "pattern":"\"+([A-Z]|[0-9])+\"",
+      "pattern":"\"+([A-Z]|[0-9])+\""
 
 
 
