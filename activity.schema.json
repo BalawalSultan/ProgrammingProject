@@ -31,7 +31,7 @@
         "11 Summit Tour",
         "01 Giro dello stadio di Dobbiacco"
       ],
-      "pattern": "([0-9]+ )*([A-Z][a-z]* *)"
+      "pattern": "([0-9]*)*[-,\\/, ]*([A-Z]*[a-z]*)"
     },
     "description": {
       "title": "Description",
