@@ -6,9 +6,7 @@ public class FileManager {
 	
 	String baseUrl= "src/main/java/pp201920/project/a5";
 	
-    public FileManager(){
-        super();
-    }
+  
 
     public int getNumOfObjects(){
     	
