@@ -1,14 +1,25 @@
 package pp201920.project.a5;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonObject;
+
+import org.junit.jupiter.api.Test;
+
 public class FileManagerTesting {
     
 	//base url linking the actual url to the code for unit testing analysis
-	
 	String baseUrl= "src/main/java/pp201920/project/a5";
-	
-    public FileManager(){
-        super();
-    }
 
     public int getNumOfObjects(){
     	
@@ -58,6 +69,7 @@ public class FileManagerTesting {
             e.printStackTrace();
         }
     }
+    
     @Test
     public JsonObject getAnalysisAsJsonObject(Analysis analyst){
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
