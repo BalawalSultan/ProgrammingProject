@@ -1,17 +1,17 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "$comment": "need to add an id to the schema, use the URL of the repo",
+  "$comment" : "need to add an id to the schema, use the URL of the repo",
   "title": "Analysis.json Schema",
-  "description": "The schema for the analysis.json file outputted from the project",
+  "description" : "The schema for the analysis.json file outputted from the project",
   "required": [
     "activitiesTypes",
-    "trackedActivities",
-    "maxLocations",
-    "minLocations"
+    "trackedActivityIds",
+    "regionsWithMostActivities",
+    "regionsWithLeastActivities"
   ],
   "properties": {
-    "activitiesTypes": {
-      "title": "List of ODHTags",
+    "activitiesTypes" : {
+      "title" : "List of ODHTags",
       "description": "List of all tags from ODHTags with their recurrence",
       "type": "object",
       "default": {},
@@ -21,19 +21,26 @@
           "tag2": 5
         }
       ],
-      "pattern": "([A-Z]*[a-z])+\"+:+ +([0-9]+)"
+      "pattern":"([A-Z]*[a-z])+\"+:+ +([0-9]+)"
     },
-    "trackedActivities": {
+    "trackedActivities":{
       "type": "array",
-      "pattern": "\"+([A-Z]|[0-9])+\"",
+      "pattern":"\"+([A-Z]|[0-9])+\"",
+
+
+
     },
-    "maxLocations": {
+    "regionsWithMostActivities":{
       "type": "object",
-      "pattern": "\"+([A-Z]|[0-9])+\""
+      "pattern":"\"+([A-Z]|[0-9])+\""
+
     },
-    "maxLocations": {
+    "regionsWithLeastActivities":{
       "type": "object",
-      "pattern": "\"+([A-Z]|[0-9])+\""
+      "pattern":"\"+([A-Z]|[0-9])+\""
+
     }
+
+
   }
 }
