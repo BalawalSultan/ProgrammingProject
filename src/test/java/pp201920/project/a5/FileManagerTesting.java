@@ -1,6 +1,6 @@
 import org.junit.jupiter.api.Test;
 
-public class FileManager {
+public class FileManagerTesting {
     
 	//base url linking the actual url to the code for unit testing analysis
 	
