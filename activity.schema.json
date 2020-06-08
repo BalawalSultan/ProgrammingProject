@@ -1,75 +1,82 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-    "title":"Activity.json schema",
- 	"description" : "The schema for the analysis.json file outputted 	from the project",
-      "required":[
-      "id",
-      "name",
-      "description",
-      "types",
-      "hasGPSTrack",
-      "region"
-      ],
-        "properties":{
-          "id":{
-            "title":"id",
-            "description":"Identificative alphanumeric sequence of the activity",
-            "type":"string",
-            "examples":{
-              "id":"078883A95FF002AA246B5B99DA5BB9D7",
-              "id":"01CFEFF8DA586E548327E539276C42F3"
-            },
-            "pattern":"([A-Z]|[0-9])",
-            "minLength": 1,
-            "maxLength": 32
-          },
-          "name":{
-             "title":"Name",
-            "description":"Name of the activity",
-            "type":"string",
-            "examples":{
-              "name":"11 Summit Tour",
-              "name":"01 Giro dello stadio di Dobbiacco"
-            },
-            "pattern":"([0-9]+ )*([A-Z][a-z]* *)"
-          },
-          "description":{
-             "title":"Description",
-            "description":"Description of the activity",
-            "type":"string",
-            "examples":{
-              "description":"A lonely hike from summit to summit in between...",
-              "description":"La pista sportiva dello stadio di sci da fondo di Dobbiacco viene spesso utilizzata come circuito d'allenamento dei teams sportivi di varie nazioni..."
-            },
-            "pattern":"[A-Z]([A-Z]*[a-z]* *)*.*"
-          },
-          "types":{
-             "title":"Types",
-            "description":"Categories which this activity belongs",
-            "type":"array",
-            "examples":{
-              "types": ["berg", "bergtouren", "weitere berge", "hochtouren"],
-              "types":["loipen","klassisch und skating"]
-            },
-            
-          },
-          "hasGPSTrack":{
-            "name":"GPSTrack",
-            "description":"boolean variable stating wheter an activity has some GPSTracks or not",
-            "type":"boolean",
-            "examples":{
-              "hasGPSTrack": true,
-              "hasGPSTrack": false
-            }
-          },
-          "region":{
-            "title":"Regions",
-            "description":"Regions in which this activity can be practiced",
-            "type":"string",
-            "examples":{
-              "region": "Brunico/Bruneck and environs",
-              "region":"Regione dolomitica Tre Cime"
-            }
-          }
+  "title": "Activity.json schema",
+  "description": "The schema for the analysis.json file outputted 	from the project",
+  "required": [
+    "id",
+    "name",
+    "description",
+    "types",
+    "hasGPSTrack",
+    "region"
+  ],
+  "properties": {
+    "id": {
+      "title": "id",
+      "description": "Identificative alphanumeric sequence of the activity",
+      "type": "string",
+      "examples": {
+        "id": "078883A95FF002AA246B5B99DA5BB9D7",
+        "id": "01CFEFF8DA586E548327E539276C42F3"
+      },
+      "pattern": "([A-Z]|[0-9])",
+      "minLength": 1,
+      "maxLength": 32
+    },
+    "name": {
+      "title": "Name",
+      "description": "Name of the activity",
+      "type": "string",
+      "examples": {
+        "name": "11 Summit Tour",
+        "name": "01 Giro dello stadio di Dobbiacco"
+      },
+      "pattern": "([0-9]+ )*([A-Z][a-z]* *)"
+    },
+    "description": {
+      "title": "Description",
+      "description": "Description of the activity",
+      "type": "string",
+      "examples": {
+        "description": "A lonely hike from summit to summit in between...",
+        "description": "La pista sportiva dello stadio di sci da fondo di Dobbiacco viene spesso utilizzata come circuito d'allenamento dei teams sportivi di varie nazioni..."
+      },
+      "pattern": "[A-Z]([A-Z]*[a-z]* *)*.*"
+    },
+    "types": {
+      "title": "Types",
+      "description": "Categories which this activity belongs",
+      "type": "array",
+      "examples": {
+        "types": [
+          "berg",
+          "bergtouren",
+          "weitere berge",
+          "hochtouren"
+        ],
+        "types": [
+          "loipen",
+          "klassisch und skating"
+        ]
+      },
+    },
+    "hasGPSTrack": {
+      "name": "GPSTrack",
+      "description": "boolean variable stating wheter an activity has some GPSTracks or not",
+      "type": "boolean",
+      "examples": {
+        "hasGPSTrack": true,
+        "hasGPSTrack": false
+      }
+    },
+    "region": {
+      "title": "Regions",
+      "description": "Regions in which this activity can be practiced",
+      "type": "string",
+      "examples": {
+        "region": "Brunico/Bruneck and environs",
+        "region": "Regione dolomitica Tre Cime"
+      }
     }
+  }
 }
