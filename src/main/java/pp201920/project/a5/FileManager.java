@@ -11,9 +11,10 @@ import com.networknt.schema.SpecVersion.VersionFlag;
 
 public class FileManager {
     private JsonSchema activitySchema, analysisSchema;
+    String pathToResources;
 
-    public FileManager(){
-        String pathToResources = "src/main/resources";
+    public FileManager(String pathToResources){
+        this.pathToResources = pathToResources;
         ObjectMapper mapper = new ObjectMapper();
         JsonNode activityNode = null, analysisNode = null;
 
@@ -72,10 +73,11 @@ public class FileManager {
         return fileContent.toString();
     }
 
-    public int getNumOfObjects(String path){
+    public int getNumOfObjects(String fileName){
         int result = 0;
         try {
-            result = readNumOfObjects(path);
+            result = readNumOfObjects(pathToResources + fileName);
+            
         } catch(NumberFormatException e){
             System.err.println("Input.txt does not contain a parsable integer!");
             e.printStackTrace();
@@ -85,7 +87,7 @@ public class FileManager {
             e.printStackTrace();
 
         } catch(FileNotFoundException e){
-            System.err.println("The file \"input.txt\" does not exist or is not in the specified path: " + path);
+            System.err.println("The file \"input.txt\" does not exist or is not in the resource folder");
             e.printStackTrace();
 
         }catch(IOException e) {
@@ -95,14 +97,15 @@ public class FileManager {
         return result;
     }
 
-    public int readNumOfObjects(String path) throws NumberFormatException,IllegalArgumentException,FileNotFoundException,IOException {
+    public int readNumOfObjects(String fileName) throws NumberFormatException,IllegalArgumentException,FileNotFoundException,IOException {
         int result = 0;
-
         File inputFile = null;
 
-        if(path != null)
-             inputFile = new File(path);
+        if(pathToResources != null)
+             inputFile = new File(pathToResources + fileName);
+
         assert inputFile != null;
+
         FileReader fileReader = new FileReader(inputFile);
         BufferedReader reader = new BufferedReader(fileReader);
         String s = reader.readLine();
