@@ -28,7 +28,8 @@ public class ActivityParser{
                 item.getAsJsonObject()
             );
 
-            list.add(activity);
+            if(activity != null)
+                list.add(activity);
         }
     }
 
@@ -48,10 +49,13 @@ public class ActivityParser{
         JsonObject LocationInfo = Activity.getAsJsonObject("LocationInfo");
 
         String language = getLanguage(Detail);
-
         Detail = Detail.getAsJsonObject(language);
-
+        
         Id = Activity.get("Id").getAsString();
+
+        if(Id == null)
+            return null;
+
         Name = Detail.get("Title").getAsString();
 
         Description = getDescription(Detail);
