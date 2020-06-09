@@ -113,8 +113,8 @@ public class ActivityParser{
         String[] regionData = new String[2];
         JsonObject RegionInfo;
 
-        regionData[0] = null;
-        regionData[1] = null;
+        regionData[0] = null; // first element is the Id of the region
+        regionData[1] = null; // second element is the name of the region
 
         if(LocationInfo.get("RegionInfo").isJsonNull())
             return regionData;
@@ -136,8 +136,7 @@ public class ActivityParser{
         }else{
             Description = Detail.get("BaseText").
                         getAsString().
-                        replaceAll("<[a-zA-Z0-9]+>",""). //Remove opening HTML-tags
-                        replaceAll("</[a-zA-Z0-9]+>",""); //Remove closing HTML-tags
+                        replaceAll("<.*?>", "");
         }
 
         return Description;
