@@ -13,12 +13,13 @@ public class FileManager {
     private JsonSchema activitySchema, analysisSchema;
 
     public FileManager(){
+        String pathToResources = "src/main/resources";
         ObjectMapper mapper = new ObjectMapper();
         JsonNode activityNode = null, analysisNode = null;
 
         try{
-            activityNode = mapper.readTree(readFile("activity.schema.json"));
-            analysisNode = mapper.readTree(readFile("analysis.schema.json"));
+            activityNode = mapper.readTree(readFile(pathToResources + "activity.schema.json"));
+            analysisNode = mapper.readTree(readFile(pathToResources + "analysis.schema.json"));
 
         }catch(IOException e){
             e.printStackTrace();
@@ -165,7 +166,8 @@ public class FileManager {
                     "}";
 
         return new JsonParser().
-                            parse(json).getAsJsonObject();
+                   parse(json).
+                   getAsJsonObject();
     }
 
 }
