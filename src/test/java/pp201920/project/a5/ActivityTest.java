@@ -6,124 +6,179 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class ActivityTest {
 
-
-
-
     Activity activity = new Activity();
 
     @Test
-    public void testId(){
+    public void idTest(){
         String id = "1234567890A";
-
         activity.setId(id);
-        assertEquals(id, activity.getId());
 
-        id = "";
-        activity.setId(id);
-        assertEquals(id, activity.getId());
-
-        id = null;
-        activity.setId(id);
-        assertEquals(id, activity.getId());
-
-        id = String.valueOf(123);
-        activity.setId(id);
         assertEquals(id, activity.getId());
     }
 
     @Test
-    public void testName(){
+    public void idIsEmptyTest(){
+        String id = "";
+        activity.setId(id);
+
+        assertEquals(id, activity.getId());
+    }
+
+    @Test
+    public void idIsNullTest(){
+        String id = null;
+        activity.setId(id);
+
+        assertEquals(id, activity.getId());
+    }
+
+    public void nameTest(){
         String name = "Hello";
         activity.setName(name);
-        assertEquals(name, activity.getName());
 
-        name = "";
-        activity.setName(name);
         assertEquals(name, activity.getName());
+    }
 
-        name = null;
+    public void nameIsEmptyTest(){
+        String name = "";
         activity.setName(name);
+
+        assertEquals(name, activity.getName());
+    }
+
+    public void nameIsNullTest(){
+        String name = null;
+        activity.setName(name);
+
         assertEquals(name, activity.getName());
     }
 
     @Test
-    public void testDescription(){
+    public void descriptionTest(){
         String description = "Sky Is blue";
         activity.setDescription(description);
-        assertEquals(description, activity.getDescription());
 
-        description = "";
-        activity.setDescription(description);
-        assertEquals(description, activity.getDescription());
+        boolean result = activity.
+                         getDescription().
+                         equals("Sky Is blue");
 
-        description = null;
-        activity.setDescription(description);
-        assertEquals(description, activity.getDescription());
+        assertEquals(true, result);
     }
 
     @Test
-    public void testRegion(){
+    public void descriptionIsEmptyTest(){
+        String description  = "";
+        activity.setDescription(description);
+
+        boolean result = activity.
+                         getDescription().
+                         isEmpty();
+
+        assertEquals(true, result);
+    }
+
+    @Test
+    public void descriptionIsNull(){
+        String description = null;
+        activity.setDescription(description);
+
+        assertEquals(null, activity.getDescription());
+    }
+
+    @Test
+    public void regionTest(){
         String region = "Camembert";
         activity.setRegion(region);
-        assertEquals(region, activity.getRegion());
 
-        region = "";
-        activity.setRegion(region);
-        assertEquals(region, activity.getRegion());
+        boolean result = activity.
+                         getRegion().
+                         equals("Camembert");
 
-        region = null;
-        activity.setRegion(region);
-        assertEquals(region, activity.getRegion());
+        assertEquals(true, result);
     }
 
     @Test
-    public void testTypes(){
+    public void regionIsEmptyTest(){
+        String region = "";
+        activity.setRegion(region);
 
-        String[] types =
-                {
-                        "Ciao",
-                        "Mirror",
-                        "Quarantine",
-                        "JustSomeR4ndomWords"
-                };
-        activity.setTypes(types);
-        assertEquals(types, activity.getTypes());
+        boolean result = activity.
+                         getRegion().
+                         isEmpty();
 
-        types = new String[]{};
-        activity.setTypes(types);
-        assertEquals(types, activity.getTypes());
-
-        types = null;
-        activity.setTypes(types);
-        assertEquals(types, activity.getTypes());
-
+        assertEquals(true, result);
     }
 
     @Test
-    public void testHasGPSTrack(){
-        boolean hasGPSTrack = false;
-        activity.setHasGPSTrack(hasGPSTrack);
-        assertEquals(hasGPSTrack, activity.getHasGPSTrack());
+    public void regionIsNullTest(){
+        String region = null;
+        activity.setRegion(region);
 
-        hasGPSTrack = true;
+        assertEquals(null, activity.getRegion());
+    }
+
+    @Test
+    public void typesTest(){
+        String[] types ={
+            "Ciao",
+            "Mirror",
+            "Quarantine",
+            "JustSomeR4ndomWords"
+        };
+
+        activity.setTypes(types);
+
+        assertEquals(types, activity.getTypes());
+    }
+
+    @Test
+    public void typesIsEmptyTest(){
+        String[] types = new String[0];
+        activity.setTypes(types);
+
+        assertEquals(types, activity.getTypes());
+    }
+
+    @Test
+    public void typesIsNullTest(){
+        String[] types = null;
+        activity.setTypes(types);
+
+        assertEquals(types, activity.getTypes());
+    }
+
+    @Test
+    public void HasGPSTrackTest(){
         activity.setHasGPSTrack(true);
-        assertEquals(hasGPSTrack, activity.getHasGPSTrack());
+        assertEquals(true, activity.getHasGPSTrack());
+    }
+
+    public void HasNoGPSTrackTest(){
+        activity.setHasGPSTrack(false);
+        assertEquals(false, activity.getHasGPSTrack());
     }
 
     @Test
-    public void testRegionId(){
+    public void regionIdTest(){
         String regionId = "12234563789DF7";
         activity.setRegionId(regionId);
-        assertEquals(regionId,activity.getRegionId());
 
-        regionId = "";
+        assertEquals("12234563789DF7", activity.getRegionId());
+    }
+
+    @Test
+    public void regionIdIsEmptyTest(){
+        String regionId = "";
         activity.setRegionId(regionId);
-        assertEquals(regionId,activity.getRegionId());
 
-        regionId = null;
+        assertEquals("", activity.getRegionId());
+    }
+
+    @Test
+    public void regionIdIsNullTest(){
+        String regionId = null;
         activity.setRegionId(regionId);
-        assertEquals(regionId,activity.getRegionId());
 
-
+        assertEquals(null, activity.getRegionId());
     }
 }
