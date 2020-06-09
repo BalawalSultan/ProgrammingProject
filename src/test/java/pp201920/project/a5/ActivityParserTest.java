@@ -1,8 +1,12 @@
 package pp201920.project.a5;
 
+import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import java.util.Arrays;
+
 import org.junit.jupiter.api.Test;
 public class ActivityParserTest {
 
@@ -30,6 +34,10 @@ public class ActivityParserTest {
                         Name +
                 "}"+
         "}";
+    }
+
+    private String getODHTagsAsJson(String tags){
+        return "["+ tags +"]";
     }
 
     @Test
@@ -190,6 +198,36 @@ public class ActivityParserTest {
         boolean result = parser.checkIfActivityHasGpsTracking(Activity);
 
         assertEquals(true, result, "This activity should have gps tracking.");
+    }
+
+    @Test
+    public void getTypesTest(){
+        String tag = "{'Id': 'berg'}";
+        String json = getODHTagsAsJson(tag);
+
+        JsonArray ODHTags = new JsonParser().
+                                parse(json).
+                                getAsJsonArray();
+        
+        ActivityParser parser = new ActivityParser();
+        boolean result = Arrays.asList(parser.getTypes(ODHTags)).
+                        contains("berg");
+        
+        assertEquals(true, result, "The type berg should be in the Types array.");
+    }
+
+    @Test
+    public void getTypesArrayIsEmptyTest(){
+        String json = getODHTagsAsJson("");
+
+        JsonArray ODHTags = new JsonParser().
+                                parse(json).
+                                getAsJsonArray();
+        
+        ActivityParser parser = new ActivityParser();
+        int result = parser.getTypes(ODHTags).length;
+        
+        assertEquals(0, result, "The Types array should have length 0.");
     }
 
 }
