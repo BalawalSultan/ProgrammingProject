@@ -35,8 +35,8 @@ public class ActivityParser{
 
     public JsonArray getItems(String json){
         JsonObject jsonResponse = new JsonParser().
-                                parse(json).
-                                getAsJsonObject();
+                                      parse(json).
+                                      getAsJsonObject();
 
         return jsonResponse.get("Items").getAsJsonArray();
     }
@@ -127,7 +127,7 @@ public class ActivityParser{
 
         regionData[0] = RegionInfo.get("Id").getAsString();
         regionData[1] = RegionInfo.getAsJsonObject("Name").
-                                get(language).getAsString();
+                                   get(language).getAsString();
 
         return regionData;
     }
@@ -139,8 +139,8 @@ public class ActivityParser{
             return Description;
         }else{
             Description = Detail.get("BaseText").
-                        getAsString().
-                        replaceAll("<.*?>", "");
+                          getAsString().
+                          replaceAll("<.*?>", "");
         }
 
         return Description;
