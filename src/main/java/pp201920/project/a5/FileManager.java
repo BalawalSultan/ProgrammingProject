@@ -1,76 +1,16 @@
 package pp201920.project.a5;
 
 import java.io.*;
-import java.util.Set;
-
-import com.fasterxml.jackson.databind.*;
-
 import com.google.gson.*;
-import com.networknt.schema.*;
-import com.networknt.schema.SpecVersion.VersionFlag;
 
 public class FileManager {
-    private JsonSchema activitySchema, analysisSchema;
+    
+    JsonSchemaValidator validator;
     String pathToResources;
 
     public FileManager(String pathToResources){
         this.pathToResources = pathToResources;
-        ObjectMapper mapper = new ObjectMapper();
-        JsonNode activityNode = null, analysisNode = null;
-
-        try{
-            activityNode = mapper.readTree(readFile(pathToResources + "activity.schema.json"));
-            analysisNode = mapper.readTree(readFile(pathToResources + "analysis.schema.json"));
-
-        }catch(IOException e){
-            e.printStackTrace();
-        }
-
-        JsonSchemaFactory factory = JsonSchemaFactory.getInstance(VersionFlag.V7);
-
-        activitySchema = factory.getSchema(activityNode);
-        analysisSchema = factory.getSchema(analysisNode);
-    }
-
-    private boolean validateSchema(String json, int option){
-        Set<ValidationMessage> errors;
-        JsonNode node = null;
-
-        try{
-            node = (new ObjectMapper()).readTree(json);
-        }catch(IOException e){ e.printStackTrace(); }
-
-        if(option == 0)
-            errors = activitySchema.validate(node);
-        else
-            errors = analysisSchema.validate(node);
-
-        if(errors.size() == 0)
-            return true;
-
-        return false;
-    }
-
-    private String readFile(String path){
-        StringBuilder fileContent = new StringBuilder();
-        File file = new File(path);
-        
-        try(FileReader fileReader = new FileReader(file)){
-            BufferedReader reader = new BufferedReader(fileReader);
-            String line = reader.readLine();
-
-            while(line != null){
-                fileContent.append(line);
-                line = reader.readLine();
-            }
-
-            reader.close();
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        
-        return fileContent.toString();
+        this.validator = new JsonSchemaValidator(pathToResources);
     }
 
     public int getNumOfObjects(String fileName){
@@ -133,15 +73,18 @@ public class FileManager {
         //Replaces "&" with it's unicode so that in the json file you see & instead of \u0026
         json.replaceAll("&", "\\u0026");
 
-        if(validateSchema(json, schemaOption)){
+        if(validator.validateSchema(json, schemaOption)){
             try(FileWriter fileWriter = new FileWriter(path + fileName + ".json")){
-                BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);            
+
+                BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);  
                 bufferedWriter.write(json);
                 bufferedWriter.close();
+
             }catch(IOException e){
                 System.out.println("An error occurred while generating " + fileName + ".json.");
                 e.printStackTrace();
             }
+            
         }else{
             System.out.println(fileName + " does not respect the json schema.");
         }
