@@ -9,7 +9,8 @@ import java.net.URL;
 
 public class App{
     public static void main(String[] args)throws MalformedURLException{
-        final MyLogger logger = new MyLogger(LogManager.getLogger());
+        final Logger logging = LogManager.getLogger();
+        final MyLogger logger = new MyLogger(logging);
         logger.info("Started the App!");
         String pathToInputFile = "input.txt";
         FileManager fileManager = new FileManager("src/main/resources/");

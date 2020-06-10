@@ -86,33 +86,33 @@ public class Activity {
         if (obj == null)
             return false;
 
-        if ((obj instanceof Activity) == false)
+        if (!(obj instanceof Activity))
             return false;
 
         Activity activity = (Activity) obj;
 
-        if (id != activity.getId())
+        if (!id.equals(activity.getId()))
             return false;
 
-        if (name != activity.getName())
+        if (!name.equals(activity.getName()))
             return false;
 
-        if (description != activity.getDescription())
+        if (!description.equals(activity.getDescription()))
             return false;
 
         if (hasGPSTrack != activity.getHasGPSTrack())
             return false;
 
-        if (region != activity.getRegion())
+        if (!region.equals(activity.getRegion()))
             return false;
 
-        if (regionId != activity.getRegionId())
+        if (!regionId.equals(activity.getRegionId()))
             return false;
 
         String[] tempTypes = activity.getTypes();
         if(tempTypes.length == types.length){
             for(int i = 0; i < types.length; i++){
-                if(types[i] != tempTypes[i])
+                if(!types[i].equals(tempTypes[i]))
                     return false;
             }
         }else

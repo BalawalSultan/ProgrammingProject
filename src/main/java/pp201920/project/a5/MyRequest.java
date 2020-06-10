@@ -12,7 +12,8 @@ import java.net.URL;
 
 public class MyRequest{
 
-    static final Logger logger = LogManager.getLogger();
+    static final Logger logging = LogManager.getLogger();
+    static final MyLogger logger = new MyLogger(logging);
 
     public MyRequest(){
         super();
