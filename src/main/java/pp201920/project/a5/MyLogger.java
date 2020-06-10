@@ -3,15 +3,18 @@ package pp201920.project.a5;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
-import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 public class MyLogger {
-    static final Logger logger = LogManager.getLogger();
     static final Gson gson = new GsonBuilder().setPrettyPrinting().create();
+    Logger logger;
 
     public MyLogger(){
         super();
+    }
+    
+    public MyLogger(Logger logger){
+        this.logger = logger;
     }
 
     public void info(Object obj){
