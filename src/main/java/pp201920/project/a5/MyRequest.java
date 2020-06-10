@@ -1,5 +1,8 @@
 package pp201920.project.a5;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -8,6 +11,8 @@ import java.net.SocketTimeoutException;
 import java.net.URL;
 
 public class MyRequest{
+
+    static final Logger logger = LogManager.getLogger();
 
     public MyRequest(){
         super();
@@ -20,15 +25,15 @@ public class MyRequest{
             response = fetch(url);
 
         }catch(SocketTimeoutException e){
-            System.err.println("SocketTimeoutException!");
+            logger.error("SocketTimeoutException!");
             e.printStackTrace();
             
         }catch(NullPointerException e){
-            System.err.println("Empty Response!");
+            logger.error("Empty Response!");
             e.printStackTrace();
 
         }catch(IOException e){
-            System.err.println("IOException!");
+            logger.error("IOException!");
             e.printStackTrace();
         }
 

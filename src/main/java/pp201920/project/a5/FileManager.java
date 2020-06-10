@@ -1,12 +1,20 @@
 package pp201920.project.a5;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import java.io.*;
-import com.google.gson.*;
 
 public class FileManager {
     
     JsonSchemaValidator validator;
     String pathToResources;
+    Logger logger = LogManager.getLogger();
+
 
     public FileManager(String pathToResources){
         this.pathToResources = pathToResources;
@@ -19,25 +27,25 @@ public class FileManager {
             result = readNumOfObjects(pathToResources + fileName);
             
         } catch(NumberFormatException e){
-            System.err.println("Input.txt does not contain a parsable integer!");
+            logger.error("Input.txt does not contain a parsable integer!");
             e.printStackTrace();
 
         } catch(IllegalArgumentException e){
-            System.err.println("Input can't be empty or 0!");
+            logger.error("Input can't be empty or 0!");
             e.printStackTrace();
 
         } catch(FileNotFoundException e){
-            System.err.println("The file \"input.txt\" does not exist or is not in the resource folder");
+            logger.error("The file \"input.txt\" does not exist or is not in the resource folder");
             e.printStackTrace();
 
         }catch(IOException e) {
-            System.err.println("An error occurred while reading the file: input.txt");
+            logger.error("An error occurred while reading the file: input.txt");
             e.printStackTrace();
         }
         return result;
     }
 
-    public int readNumOfObjects(String path) throws NumberFormatException,IllegalArgumentException,FileNotFoundException,IOException {
+    public int readNumOfObjects(String path) throws IllegalArgumentException, IOException {
         int result = 0;
         File inputFile = null;
 
@@ -81,7 +89,7 @@ public class FileManager {
                 bufferedWriter.close();
 
             }catch(IOException e){
-                System.out.println("An error occurred while generating " + fileName + ".json.");
+                logger.error("An error occurred while generating " + fileName + ".json.");
                 e.printStackTrace();
             }
             

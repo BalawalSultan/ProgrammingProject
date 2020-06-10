@@ -12,10 +12,13 @@ import com.networknt.schema.JsonSchema;
 import com.networknt.schema.JsonSchemaFactory;
 import com.networknt.schema.SpecVersion.VersionFlag;
 import com.networknt.schema.ValidationMessage;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class JsonSchemaValidator {
 
-    private JsonSchema activitySchema, analysisSchema;
+    private final JsonSchema activitySchema,analysisSchema;
+    final Logger logger = LogManager.getLogger();
 
     public JsonSchemaValidator(String pathToResources){
         ObjectMapper mapper = new ObjectMapper();
@@ -26,7 +29,9 @@ public class JsonSchemaValidator {
             analysisNode = mapper.readTree(readFile(pathToResources + "analysis.schema.json"));
 
         }catch(IOException e){
+            logger.error("Something went wrong while reading the schema json");
             e.printStackTrace();
+
         }
 
         JsonSchemaFactory factory = JsonSchemaFactory.getInstance(VersionFlag.V7);
@@ -41,17 +46,18 @@ public class JsonSchemaValidator {
 
         try{
             node = (new ObjectMapper()).readTree(json);
-        }catch(IOException e){ e.printStackTrace(); }
+        }catch(IOException e){
+            logger.error("Failed to read "+json);
+            e.printStackTrace();
+        }
 
         if(option == 0)
             errors = activitySchema.validate(node);
         else
             errors = analysisSchema.validate(node);
 
-        if(errors.size() == 0)
-            return true;
 
-        return false;
+        return errors.size() == 0;
     }
 
     private String readFile(String path){
@@ -70,6 +76,7 @@ public class JsonSchemaValidator {
             reader.close();
 
         } catch (IOException e) {
+            logger.error("Failed to read "+path);
             e.printStackTrace();
         }
         

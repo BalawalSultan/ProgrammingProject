@@ -14,11 +14,11 @@ public class App{
         String pathToInputFile = "input.txt";
         FileManager fileManager = new FileManager("src/main/resources/");
         int numOfObjects = fileManager.getNumOfObjects(pathToInputFile);
-        logger.info("Retrieved the number of objects from the input file");
+        logger.info(numOfObjects+" will be retrieved from OpenDataHub");
 
         URL url = new URL("https://tourism.opendatahub.bz.it/api/Activity?pagenumber=1&pagesize=" + numOfObjects);
         String results = MyRequest.fetchAndHandle(url);
-        logger.info("Retrieved the activities from OpenDataHUB");
+        logger.info("Retrieved " + numOfObjects +" activities from OpenDataHUB");
 
         if(results != null){
             ArrayList<Activity> list = new ArrayList<>(numOfObjects);
@@ -35,7 +35,7 @@ public class App{
                 fileManager.generateJsonFile(activity, fileName, pathToResultsFolder, 0);
             }
 
-            logger.info("Converted successfully Activities from OpenDataHUB");
+            logger.info("Converted data successfully from OpenDataHUB json to Activity.json format");
 
             String analysisFileName = "analysis";
             fileManager.generateJsonFile(
@@ -44,7 +44,7 @@ public class App{
                 pathToResultsFolder,
                 1
             );
-            logger.info("Analysis Generated successfully");
+            logger.info("Analysis.json Generated successfully");
         }
         logger.info("End of Code");
     }  

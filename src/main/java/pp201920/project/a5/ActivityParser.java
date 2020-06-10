@@ -133,10 +133,10 @@ public class ActivityParser{
     }
 
     public String getDescription(JsonObject Detail){
-        String Description = null;
+        String Description;
 
         if(Detail.get("BaseText").isJsonNull()){
-            return Description;
+            return null;
         }else{
             Description = Detail.get("BaseText").
                           getAsString().
