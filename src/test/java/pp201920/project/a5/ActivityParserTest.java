@@ -3,11 +3,13 @@ package pp201920.project.a5;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.Arrays;
 
 import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.*;
+
 public class ActivityParserTest {
 
     private String getDescriptionAsJson(String baseText){
@@ -52,7 +54,7 @@ public class ActivityParserTest {
         String description = parser.getDescription(Detail);
         boolean result = description.equals("AAA");
 
-        assertEquals(true, result, "The description should be AAA.");
+        assertTrue(result, "The description should be AAA.");
     }
 
     @Test
@@ -67,7 +69,7 @@ public class ActivityParserTest {
         String description = parser.getDescription(Detail);
         boolean result = (description == null);
 
-        assertEquals(true, result, "The description should be null.");
+        assertTrue(result, "The description should be null.");
     }
 
     @Test
@@ -81,8 +83,8 @@ public class ActivityParserTest {
         ActivityParser parser = new ActivityParser();
         String description = parser.getDescription(Detail);
         boolean result = description.isEmpty();
-        
-        assertEquals(true, result, "The description should be empty.");
+
+        assertTrue(result, "The description should be empty.");
     }
 
     @Test
@@ -97,7 +99,7 @@ public class ActivityParserTest {
         String[] regionData = parser.getRegionData(LocationInfo, "it");
         boolean result = regionData[0].equals("123");
 
-        assertEquals(true, result, "The Id should be 123.");
+        assertTrue(result, "The Id should be 123.");
     }
 
     @Test
@@ -111,8 +113,8 @@ public class ActivityParserTest {
         ActivityParser parser = new ActivityParser();
         String[] regionData = parser.getRegionData(LocationInfo, "it");
         boolean result = regionData[1].equals("Trentino-Alto Adige");
-        
-        assertEquals(true, result, "The name should be Trentino-Alto Adige.");
+
+        assertTrue(result, "The name should be Trentino-Alto Adige.");
     }
 
     @Test
@@ -126,8 +128,8 @@ public class ActivityParserTest {
         ActivityParser parser = new ActivityParser();
         String[] regionData = parser.getRegionData(LocationInfo, "it");
         boolean result = (regionData[0] == null && regionData[1] == null);
-        
-        assertEquals(true, result, "regionData should only contain null values.");
+
+        assertTrue(result, "regionData should only contain null values.");
     }
 
     @Test
@@ -141,7 +143,7 @@ public class ActivityParserTest {
         ActivityParser parser = new ActivityParser();
         boolean result = parser.checkIfActivityHasGpsTracking(Activity);
 
-        assertEquals(true, result, "This activity should have gps tracking.");
+        assertTrue(result, "This activity should have gps tracking.");
     }
 
     @Test
@@ -155,7 +157,7 @@ public class ActivityParserTest {
         ActivityParser parser = new ActivityParser();
         boolean result = parser.checkIfActivityHasGpsTracking(Activity);
 
-        assertEquals(false, result, "This activity should not have gps tracking.");
+        assertFalse(result, "This activity should not have gps tracking.");
     }
 
     @Test
@@ -169,7 +171,7 @@ public class ActivityParserTest {
         ActivityParser parser = new ActivityParser();
         boolean result = parser.checkIfActivityHasGpsTracking(Activity);
 
-        assertEquals(true, result, "This activity should have gps tracking.");
+        assertTrue(result, "This activity should have gps tracking.");
     }
 
     @Test
@@ -183,7 +185,7 @@ public class ActivityParserTest {
         ActivityParser parser = new ActivityParser();
         boolean result = parser.checkIfActivityHasGpsTracking(Activity);
 
-        assertEquals(true, result, "This activity should have gps tracking.");
+        assertTrue(result, "This activity should have gps tracking.");
     }
 
     @Test
@@ -197,7 +199,7 @@ public class ActivityParserTest {
         ActivityParser parser = new ActivityParser();
         boolean result = parser.checkIfActivityHasGpsTracking(Activity);
 
-        assertEquals(true, result, "This activity should have gps tracking.");
+        assertTrue(result, "This activity should have gps tracking.");
     }
 
     @Test
@@ -212,8 +214,8 @@ public class ActivityParserTest {
         ActivityParser parser = new ActivityParser();
         boolean result = Arrays.asList(parser.getTypes(ODHTags)).
                         contains("berg");
-        
-        assertEquals(true, result, "The type berg should be in the Types array.");
+
+        assertTrue(result, "The type berg should be in the Types array.");
     }
 
     @Test

@@ -1,8 +1,8 @@
 package pp201920.project.a5;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
 import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 public class AnalysisTest{
     
@@ -15,7 +15,7 @@ public class AnalysisTest{
                          getTrackedActivityIds().
                          contains("123");
 
-        assertEquals(true, result, "The activity with Id = 123 should be among the tracked activities.");
+        assertTrue(result, "The activity with Id = 123 should be among the tracked activities.");
     }
 
     @Test
@@ -27,7 +27,7 @@ public class AnalysisTest{
                          getTrackedActivityIds().
                          contains("123");
 
-        assertEquals(false, result, "The activity with Id = 123 should not be among the tracked activities.");
+        assertFalse(result, "The activity with Id = 123 should not be among the tracked activities.");
     }
 
     @Test
@@ -44,7 +44,7 @@ public class AnalysisTest{
                          getActivitiesTypes().
                          containsKey("type_a");
 
-        assertEquals(true, result, "The HashMap<String, Integer> activityTypes should contain the type_a.");
+        assertTrue(result, "The HashMap<String, Integer> activityTypes should contain the type_a.");
     }
 
     @Test
@@ -73,7 +73,7 @@ public class AnalysisTest{
                          getRegionActivities().
                          containsKey("Region_1_ID");
 
-        assertEquals(true, result, "The HashMap<String, Integer> RegionActivities should contain the id of Region_1.");
+        assertTrue(result, "The HashMap<String, Integer> RegionActivities should contain the id of Region_1.");
     }
 
     @Test
@@ -113,7 +113,7 @@ public class AnalysisTest{
                          getRegionsWithLeastActivities().
                          contains("Region_3_ID");
 
-        assertEquals(true, result, "Region_3 should be in the array containing the regions with least activities.");
+        assertTrue(result, "Region_3 should be in the array containing the regions with least activities.");
     }
 
     @Test
@@ -129,7 +129,7 @@ public class AnalysisTest{
                          getRegionsWithMostActivities().
                          contains("Region_2_ID");
 
-        assertEquals(true, result, "Region_2 should be in the array containing the regions with most activities.");
+        assertTrue(result, "Region_2 should be in the array containing the regions with most activities.");
     }
 
 }
