@@ -13,7 +13,8 @@ public class FileManager {
     
     JsonSchemaValidator validator;
     String pathToResources;
-    Logger logger = LogManager.getLogger();
+    final Logger logging = LogManager.getLogger();
+    final MyLogger logger = new MyLogger(logging);
 
 
     public FileManager(String pathToResources){

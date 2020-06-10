@@ -18,7 +18,8 @@ import org.apache.logging.log4j.Logger;
 public class JsonSchemaValidator {
 
     private final JsonSchema activitySchema,analysisSchema;
-    final Logger logger = LogManager.getLogger();
+    final Logger logging = LogManager.getLogger();
+    final MyLogger logger = new MyLogger(logging);
 
     public JsonSchemaValidator(String pathToResources){
         ObjectMapper mapper = new ObjectMapper();
