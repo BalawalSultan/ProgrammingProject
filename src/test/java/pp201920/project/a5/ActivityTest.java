@@ -2,7 +2,7 @@ package pp201920.project.a5;
 
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class ActivityTest {
 
@@ -26,12 +26,12 @@ public class ActivityTest {
 
     @Test
     public void idIsNullTest(){
-        String id = null;
-        activity.setId(id);
+        activity.setId(null);
 
-        assertEquals(id, activity.getId());
+        assertNull(activity.getId());
     }
 
+    @Test
     public void nameTest(){
         String name = "Hello";
         activity.setName(name);
@@ -39,6 +39,7 @@ public class ActivityTest {
         assertEquals(name, activity.getName());
     }
 
+    @Test
     public void nameIsEmptyTest(){
         String name = "";
         activity.setName(name);
@@ -46,11 +47,11 @@ public class ActivityTest {
         assertEquals(name, activity.getName());
     }
 
+    @Test
     public void nameIsNullTest(){
-        String name = null;
-        activity.setName(name);
+        activity.setName(null);
 
-        assertEquals(name, activity.getName());
+        assertNull(activity.getName());
     }
 
     @Test
@@ -62,7 +63,7 @@ public class ActivityTest {
                          getDescription().
                          equals("Sky Is blue");
 
-        assertEquals(true, result);
+        assertTrue(result);
     }
 
     @Test
@@ -74,15 +75,14 @@ public class ActivityTest {
                          getDescription().
                          isEmpty();
 
-        assertEquals(true, result);
+        assertTrue(result);
     }
 
     @Test
     public void descriptionIsNull(){
-        String description = null;
-        activity.setDescription(description);
+        activity.setDescription(null);
 
-        assertEquals(null, activity.getDescription());
+        assertNull(activity.getDescription());
     }
 
     @Test
@@ -94,7 +94,7 @@ public class ActivityTest {
                          getRegion().
                          equals("Camembert");
 
-        assertEquals(true, result);
+        assertTrue(result);
     }
 
     @Test
@@ -106,15 +106,14 @@ public class ActivityTest {
                          getRegion().
                          isEmpty();
 
-        assertEquals(true, result);
+        assertTrue(result);
     }
 
     @Test
     public void regionIsNullTest(){
-        String region = null;
-        activity.setRegion(region);
+        activity.setRegion(null);
 
-        assertEquals(null, activity.getRegion());
+        assertNull(activity.getRegion());
     }
 
     @Test
@@ -141,21 +140,21 @@ public class ActivityTest {
 
     @Test
     public void typesIsNullTest(){
-        String[] types = null;
-        activity.setTypes(types);
+        activity.setTypes(null);
 
-        assertEquals(types, activity.getTypes());
+        assertNull(activity.getTypes());
     }
 
     @Test
     public void HasGPSTrackTest(){
         activity.setHasGPSTrack(true);
-        assertEquals(true, activity.getHasGPSTrack());
+        assertTrue(activity.getHasGPSTrack());
     }
 
+    @Test
     public void HasNoGPSTrackTest(){
         activity.setHasGPSTrack(false);
-        assertEquals(false, activity.getHasGPSTrack());
+        assertFalse(activity.getHasGPSTrack());
     }
 
     @Test
@@ -176,9 +175,8 @@ public class ActivityTest {
 
     @Test
     public void regionIdIsNullTest(){
-        String regionId = null;
-        activity.setRegionId(regionId);
+        activity.setRegionId(null);
 
-        assertEquals(null, activity.getRegionId());
+        assertNull(activity.getRegionId());
     }
 }
