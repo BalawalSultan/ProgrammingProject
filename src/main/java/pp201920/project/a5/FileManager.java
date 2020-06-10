@@ -37,12 +37,12 @@ public class FileManager {
         return result;
     }
 
-    public int readNumOfObjects(String fileName) throws NumberFormatException,IllegalArgumentException,FileNotFoundException,IOException {
+    public int readNumOfObjects(String path) throws NumberFormatException,IllegalArgumentException,FileNotFoundException,IOException {
         int result = 0;
         File inputFile = null;
 
         if(pathToResources != null)
-             inputFile = new File(pathToResources + fileName);
+             inputFile = new File(path);
 
         assert inputFile != null;
 
