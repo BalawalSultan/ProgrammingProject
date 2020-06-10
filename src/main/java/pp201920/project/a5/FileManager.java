@@ -24,7 +24,7 @@ public class FileManager {
     public int getNumOfObjects(String fileName){
         int result = 0;
         try {
-            result = readNumOfObjects(pathToResources + fileName);
+            result = readNumOfObjects(fileName);
             
         } catch(NumberFormatException e){
             logger.error("Input.txt does not contain a parsable integer!");
@@ -50,7 +50,7 @@ public class FileManager {
         File inputFile = null;
 
         if(pathToResources != null)
-             inputFile = new File(path);
+             inputFile = new File(pathToResources + path);
 
         assert inputFile != null;
 
