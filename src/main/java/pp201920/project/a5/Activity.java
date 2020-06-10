@@ -12,8 +12,10 @@ public class Activity {
         super();
     }
 
-    public Activity(String id, String name, String description, String region, String[] types, boolean hasGPSTrack,
-            String regionId) {
+    public Activity(
+        String id, String name, String description, String region,
+        String[] types, boolean hasGPSTrack, String regionId){
+
         this.id = id;
         this.name = name;
         this.description = description;
