@@ -29,19 +29,19 @@ public class FileManager {
             
         } catch(NumberFormatException e){
             logger.error("Input.txt does not contain a parsable integer!");
-            e.printStackTrace();
+            logger.error(e);
 
         } catch(IllegalArgumentException e){
             logger.error("Input can't be empty or 0!");
-            e.printStackTrace();
+            logger.error(e);
 
         } catch(FileNotFoundException e){
             logger.error("The file \"input.txt\" does not exist or is not in the resource folder");
-            e.printStackTrace();
+            logger.error(e);
 
         }catch(IOException e) {
             logger.error("An error occurred while reading the file: input.txt");
-            e.printStackTrace();
+            logger.error(e);
         }
         return result;
     }
@@ -91,7 +91,7 @@ public class FileManager {
 
             }catch(IOException e){
                 logger.error("An error occurred while generating " + fileName + ".json.");
-                e.printStackTrace();
+                logger.error(e);
             }
             
         }else{

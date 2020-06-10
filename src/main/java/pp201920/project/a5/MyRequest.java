@@ -27,15 +27,15 @@ public class MyRequest{
 
         }catch(SocketTimeoutException e){
             logger.error("SocketTimeoutException!");
-            e.printStackTrace();
+            logger.error(e);
             
         }catch(NullPointerException e){
             logger.error("Empty Response!");
-            e.printStackTrace();
+            logger.error(e);
 
         }catch(IOException e){
             logger.error("IOException!");
-            e.printStackTrace();
+            logger.error(e);
         }
 
         return response;

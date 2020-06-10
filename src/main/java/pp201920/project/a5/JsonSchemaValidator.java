@@ -48,8 +48,8 @@ public class JsonSchemaValidator {
         try{
             node = (new ObjectMapper()).readTree(json);
         }catch(IOException e){
-            logger.error("Failed to read "+json);
-            e.printStackTrace();
+            logger.error("Failed to read " + json);
+            logger.error(e);
         }
 
         if(option == 0)
@@ -77,8 +77,8 @@ public class JsonSchemaValidator {
             reader.close();
 
         } catch (IOException e) {
-            logger.error("Failed to read "+path);
-            e.printStackTrace();
+            logger.error("Failed to read " + path);
+            logger.error(e);
         }
         
         return fileContent.toString();
