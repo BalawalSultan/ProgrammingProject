@@ -36,4 +36,9 @@ public class MyLogger {
         String message = gson.toJson(obj);
         logger.debug(message);
     }
+
+    public void trace(Object obj) {
+        String message = gson.toJson(obj);
+        logger.trace(message);
+    }
 }
