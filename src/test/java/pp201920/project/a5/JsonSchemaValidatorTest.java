@@ -37,7 +37,7 @@ public class JsonSchemaValidatorTest {
     public void iDTest(){
       String jsonActivity = getActivityAsJson(
         "\"A2A2A2A2A2A2A2A2A2A2A2A2A2A2A2A2\"", 
-        "\"aaaaaa\"", "\"description\"", "[\"ss\"]", "\"Random region\""
+        "\"aaaaaa\"", "\"description\"", "[\"ss\"]", "\"Trentino-Alto Adige\""
       );
 
       boolean result = validator.validateSchema(jsonActivity, 0);
@@ -48,7 +48,7 @@ public class JsonSchemaValidatorTest {
     public void iDLengthTest(){
       String jsonActivity = getActivityAsJson(
         "\"A2A2A2A2A2A2A2A2A2A2A2A2A2A2A2A2A2\"", 
-        "\"aaaaaa\"", "\"description\"", "[\"ss\"]", "\"Random region\""
+        "\"aaaaaa\"", "\"description\"", "[\"ss\"]", "\"Trentino-Alto Adige\""
       );
 
       boolean result = validator.validateSchema(jsonActivity, 0);
@@ -59,7 +59,7 @@ public class JsonSchemaValidatorTest {
     public void iDNumberTest(){
       String jsonActivity = getActivityAsJson(
         "\"11111111111111111111111111111111\"", 
-        "\"aaaaaa\"", "\"description\"", "[\"ss\"]", "\"Random region\""
+        "\"aaaaaa\"", "\"description\"", "[\"ss\"]", "\"Trentino-Alto Adige\""
       );
 
       boolean result = validator.validateSchema(jsonActivity, 0);
@@ -70,7 +70,7 @@ public class JsonSchemaValidatorTest {
     public void iDCharacterTest(){
       String jsonActivity = getActivityAsJson(
         "\"AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\"", 
-        "\"Name\"", "\"description\"", "[\"ss\"]", "\"Random region\""
+        "\"Name\"", "\"description\"", "[\"ss\"]", "\"Trentino-Alto Adige\""
       );
 
       boolean result = validator.validateSchema(jsonActivity, 0);
@@ -81,7 +81,7 @@ public class JsonSchemaValidatorTest {
     public void iDSpecialCharTest(){
       String jsonActivity = getActivityAsJson(
         "\"A2@2!£A2A2A2A%A&A$A2?2^2*0-A2/2A\"", 
-        "\"Name\"", "\"description\"", "[\"ss\"]", "\"Random region\""
+        "\"Name\"", "\"description\"", "[\"ss\"]", "\"Trentino-Alto Adige\""
       );
       
       boolean result = validator.validateSchema(jsonActivity, 0);
@@ -91,7 +91,7 @@ public class JsonSchemaValidatorTest {
     @Test
     public void iDNullTest(){
       String jsonActivity = getActivityAsJson(
-        "null", "\"Name\"", "\"description\"", "[\"ss\"]", "\"Random region\""
+        "null", "\"Name\"", "\"description\"", "[\"ss\"]", "\"Trentino-Alto Adige\""
       );
       
       boolean result = validator.validateSchema(jsonActivity, 0);
@@ -102,7 +102,7 @@ public class JsonSchemaValidatorTest {
     public void nameNullTest(){
       String jsonActivity = getActivityAsJson(
         "\"A2A2A2A2A2A2A2A2A2A2A2A2A2A2A2A2A\"",
-        "null", "\"description\"", "[\"ss\"]", "\"Random region\""
+        "null", "\"description\"", "[\"ss\"]", "\"Trentino-Alto Adige\""
       );
       
       boolean result = validator.validateSchema(jsonActivity, 0);
@@ -113,7 +113,7 @@ public class JsonSchemaValidatorTest {
     public void nameTest(){
       String jsonActivity = getActivityAsJson(
         "\"A2A2A2A2A2A2A2A2A2A2A2A2A2A2A2A2\"",
-        "\"4-wins-13\"", "\"description\"", "[\"ss\"]", "\"Random region\""
+        "\"4-wins-13\"", "\"description\"", "[\"ss\"]", "\"Trentino-Alto Adige\""
       );
       
       boolean result = validator.validateSchema(jsonActivity, 0);
@@ -124,7 +124,7 @@ public class JsonSchemaValidatorTest {
     public void descriptionTest(){
       String jsonActivity = getActivityAsJson(
         "\"A2A2A2A2A2A2A2A2A2A2A2A2A2A2A2A2\"",
-        "\"4-wins-13\"", "\"description\"", "[\"ss\"]", "\"Random region\""
+        "\"4-wins-13\"", "\"description\"", "[\"ss\"]", "\"Trentino-Alto Adige\""
       );
       
       boolean result = validator.validateSchema(jsonActivity, 0);
@@ -135,11 +135,44 @@ public class JsonSchemaValidatorTest {
     public void descriptionNullTest(){
       String jsonActivity = getActivityAsJson(
         "\"A2A2A2A2A2A2A2A2A2A2A2A2A2A2A2A2\"",
-        "\"4-wins-13\"", "null", "[\"ss\"]", "\"Random region\""
+        "\"4-wins-13\"", "null", "[\"ss\"]", "\"Trentino-Alto Adige\""
       );
       
       boolean result = validator.validateSchema(jsonActivity, 0);
       assertEquals(true, result, "The description can be null.");
+    }
+
+    @Test
+    public void typesTest(){
+      String jsonActivity = getActivityAsJson(
+        "\"A2A2A2A2A2A2A2A2A2A2A2A2A2A2A2A2\"",
+        "\"4-wins-13\"", "null", "[\"ss\"]", "\"Trentino-Alto Adige\""
+      );
+      
+      boolean result = validator.validateSchema(jsonActivity, 0);
+      assertEquals(true, result, "Types is an array of strings.");
+    }
+
+    @Test
+    public void regionTest(){
+      String jsonActivity = getActivityAsJson(
+        "\"A2A2A2A2A2A2A2A2A2A2A2A2A2A2A2A2\"",
+        "\"4-wins-13\"", "null", "[\"ss\"]", "\"Trentino-Alto Adige\""
+      );
+      
+      boolean result = validator.validateSchema(jsonActivity, 0);
+      assertEquals(true, result, "Trentino-Alto Adige is a valid region name.");
+    }
+
+    @Test
+    public void regionNullTest(){
+      String jsonActivity = getActivityAsJson(
+        "\"A2A2A2A2A2A2A2A2A2A2A2A2A2A2A2A2\"",
+        "\"4-wins-13\"", "null", "[\"ss\"]", "null"
+      );
+      
+      boolean result = validator.validateSchema(jsonActivity, 0);
+      assertEquals(true, result, "The region name can be null.");
     }
 
 }
