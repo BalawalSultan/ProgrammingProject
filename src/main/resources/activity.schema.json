@@ -19,7 +19,7 @@
         "078883A95FF002AA246B5B99DA5BB9D7",
         "01CFEFF8DA586E548327E539276C42F3"
       ],
-      "pattern": "([A-Z]|[0-9])",
+      "pattern": "(([0-9]|[A-Z])+([A-Z][0-9]))+",
       "minLength": 32,
       "maxLength": 32
     },
