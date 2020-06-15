@@ -1,13 +1,19 @@
 package pp201920.project.a5;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class ActivityParser{
+
+    final Logger logging = LogManager.getLogger();
+    final MyLogger logger = new MyLogger(logging);
     
     ArrayList<Activity> list;
     JsonArray Items;
@@ -67,6 +73,8 @@ public class ActivityParser{
         boolean hasGPSTrack = checkIfActivityHasGpsTracking(Activity);
         String[] Types = getTypes(ODHTags);
 
+        logger.debug("Stored json object in Activity_"+Id);
+
         return new Activity(Id, Name, Description, RegionName, Types, hasGPSTrack, RegionId);
     }
 
@@ -79,17 +87,22 @@ public class ActivityParser{
             if(element.isJsonObject()){
                 JsonObject object = element.getAsJsonObject();
 
-                if(object.toString().length() > 2)
+                if(object.toString().length() > 2){
+                    logger.trace("GPSData found");
                     return true;
+                }
                     
             }else if(element.isJsonArray()){
                 JsonArray array = element.getAsJsonArray();
-                if(array.size() > 0)
+                if(array.size() > 0) {
+                    logger.trace("GPSData found");
                     return true;
+                }
             } 
         }
-
+        logger.trace("No GPSData found");
         return false;
+
     }
 
     public String getLanguage(JsonObject Detail){
@@ -100,7 +113,7 @@ public class ActivityParser{
         
         if(Detail.getAsJsonObject(language) == null)
             language = "de";
-
+        logger.trace("Language selected: "+language);
         return language;
     }
     
@@ -109,7 +122,8 @@ public class ActivityParser{
 
         for(int i = 0; i < ODHTags.size(); i++)
             Types[i] = ODHTags.get(i).getAsJsonObject().get("Id").getAsString();
-        
+
+        logger.trace("Found the following types: "+ Arrays.toString(Types));
         return Types;
     }
 
@@ -128,7 +142,7 @@ public class ActivityParser{
         regionData[0] = RegionInfo.get("Id").getAsString();
         regionData[1] = RegionInfo.getAsJsonObject("Name").
                                    get(language).getAsString();
-
+        logger.trace(regionData);
         return regionData;
     }
 
@@ -136,13 +150,14 @@ public class ActivityParser{
         String Description;
 
         if(Detail.get("BaseText").isJsonNull()){
+            logger.trace("Description is empty");
             return null;
         }else{
             Description = Detail.get("BaseText").
                           getAsString().
                           replaceAll("<.*?>", "");
         }
-
+        logger.trace("Description found");
         return Description;
     }
     
