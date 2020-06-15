@@ -69,10 +69,7 @@
     "hasGPSTrack": {
       "name": "GPSTrack",
       "description": "boolean variable stating wheter an activity has some GPSTracks or not",
-      "type": [
-        "boolean",
-        "null"
-      ],
+      "type": "boolean",
       "examples": [
         true,
         false
