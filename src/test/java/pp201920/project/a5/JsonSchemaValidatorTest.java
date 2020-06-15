@@ -26,7 +26,7 @@ public class JsonSchemaValidatorTest {
           "\"numberOfActivities\": " + numberOfActivities +"," +
           "\"regionIds\": [ "+ regionIds +"]" +
         "}," +
-        "\"regionsWithMostActivities\": {" +
+        "\"regionsWithLeastActivities\": {" +
           "\"numberOfActivities\": " + numberOfActivities +"," +
           "\"regionIds\": [ "+ regionIds +"]" +
         "}" +
@@ -175,4 +175,70 @@ public class JsonSchemaValidatorTest {
       assertEquals(true, result, "The region name can be null.");
     }
 
+    @Test
+    public void emptyAnalysisTest(){
+      String jsonAnalysis = getAnalysisAsJson(" ", " ", "0", " ");
+
+      boolean result = validator.validateSchema(jsonAnalysis, 1);
+      assertEquals(true, result, "An empty analysis.json should be valid.");
+    }
+
+    @Test
+    public void analysisTest(){
+      String jsonAnalysis = getAnalysisAsJson(
+        "\"type_1\":1,\"type_2\":2",
+        "\"Id_1\",\"Id_2\"", "2", 
+        "\"region_Id_1\",\"region_Id_2\""
+      );
+
+      boolean result = validator.validateSchema(jsonAnalysis, 1);
+      assertEquals(true, result, "This analysis.json should be valid.");
+    }
+
+    @Test
+    public void activitiesTypesEmptyTest(){
+      String jsonAnalysis = getAnalysisAsJson(
+        "",
+        "\"Id_1\",\"Id_2\"", "2", 
+        "\"region_Id_1\",\"region_Id_2\""
+      );
+
+      boolean result = validator.validateSchema(jsonAnalysis, 1);
+      assertEquals(true, result, "This activitiesTypes object can be empty.");
+    }
+
+    @Test
+    public void trackedActivitiesTest(){
+      String jsonAnalysis = getAnalysisAsJson(
+        "\"type_1\":1,\"type_2\":2",
+        "\"Id_1\",\"Id_2\"",
+        "2", "\"region_Id_1\",\"region_Id_2\""
+      );
+
+      boolean result = validator.validateSchema(jsonAnalysis, 1);
+      assertEquals(true, result, "This trackedActivities should be valid.");
+    }
+
+    @Test
+    public void trackedActivitiesEmptyTest(){
+      String jsonAnalysis = getAnalysisAsJson(
+        "\"type_1\":1,\"type_2\":2",
+        "", "2", "\"region_Id_1\",\"region_Id_2\""
+      );
+
+      boolean result = validator.validateSchema(jsonAnalysis, 1);
+      assertEquals(true, result, "This trackedActivities can be empty.");
+    }
+
+    @Test
+    public void regionWith__ActivitiesTest(){
+      String jsonAnalysis = getAnalysisAsJson(
+        "\"type_1\":1,\"type_2\":2",
+        "\"Id_1\",\"Id_2\"", "2", 
+        "\"region_Id_1\",\"region_Id_2\""
+      );
+
+      boolean result = validator.validateSchema(jsonAnalysis, 1);
+      assertEquals(true, result, "This regionsWithLeastActivities and regionsWithMostActivities should be valid.");
+    }
 }
