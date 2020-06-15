@@ -57,6 +57,8 @@ public class JsonSchemaValidator {
         else
             errors = analysisSchema.validate(node);
 
+        if(errors.size() != 0)
+            logger.error(errors);
 
         return errors.size() == 0;
     }
