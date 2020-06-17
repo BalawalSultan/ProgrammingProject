@@ -32,6 +32,7 @@ public class FileManager {
      * Takes as input parameter the path to the resource folder
      * and initializes the validator, which is an object of the {@link JsonSchemaValidator} class,
      * passing the pathToResources variable to it's constructor.
+     * 
      * @param pathToResources
      */
     public FileManager(String pathToResources){
@@ -39,6 +40,14 @@ public class FileManager {
         this.validator = new JsonSchemaValidator(pathToResources);
     }
 
+    /**
+     * The getNumOfObjects calls the {@link readNumOfObjects(string) readNumOfObjects} method
+     * inside a try and catch in order to catch it's exception
+     * and returns the number of objects to be retrived.
+     * 
+     * @param fileName the name of the file containing the number of objects to be retrived
+     * @return the number of objects to be retrived
+     */
     public int getNumOfObjects(String fileName){
         int result = 0;
         try {
