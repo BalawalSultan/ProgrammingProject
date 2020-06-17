@@ -135,7 +135,13 @@ public class Activity {
     public String[] getTypes() {
         return types;
     }
+/**
+ * The method sets the types of Activity as String array
+ * 
+ * @param types     the array of the ctivity types
 
+
+*/
     public void setTypes(String[] types) {
         this.types = types;
     }
