@@ -76,6 +76,15 @@ public class Activity {
         return name;
     }
 
+   /**
+     * 
+     * the method sets the name of the Activity
+     * 
+     * @param name    the name to set
+     * @return name
+     * 
+     */
+     
     public void setName(String name) {
         this.name = name;
     }
