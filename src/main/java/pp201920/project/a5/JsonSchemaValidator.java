@@ -15,6 +15,17 @@ import com.networknt.schema.ValidationMessage;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+/**
+ * The class validates and checks the JSON files of the program 
+ * 
+ * @author S. Balawal
+ * @author A. Nicoletti
+ * @author R. Zorzi
+ * 
+ * @version 1.0
+ * 
+ */ 
+
 public class JsonSchemaValidator {
 
     private final JsonSchema activitySchema,analysisSchema;
