@@ -167,6 +167,11 @@ public class Activity {
         this.hasGPSTrack = hasGPSTrack;
     }
 
+/**
+ * The method gets as String the region Id
+ * 
+ * @return regionId 
+ */
     public String getRegionId() {
         return regionId;
     }
