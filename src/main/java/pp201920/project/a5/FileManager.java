@@ -9,14 +9,31 @@ import org.apache.logging.log4j.Logger;
 
 import java.io.*;
 
+/**
+*
+* The FileManager class contains the methods necessary to 
+* generate the activity_XXX.json and analysis.json output files.
+*
+* @author  S. Balawal
+* @author  A. Nicoletti
+* @author R.Zorzi
+*
+*/
+
 public class FileManager {
     
-    JsonSchemaValidator validator;
-    String pathToResources;
     final Logger logging = LogManager.getLogger();
     final MyLogger logger = new MyLogger(logging);
+    JsonSchemaValidator validator;
+    String pathToResources;
 
-
+    /**
+     * Constructor for FileManager
+     * Takes as input parameter the path to the resource folder
+     * and initializes the validator, which is an object of the {@link JsonSchemaValidator} class,
+     * passing the pathToResources variable to it's constructor.
+     * @param pathToResources
+     */
     public FileManager(String pathToResources){
         this.pathToResources = pathToResources;
         this.validator = new JsonSchemaValidator(pathToResources);
@@ -46,12 +63,12 @@ public class FileManager {
         return result;
     }
 
-    public int readNumOfObjects(String path) throws IllegalArgumentException, IOException {
+    public int readNumOfObjects(String fileName) throws IllegalArgumentException, IOException {
         int result = 0;
         File inputFile = null;
 
         if(pathToResources != null)
-             inputFile = new File(pathToResources + path);
+             inputFile = new File(pathToResources + fileName);
 
         assert inputFile != null;
 
@@ -82,6 +99,7 @@ public class FileManager {
         //Replaces "&" with it's unicode so that in the json file you see & instead of \u0026
         json.replaceAll("&", "\\u0026");
 
+        //checks if the json respects it's json schema
         if(validator.validateSchema(json, schemaOption)){
             try(FileWriter fileWriter = new FileWriter(path + fileName + ".json")){
 
