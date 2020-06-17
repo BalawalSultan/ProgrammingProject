@@ -175,7 +175,12 @@ public class Activity {
     public String getRegionId() {
         return regionId;
     }
-
+/**
+ * The method sets the regionId String for the Activity
+ * 
+ * @param regionId  the regionId parameter to set in the Activity
+ * 
+ */
     public void setRegionId(String regionId) {
         this.regionId = regionId;
     }
