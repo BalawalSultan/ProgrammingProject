@@ -109,7 +109,11 @@ public class Activity {
     public void setDescription(String description) {
         this.description = description;
     }
-
+    /**
+    * The method returns the region of the Activity
+    * @return region
+    
+    */
     public String getRegion() {
         return region;
     }
