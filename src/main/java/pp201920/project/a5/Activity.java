@@ -1,14 +1,17 @@
 package pp201920.project.a5;
 
 /**
- * The activity class containing all the methods for reading and writing content
- * for the various classes
+ * The activity class defines the Activity Object type and parameters via 
+ * getters and setters
  * 
-@author  S. Balawal
-@author  A. Nicoletti
-@author R.Zorzi
+ * 
+ * 
+ * @author  S. Balawal
+ * @author  A. Nicoletti
+ * @author R.Zorzi
 
-@version 1.0  
+ * @version 1.0  
+
 
 */
 
