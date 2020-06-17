@@ -78,7 +78,7 @@ public class Activity {
 
    /**
      * 
-     * the method sets the name of the Activity
+     * the method sets the name of the Activity as String 
      * 
      * @param name    the name to set
      * @return name
@@ -89,6 +89,11 @@ public class Activity {
         this.name = name;
     }
 
+    /**
+    * The method returns the Description of the Activity as String 
+    * @return description
+    
+    */
     public String getDescription() {
         return description;
     }
