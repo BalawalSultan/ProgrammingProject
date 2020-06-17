@@ -67,6 +67,11 @@ public class Activity {
         this.id = id;
     }
 
+    /**
+     * The method returns the name as String 
+    * @return name
+    */
+    
     public String getName() {
         return name;
     }
