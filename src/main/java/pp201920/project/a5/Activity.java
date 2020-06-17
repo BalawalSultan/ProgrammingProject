@@ -48,10 +48,21 @@ public class Activity {
     * @return id
     */
     
+   
+    
     public String getId() {
         return id;
     }
 
+    /**
+     * 
+     * the method sets the id of the Activity
+     * 
+     * @param Id    the id to set
+     * @return id
+     * 
+     */
+     
     public void setId(String id) {
         this.id = id;
     }
