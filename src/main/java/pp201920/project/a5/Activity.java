@@ -117,7 +117,12 @@ public class Activity {
     public String getRegion() {
         return region;
     }
-
+    /**
+     * The method sets the region of the Activity
+     * 
+     * @param region     the region of the Activity
+    */
+    
     public void setRegion(String region) {
         this.region = region;
     }
