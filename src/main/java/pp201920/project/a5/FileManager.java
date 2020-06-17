@@ -111,7 +111,8 @@ public class FileManager {
     /**
      * The generateJsonFile method generates a json file of 
      * {@link Object} that is passed to it as parameter using the 
-     * toJson(object) method of the {@link Gson} class.
+     * toJson(object) method of the 
+     * <a href="https://javadoc.io/doc/com.google.code.gson/gson/latest/com.google.gson/com/google/gson/Gson.html">Gson</a> class.
      * This method also checks if the specified path is a directory, 
      * and in case it's not a directory the directory gets created.
      * 
@@ -151,17 +152,20 @@ public class FileManager {
     }
 
     /**
-     * The getAnalysisAsJsonObject generates a {@link JsonObject} to be used 
+     * The getAnalysisAsJsonObject generates a 
+     * <a href="https://www.javadoc.io/doc/com.google.code.gson/gson/2.6.2/com/google/gson/JsonObject.html">JsonObject</a> to be used 
      * when creating the analysis.json file which will get it's content from
      * the analyst which is an object of the {@link Analysis} class. 
-     * The toJson(object) method of the {@link Gson} class is used to get the properties
+     * The toJson(object) method of the 
+     * <a href="https://javadoc.io/doc/com.google.code.gson/gson/latest/com.google.gson/com/google/gson/Gson.html">Gson</a>
+     *  class is used to get the properties
      * of the {@link Analysis} class as json where needed.
      * The variables containg the properties of the {@link Analysis} class as json
      * will be added as values of the properties of analysis.java output file.
      * 
      * 
      * @param analyst contains the results of the analysis performed on the various activities
-     * @return returns a JsonObject containing the content of the analysis.json outputfile
+     * @return returns a <a href="https://www.javadoc.io/doc/com.google.code.gson/gson/2.6.2/com/google/gson/JsonObject.html">JsonObject</a> containing the content of the analysis.json outputfile
      */
     public JsonObject getAnalysisAsJsonObject(Analysis analyst){
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
