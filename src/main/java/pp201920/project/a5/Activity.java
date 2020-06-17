@@ -3,15 +3,12 @@ package pp201920.project.a5;
 /**
  * The activity class defines the Activity Object type and parameters via 
  * getters and setters
- * 
- * 
- * 
- * @author  S. Balawal
- * @author  A. Nicoletti
- * @author R.Zorzi
+ *
+ * @author Sultan Balawal
+ * @author Alberto Nicoletti
+ * @author René Zorzi
 
  * @version 1.0  
-
 
 */
 
@@ -58,7 +55,7 @@ public class Activity {
      * 
      * the method sets the id of the Activity
      * 
-     * @param Id    the id to set
+     * @param id    the id to set
      * 
      */
      

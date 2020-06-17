@@ -96,9 +96,9 @@ public class Analysis{
 
     /**
      * Searches among the whole regionActivities map to gather
-     * the entry which has the highest integer value.
+     * the highest integer value.
      *
-     * @return the Id of the region with most activities.
+     * @return the highest number of times a region was counted.
      */
 
     public int getMostActivities(){
@@ -106,15 +106,22 @@ public class Analysis{
     }
 
     /**
-     * Searches among the whole regionActivities map.
+     * Searches among the whole regionActivities map to gather
+     * the lowest integer value.
      * 
-     * @return the Id of the region with least activities.
+     * @return the lowest number of times a region was counted.
      */
 
     public int getLeastActivities(){
         return Collections.min(regionActivities.values());
     }
 
+    /**
+     * Searches through all entries of the regionActivities map
+     * to find which entry has the highest integer value.
+     *
+     * @return an ArrayList of strings containing the Ids of the regions with highest integer value.
+     */
 
 
     public ArrayList<String> getRegionsWithMostActivities(){
@@ -128,6 +135,13 @@ public class Analysis{
 
         return regions;
     }
+
+    /**
+     * Searches through all entries of the regionActivities map
+     * to find which entry has the lowest integer value.
+     *
+     * @return an ArrayList of strings containing the Ids of the regions with lowest integer value.
+     */
 
     public ArrayList<String> getRegionsWithLeastActivities(){
         ArrayList<String> regions = new ArrayList<>();
@@ -163,6 +177,7 @@ public class Analysis{
 
     /**
      * A simple getter.
+     *
      * @return the map of the region Ids and how many time an Activity was to be held in there.
      */
 
