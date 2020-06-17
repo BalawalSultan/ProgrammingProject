@@ -1,6 +1,19 @@
 package pp201920.project.a5;
 
+/**
+ * The activity class containing all the methods for reading and writing content
+ * for the various classes
+ * 
+@author  S. Balawal
+@author  A. Nicoletti
+@author R.Zorzi
+
+@version 1.0  
+
+*/
+
 public class Activity {
+
 
     String id, name, description;
     String[] types;
