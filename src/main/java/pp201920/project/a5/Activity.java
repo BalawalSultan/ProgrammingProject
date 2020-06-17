@@ -157,6 +157,12 @@ public class Activity {
         return hasGPSTrack;
     }
 
+/**
+ * The methods sets the gps track boolean variable to the Activity
+ * 
+* @param hasGPSTrack     the parameter to determine whether an Activity has gps track
+
+*/
     public void setHasGPSTrack(boolean hasGPSTrack) {
         this.hasGPSTrack = hasGPSTrack;
     }
