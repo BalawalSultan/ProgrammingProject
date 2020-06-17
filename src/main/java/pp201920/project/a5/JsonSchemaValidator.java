@@ -71,6 +71,14 @@ public class JsonSchemaValidator {
         return errors.size() == 0;
     }
 
+/**
+ * The method return the string for the file that have been read by the Program 
+ * 
+ * 
+ * @param path   the path parameter to read the files
+ * 
+ * @return String the method returns the file text to be read by the program 
+ */ 
     private String readFile(String path){
         StringBuilder fileContent = new StringBuilder();
         File file = new File(path);
