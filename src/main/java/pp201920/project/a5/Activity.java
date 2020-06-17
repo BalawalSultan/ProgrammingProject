@@ -185,6 +185,12 @@ public class Activity {
         this.regionId = regionId;
     }
 
+/**
+ * The method checks whether two Activity elements are equal and returns the respective boolean condition
+ * 
+ * @param obj   the parameter as Object which will be cast as Activity type
+ * @return boolean  returns true if it matches for all elements, otherwise returns false
+ */
     @Override
     public boolean equals(Object obj) {
         if (obj == null)
