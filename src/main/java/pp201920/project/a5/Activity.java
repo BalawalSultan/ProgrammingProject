@@ -41,6 +41,13 @@ public class Activity {
         this.regionId = regionId;
     }
 
+
+
+    /**
+     * The method returns the Id as String 
+    * @return id
+    */
+    
     public String getId() {
         return id;
     }
