@@ -112,6 +112,9 @@ public class FileManager {
      * The generateJsonFile method generates a json file of 
      * {@link Object} that is passed to it as parameter using the 
      * toJson(object) method of the {@link Gson} class.
+     * This method also checks if the specified path is a directory, 
+     * and in case it's not a directory the directory gets created.
+     * 
      * 
      * @param object is the object to be serialized in a json file
      * @param fileName is the name of the generated json file
