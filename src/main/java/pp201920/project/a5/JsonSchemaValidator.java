@@ -40,7 +40,15 @@ public class JsonSchemaValidator {
         activitySchema = factory.getSchema(activityNode);
         analysisSchema = factory.getSchema(analysisNode);
     }
-
+/**
+ * 
+ * The Method validates the schema by checking every single node in the Json schema 
+ * 
+ * @param json  the Json String parameter
+ * @param option the option node to validate in the Schema
+ * 
+ * @return boolean 
+ */ 
     public boolean validateSchema(String json, int option){
         Set<ValidationMessage> errors;
         JsonNode node = null;
