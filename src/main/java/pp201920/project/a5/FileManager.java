@@ -72,6 +72,17 @@ public class FileManager {
         return result;
     }
 
+    /**
+     * The readNumOfObjects method reads the number of objects to be retrived.
+     * For testing purposes this method throws exceptions without trying to 
+     * catch them, this way when we test this method we can see if the method
+     * throws exception when it should.
+     * 
+     * @param path 
+     * @return the number of object to be retrived
+     * @throws IllegalArgumentException
+     * @throws IOException
+     */
     public int readNumOfObjects(String fileName) throws IllegalArgumentException, IOException {
         int result = 0;
         File inputFile = null;
