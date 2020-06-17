@@ -4,6 +4,17 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 
+/**
+ * This class is designed to create an analysis object
+ * which is updated with each activity object.
+ *
+ * @author Sultan Balawal
+ * @author Alberto Nicoletti
+ * @author René Zorzi
+ *
+ * @version 1.0
+ */
+
 public class Analysis{
     HashMap<String, Integer> regionActivities, activityTypes;
     ArrayList<String> trackedActivityIds;
@@ -13,6 +24,14 @@ public class Analysis{
         activityTypes = new HashMap<>();
         trackedActivityIds = new ArrayList<>();
     }
+
+    /**
+     * This method accepts an activity as parameter and updates the results
+     * stored in the analysis with the values retrieved from the activity object,
+     * if needed.
+     *
+     * @param activity
+     */
 
     public void performAnalysis(Activity activity){
         hasGPSTrackAnalysis (
@@ -24,10 +43,23 @@ public class Analysis{
         regionAnalysis(activity.getRegionId());
     }
 
+    /**
+     * Checks whether the activity currently inspected has GPSTrack,
+     * if so it stores the id of the activity in the trackedActivityIds list.
+     *
+     * @param activityHasGPSTrack
+     * @param Id
+     */
+
     public void hasGPSTrackAnalysis(boolean activityHasGPSTrack, String Id){
         if(activityHasGPSTrack)
             trackedActivityIds.add(Id);
     }
+
+    /**
+     * 
+     * @param types
+     */
 
     public void activityTypesAnalysis(String[] types){
         for (String type : types) {
