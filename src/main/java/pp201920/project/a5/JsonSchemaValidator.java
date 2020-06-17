@@ -26,6 +26,16 @@ import org.apache.logging.log4j.Logger;
  * 
  */ 
 
+/**
+ *The clas constructor variable that are required for running the class and verifying the JSoN schema
+ * 
+ * @param JsonSchema     the constant for the schemas required by the program 
+ * @param logging   the Logger to check for the validation
+ * @param logger    the MyLogger class to check for the validation
+ * 
+ * 
+ *
+ */
 public class JsonSchemaValidator {
 
     private final JsonSchema activitySchema,analysisSchema;
