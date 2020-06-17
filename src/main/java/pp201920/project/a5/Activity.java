@@ -146,6 +146,13 @@ public class Activity {
         this.types = types;
     }
 
+/**
+ * The method checks whether the Activity has GPS track and returns the corresponding 
+ * boolean variable
+
+* @return hasGPSTrack 
+
+*/
     public boolean getHasGPSTrack() {
         return hasGPSTrack;
     }
