@@ -127,6 +127,11 @@ public class Activity {
         this.region = region;
     }
 
+    /**
+     * The method returns the types of the Activity as String array
+     * 
+     * @return types
+     */
     public String[] getTypes() {
         return types;
     }
