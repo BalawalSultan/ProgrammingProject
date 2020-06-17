@@ -59,7 +59,6 @@ public class Activity {
      * the method sets the id of the Activity
      * 
      * @param Id    the id to set
-     * @return id
      * 
      */
      
@@ -81,7 +80,7 @@ public class Activity {
      * the method sets the name of the Activity as String 
      * 
      * @param name    the name to set
-     * @return name
+     *
      * 
      */
      
@@ -103,7 +102,7 @@ public class Activity {
      * 
     * @param description the description of the Activity
     * 
-    * @return description
+    * 
     
     */
     
