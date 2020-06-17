@@ -23,7 +23,7 @@
       ],
       "pattern":"([A-Z]*[a-z])+\"+:+ +([0-9]+)"
     },
-    "trackedActivities":{
+    "trackedActivityIds":{
       "type": "array",
       "pattern":"\"+([A-Z]|[0-9])+\""
 
@@ -42,5 +42,6 @@
     }
 
 
-  }
+  },
+  "additionalProperties": false
 }

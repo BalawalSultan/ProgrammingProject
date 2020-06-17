@@ -87,5 +87,6 @@
         "Regione dolomitica Tre Cime"
       ]
     }
-  }
+  },
+  "additionalProperties": false
 }
