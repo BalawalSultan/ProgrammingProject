@@ -98,6 +98,15 @@ public class Activity {
         return description;
     }
 
+    /**
+     * The method sets the description of the Activity
+     * 
+    * @param description the description of the Activity
+    * 
+    * @return description
+    
+    */
+    
     public void setDescription(String description) {
         this.description = description;
     }
