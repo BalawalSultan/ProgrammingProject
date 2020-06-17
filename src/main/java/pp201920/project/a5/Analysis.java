@@ -7,6 +7,9 @@ import java.util.HashMap;
 /**
  * This class is designed to create an analysis object
  * which is updated with each activity object.
+ * Since the class is designed to analyze one Activity object at
+ * a time, in the comments the analyzed activity object will be referred
+ * as "the Activity".
  *
  * @author Sultan Balawal
  * @author Alberto Nicoletti
@@ -27,10 +30,10 @@ public class Analysis{
 
     /**
      * This method accepts an activity as parameter and updates the results
-     * stored in the analysis with the values retrieved from the activity object,
+     * stored in the analysis with the values retrieved from the Activity object,
      * if needed.
      *
-     * @param activity
+     * @param activity the Activity object to be analyzed.
      */
 
     public void performAnalysis(Activity activity){
@@ -44,11 +47,11 @@ public class Analysis{
     }
 
     /**
-     * Checks whether the activity currently inspected has GPSTrack,
-     * if so it stores the id of the activity in the trackedActivityIds list.
+     * Checks whether the Activity currently inspected has GPSTrack,
+     * if so it stores the id of the Activity in the trackedActivityIds list.
      *
-     * @param activityHasGPSTrack
-     * @param Id
+     * @param activityHasGPSTrack the boolean stating whether the Activity has some GPSTrack data.
+     * @param Id the string containing the id of the Activity.
      */
 
     public void hasGPSTrackAnalysis(boolean activityHasGPSTrack, String Id){
@@ -57,8 +60,11 @@ public class Analysis{
     }
 
     /**
-     * 
-     * @param types
+     * Checks whether, among the types contained in the Activity, a specific type
+     * is already contained in the analysis, if so, increases the counter by 1,
+     * otherwise it adds the new type to the map.
+     *
+     * @param types the array of strings containing the types of the Activity
      */
 
     public void activityTypesAnalysis(String[] types){
@@ -72,6 +78,13 @@ public class Analysis{
         }
     }
 
+    /**
+     * Checks whether the region of the Activity is already contained in the analysis,
+     * if so, it increments the counter by one, otherwise it adds the region id
+     * to the regionActivities map.
+     *
+     * @param Id the string containing the Id of the region of the Activity
+     */
     public void regionAnalysis(String Id){
 
         if(regionActivities.containsKey(Id))
@@ -81,13 +94,28 @@ public class Analysis{
 
     }
 
+    /**
+     * Searches among the whole regionActivities map to gather
+     * the entry which has the highest integer value.
+     *
+     * @return the Id of the region with most activities.
+     */
+
     public int getMostActivities(){
         return Collections.max(regionActivities.values());
     }
 
+    /**
+     * Searches among the whole regionActivities map.
+     * 
+     * @return the Id of the region with least activities.
+     */
+
     public int getLeastActivities(){
         return Collections.min(regionActivities.values());
     }
+
+
 
     public ArrayList<String> getRegionsWithMostActivities(){
         ArrayList<String> regions = new ArrayList<>();
@@ -113,13 +141,30 @@ public class Analysis{
         return regions;
     }
 
+    /**
+     * A simple getter.
+     *
+     * @return the list of the Ids of the Activities analyzed.
+     */
+
     public ArrayList<String> getTrackedActivityIds(){
         return trackedActivityIds;
     }
 
+    /**
+     * A simple getter
+     *
+     * @return the map of the types of the analyzed activities and how many times they were encountered.
+     */
+
     public HashMap<String, Integer> getActivitiesTypes(){
         return activityTypes;
     }
+
+    /**
+     * A simple getter.
+     * @return the map of the region Ids and how many time an Activity was to be held in there.
+     */
 
     public HashMap<String, Integer> getRegionActivities() {
         return regionActivities;
