@@ -10,15 +10,14 @@ import org.apache.logging.log4j.Logger;
 import java.io.*;
 
 /**
-*
-* The FileManager class contains the methods necessary to 
-* generate the activity_XXX.json and analysis.json output files.
-*
-* @author  S. Balawal
-* @author  A. Nicoletti
-* @author R.Zorzi
-* @version 1.0
-*/
+ * The FileManager class contains the methods necessary to
+ * generate the activity_ID.json and analysis.json output files.
+ *
+ * @author Sultan Balawal
+ * @author Alberto Nicoletti
+ * @author René Zorzi
+ * @version 1.0
+ */
 
 public class FileManager {
     
@@ -43,10 +42,10 @@ public class FileManager {
     /**
      * The getNumOfObjects calls the {@link #readNumOfObjects(String) readNumOfObjects} method
      * inside a try and catch in order to catch it's exception and returns 
-     * the number of objects to be retrived.
+     * the number of objects to be retrieved.
      * 
-     * @param fileName the name of the file containing the number of objects to be retrived
-     * @return the number of objects to be retrived
+     * @param fileName the name of the file containing the number of objects to be retrieved
+     * @return the number of objects to be retrieved
      */
     public int getNumOfObjects(String fileName){
         int result = 0;
@@ -73,13 +72,13 @@ public class FileManager {
     }
 
     /**
-     * The readNumOfObjects method reads the number of objects to be retrived.
+     * The readNumOfObjects method reads the number of objects to be retrieved.
      * For testing purposes this method throws exceptions without trying to 
      * catch them, this way when we test this method we can see if the method
      * throws exception when it should.
      * 
      * @param fileName is the name of the generated file
-     * @return the number of object to be retrived
+     * @return the number of object to be retrieved
      * @throws IllegalArgumentException is thrown when the input file has 0 as input
      * @throws IOException is thrown when there is an error reading the input file
      */
@@ -115,8 +114,7 @@ public class FileManager {
      * <a href="https://javadoc.io/doc/com.google.code.gson/gson/latest/com.google.gson/com/google/gson/Gson.html">Gson</a> class.
      * This method also checks if the specified path is a directory, 
      * and in case it's not a directory the directory gets created.
-     * 
-     * 
+     *
      * @param object is the object to be serialized in a json file
      * @param fileName is the name of the generated json file
      * @param path is the path in which the file will be generated
@@ -160,12 +158,12 @@ public class FileManager {
      * <a href="https://javadoc.io/doc/com.google.code.gson/gson/latest/com.google.gson/com/google/gson/Gson.html">Gson</a>
      *  class is used to get the properties
      * of the {@link Analysis} class as json where needed.
-     * The variables containg the properties of the {@link Analysis} class as json
+     * The variables containing the properties of the {@link Analysis} class as json
      * will be added as values of the properties of analysis.java output file.
-     * 
-     * 
+     *
      * @param analyst contains the results of the analysis performed on the various activities
-     * @return returns a <a href="https://www.javadoc.io/doc/com.google.code.gson/gson/2.6.2/com/google/gson/JsonObject.html">JsonObject</a> containing the content of the analysis.json outputfile
+     * @return returns a <a href="https://www.javadoc.io/doc/com.google.code.gson/gson/2.6.2/com/google/gson/JsonObject.html">JsonObject</a>
+     * containing the content of the analysis.json output file
      */
     public JsonObject getAnalysisAsJsonObject(Analysis analyst){
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
