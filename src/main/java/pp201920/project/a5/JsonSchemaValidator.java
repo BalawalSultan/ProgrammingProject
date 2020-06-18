@@ -28,18 +28,30 @@ import org.apache.logging.log4j.Logger;
 public class JsonSchemaValidator {
 
     /**
-     *The class constructor variable that are required for running the class
-     *and verifying the JSoN schema.
+     *These are the properties/attributes of the JsonSchemaValidator class.
      *
-     * @param JsonSchema     the constant for the schemas required by the program
-     * @param logging   the Logger to check for the validation
-     * @param logger    the MyLogger class to check for the validation
+     * activitySchema and analysisSchema are the constant for the schemas required by the program
+     * logging   the Logger to check for the validation
+     * logger    the MyLogger class to check for the validation
      */
 
     private final JsonSchema activitySchema,analysisSchema;
     final Logger logging = LogManager.getLogger();
     final MyLogger logger = new MyLogger(logging);
 
+    /**
+     * This is the constructor of the JsonSchemaValidator class.
+     * The constructor takes a string containing the path to the
+     * resources and reads the activity and analysis json schema files.
+     * Then the {@link ObjectMapper} deserializes the json of the two
+     * json shemas and assigns it to their respective {@link JsonNode}.
+     * Once the {@link JsonNode JsonNodes} have their value the
+     * {@link JsonSchemaFactory} extracts the schema from the two nodes
+     * and assigns it to the activitiSchema and analysisSchema which are
+     * objects of the {@link JsonSchema} class.
+     * 
+     * @param pathToResources
+     */
     public JsonSchemaValidator(String pathToResources){
         ObjectMapper mapper = new ObjectMapper();
         JsonNode activityNode = null, analysisNode = null;
@@ -59,6 +71,7 @@ public class JsonSchemaValidator {
         activitySchema = factory.getSchema(activityNode);
         analysisSchema = factory.getSchema(analysisNode);
     }
+
     /**
      *
     * The Method validates the schema by checking every single node in the Json schema.
