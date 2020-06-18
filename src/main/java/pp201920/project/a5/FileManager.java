@@ -128,9 +128,6 @@ public class FileManager {
         if(!folder.isDirectory())
             folder.mkdirs();
 
-        //Replaces "&" with it's unicode so that in the json file you see & instead of \u0026
-        json.replaceAll("&", "\\u0026");
-
         //checks if the json respects it's json schema
         if(validator.validateSchema(json, schemaOption)){
             try(FileWriter fileWriter = new FileWriter(path + fileName + ".json")){
