@@ -11,17 +11,16 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 /**
-*
-* The ActivityParser class contains the methods necessary to 
-* parse the json passed in it's constructor into smaller 
-* {@link Activity} objects and fill the ArrayList passed 
-* in it's constructor with these {@link Activity} objects.
-*
-* @author  S. Balawal
-* @author  A. Nicoletti
-* @author R.Zorzi
-* @version 1.0
-*/
+ * The ActivityParser class contains the methods necessary to
+ * parse the json passed in it's constructor into smaller
+ * {@link Activity} objects and fill the ArrayList passed
+ * in it's constructor with these {@link Activity} objects.
+ *
+ * @author Sultan Balawal
+ * @author Alberto Nicoletti
+ * @author René Zorzi
+ * @version 1.0
+ */
 
 public class ActivityParser{
 
@@ -32,7 +31,7 @@ public class ActivityParser{
     JsonArray Items;
 
     /**
-     * Default consructor for the ActivityParser class
+     * Default constructor for the ActivityParser class
      */
     public ActivityParser(){
         super();
@@ -54,7 +53,6 @@ public class ActivityParser{
      * <a href="https://www.javadoc.io/doc/com.google.code.gson/gson/2.6.2/com/google/gson/JsonObject.html">JsonObjects</a>
      * in the <a href="https://www.javadoc.io/doc/com.google.code.gson/gson/2.6.2/com/google/gson/JsonArray.html">JsonArray</a> Items
      * and fills the ArrayList list with {@link Activity} objects.
-     *  
      */
     public void parseAndFillActivityList(){
         for (JsonElement item : this.Items) {
@@ -74,7 +72,7 @@ public class ActivityParser{
      * 
      * @param json is the json passed in the constructor of this class
      * @return returns a <a href="https://www.javadoc.io/doc/com.google.code.gson/gson/2.6.2/com/google/gson/JsonArray.html">JsonArray</a>
-     * containig various <a href="https://www.javadoc.io/doc/com.google.code.gson/gson/2.6.2/com/google/gson/JsonObject.html">JsonObjects</a>.
+     * containing various <a href="https://www.javadoc.io/doc/com.google.code.gson/gson/2.6.2/com/google/gson/JsonObject.html">JsonObjects</a>.
      */
     public JsonArray getItems(String json){
         JsonObject jsonResponse = new JsonParser().
@@ -129,7 +127,7 @@ public class ActivityParser{
     }
 
     /**
-     * The checkIfActivityHasGpsTracking methof takes a 
+     * The checkIfActivityHasGpsTracking method takes a
      * <a href="https://www.javadoc.io/doc/com.google.code.gson/gson/2.6.2/com/google/gson/JsonObject.html">JsonObject</a>
      * to find out whether the activity has gps tracking or not.
      * A activity has gps tracking if any of these three properties "GpsPoints", "GpsTrack" and "GpsInfo" exists and is not empty or null.
@@ -141,7 +139,7 @@ public class ActivityParser{
      * 
      * @param Activity is a <a href="https://www.javadoc.io/doc/com.google.code.gson/gson/2.6.2/com/google/gson/JsonObject.html">JsonObject</a>
      * containing these three properties "GpsPoints", "GpsTrack" and "GpsInfo".
-     * @return wether an activity has gps tracking or not
+     * @return whether an activity has gps tracking or not
      */
     public boolean checkIfActivityHasGpsTracking(JsonObject Activity){
         String[] gpsInfo = {"GpsPoints", "GpsTrack", "GpsInfo"};
@@ -217,8 +215,8 @@ public class ActivityParser{
      * null if the JsonObject is empty.
      * 
      * @param LocationInfo is a <a href="https://www.javadoc.io/doc/com.google.code.gson/gson/2.6.2/com/google/gson/JsonObject.html">JsonObject</a>
-     * containing information about the region in which the activiti is held.
-     * @param language is the language in which the info should be retrived
+     * containing information about the region in which the activity is held.
+     * @param language is the language in which the info should be retried
      * @return a String array containing the id and name of the region
      */
     public String[] getRegionData(JsonObject LocationInfo, String language){
