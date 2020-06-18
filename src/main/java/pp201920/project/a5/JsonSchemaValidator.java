@@ -44,13 +44,13 @@ public class JsonSchemaValidator {
      * The constructor takes a string containing the path to the
      * resources and reads the activity and analysis json schema files.
      * Then the {@link ObjectMapper} deserializes the json of the two
-     * json shemas and assigns it to their respective {@link JsonNode}.
+     * json schemas and assigns it to their respective {@link JsonNode}.
      * Once the {@link JsonNode JsonNodes} have their value the
      * {@link JsonSchemaFactory} extracts the schema from the two nodes
-     * and assigns it to the activitiSchema and analysisSchema which are
+     * and assigns it to the activitySchema and analysisSchema which are
      * objects of the {@link JsonSchema} class.
      * 
-     * @param pathToResources
+     * @param pathToResources string containing the path where the schema.json are stored
      */
     public JsonSchemaValidator(String pathToResources){
         ObjectMapper mapper = new ObjectMapper();
