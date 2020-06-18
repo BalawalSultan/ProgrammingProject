@@ -255,7 +255,8 @@ public class ActivityParser{
         }else{
             Description = Detail.get("BaseText").
                           getAsString().
-                          replaceAll("<.*?>", "");
+                          replaceAll("<.*?>", ""). // removes html tags
+                          replaceAll("&", "\\u0026"); //Replaces "&" with it's unicode so that in the json file you see & instead of \u0026
         }
         logger.trace("Description found");
         return Description;
