@@ -47,4 +47,4 @@ At that point in time, I had completely forgotten that I would have to provide U
 And after a while came the time to start UnitTesting these classes, luckily for me, my teammates made me see
 my classes for the abomination that they were. And so my teammates and I refactored a sizable portion of our code, after refactoring the code we were finally able to write tests for our classes without going doing mental gymnastics.
 
-What I learned from this is that writing test cases for a class without implementing isn't such a bad idea after all.
+What I learned from this is that writing test cases for a class without implementing it isn't such a bad idea after all.
