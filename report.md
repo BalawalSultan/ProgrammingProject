@@ -9,7 +9,7 @@ The Analysis class is the class responsible for the computation of the data from
 The project uses as techniques taught in class the following:
 
 - Java Collections
-- API/ URL extraction 
+- Data extraction 
 - reading/ writing to files
 - JSON Schema Validation
 - Logging
