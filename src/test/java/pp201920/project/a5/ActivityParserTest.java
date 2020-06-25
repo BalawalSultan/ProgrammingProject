@@ -14,27 +14,27 @@ public class ActivityParserTest {
 
     private String getDescriptionAsJson(String baseText){
         return  "{"+
-                baseText +
+            baseText +
         "}";
     }        
 
     private String getActivityAsJson(String GpsPointsProperty, String GpsInfo, String GpsTrack){
         return "{"+ 
-                "'GpsPoints':" + GpsPointsProperty + ","+
-                "'GpsInfo':" + GpsInfo + "," +
-                "'GpsTrack':" + GpsTrack +
+            "'GpsPoints':" + GpsPointsProperty + ","+
+            "'GpsInfo':" + GpsInfo + "," +
+            "'GpsTrack':" + GpsTrack +
         "}";
     }
 
     private String getLocationInfoAsJson(String Id, String Name){
         if(Id == null && Name == null)
-                return "{'RegionInfo': null}";
+            return "{'RegionInfo': null}";
 
         return "{"+
-                "'RegionInfo':{" +
-                        Id + "," +
-                        Name +
-                "}"+
+            "'RegionInfo':{" +
+                    Id + "," +
+                    Name +
+            "}"+
         "}";
     }
 
