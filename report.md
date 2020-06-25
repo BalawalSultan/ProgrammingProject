@@ -34,3 +34,13 @@ For the Unit Testing of the Program we used JUnit and tested the  ActivityParser
 
 From my point of view, the main challenge was to condense all knowledge that we gathered along the course into straight coding, I had to experiment and try many things for the first time, since I wasn't able to be present to all labs. I found out some big mistakes of mine, by just trying and with the help of my teammates I was able to figure out what I needed to do and how. 
 Some mistakes were, for example, using the "wrong" IDE (I switched from Eclipse to Intellij ) or the fact that I had never installed maven on the pc, some pretty basic stuff but that I had never figured out. Sometimes I had to go through the slides of the lecture or the recordings of the lecture just to find out what I did wrong or to copy a strategy or a piece of code I wanted to use. All in all, it has been a challenging project, but it has also been a lot of fun, and I am proud of code we produced altogether.
+
+**Balawal**
+
+For me, the biggest challenge I faced was to write classes that are easy to UnitTest and easy to understand. At the start of this project, I started writing classes that were able to accomplish their goals, but these classes had a common problem, most of the methods in these classes were over 100 lines of code, and not clear in what they were doing.
+
+At that point in time, I had completely forgotten that I would have to provide UnitTesting for these classes.
+And after a while came the time to start UnitTesting these classes, luckily for me, my teammates made me see
+my classes for the abomination that they were. And so my teammates and I refactored a sizable portion of our code, after refactoring the code we were finally able to write tests for our classes without going doing mental gymnastics.
+
+What I learned from this is that writing test cases for a class without implementing isn't such a bad idea after all.
