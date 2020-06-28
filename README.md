@@ -52,3 +52,9 @@ And after a while came the time to start UnitTesting these classes, luckily for 
 my classes for the abomination that they were. And so my teammates and I refactored a sizable portion of our code, after refactoring the code we were finally able to write tests for our classes without going doing mental gymnastics.
 
 What I learned from this is that writing test cases for a class without implementing it isn't such a bad idea after all.
+
+**René**
+
+For me the biggest challenge was to use git for a project since I barely never used git previously (or for very small programs). At first i had difficuly with the git settings from the terminal
+and then I could not reconfigure it correctly so that it synchronizes with the Gitlab account; only after using other software like Gitkraken supporting git I managed to make it work.Other difficulties
+that I had throughout the project were getting used to the xml and api use.
