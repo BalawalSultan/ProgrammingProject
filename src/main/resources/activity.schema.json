@@ -1,0 +1,92 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Activity.json schema",
+  "description": "The schema for the analysis.json file outputted from the project",
+  "required": [
+    "id",
+    "name",
+    "description",
+    "types",
+    "hasGPSTrack",
+    "region"
+  ],
+  "properties": {
+    "id": {
+      "title": "id",
+      "description": "Identificative alphanumeric sequence of the activity",
+      "type": "string",
+      "examples": [
+        "078883A95FF002AA246B5B99DA5BB9D7",
+        "01CFEFF8DA586E548327E539276C42F3"
+      ],
+      "pattern": "^([A-Z]|[0-9])+([A-Z][0-9]|[0-9][A-Z])+([A-Z]|[0-9])+",
+      "minLength": 32,
+      "maxLength": 32
+    },
+    "name": {
+      "title": "Name",
+      "description": "Name of the activity",
+      "type": "string",
+      "examples": [
+        "11 Summit Tour",
+        "01 Giro dello stadio di Dobbiacco"
+      ],
+      "pattern": "([0-9]*)*[-,\\/, ]*([A-Z]*[a-z]*)"
+    },
+    "description": {
+      "title": "Description",
+      "description": "Description of the activity",
+      "type": [
+        "string",
+        "null"
+      ],
+      "examples": [
+        "A lonely hike from summit to summit in between...",
+        "La pista sportiva dello stadio di sci da fondo di Dobbiacco viene spesso utilizzata come circuito d'allenamento dei teams sportivi di varie nazioni..."
+      ],
+      "pattern": "([A-Z]*[a-z]* *)*.*"
+    },
+    "types": {
+      "title": "Types",
+      "description": "Categories which this activity belongs",
+      "type": [
+        "array",
+        "null"
+      ],
+      "examples": [
+        [
+          "berg",
+          "bergtouren",
+          "weitere berge",
+          "hochtouren"
+        ],
+        [
+          "loipen",
+          "klassisch und skating"
+        ]
+      ]
+    },
+    "hasGPSTrack": {
+      "name": "GPSTrack",
+      "description": "boolean variable stating wheter an activity has some GPSTracks or not",
+      "type": "boolean",
+      "examples": [
+        true,
+        false
+      ]
+    },
+    "region": {
+      "title": "Regions",
+      "description": "Regions in which this activity can be practiced",
+      "type": [
+        "string",
+        "null"
+      ],
+      "examples": [
+        "Brunico/Bruneck and environs",
+        "Regione dolomitica Tre Cime"
+      ]
+    }
+  },
+  "additionalProperties": false
+}

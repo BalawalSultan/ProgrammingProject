@@ -1,7 +1,9 @@
 package pp201920.project.a5;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import java.io.BufferedReader;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
@@ -9,6 +11,9 @@ import java.net.SocketTimeoutException;
 import java.net.URL;
 
 public class MyRequest{
+
+    static final Logger logging = LogManager.getLogger();
+    static final MyLogger logger = new MyLogger(logging);
 
     public MyRequest(){
         super();
@@ -21,20 +26,16 @@ public class MyRequest{
             response = fetch(url);
 
         }catch(SocketTimeoutException e){
-            System.err.println("SocketTimeoutException!");
-            e.printStackTrace();
+            logger.error("SocketTimeoutException!");
+            logger.error(e);
             
         }catch(NullPointerException e){
-            System.err.println("Empty Response!");
-            e.printStackTrace();
-
-        }catch(FileNotFoundException e){
-            System.err.println("Error 404: FileNotFoundException!");
-            e.printStackTrace();
+            logger.error("Empty Response!");
+            logger.error(e);
 
         }catch(IOException e){
-            System.err.println("IOException!");
-            e.printStackTrace();
+            logger.error("IOException!");
+            logger.error(e);
         }
 
         return response;
@@ -52,7 +53,6 @@ public class MyRequest{
         BufferedReader reader;
         String line;
 
-       
         if (status > 299)
             reader = new BufferedReader(new InputStreamReader(connection.getErrorStream()));
         else

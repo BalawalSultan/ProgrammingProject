@@ -1,10 +1,14 @@
 .settings
 .vscode
+.factorypath
 results/*
 bin
 bash.exe.stackdump
 .classpath
 .project
 target
-.idea
+.iml
+profiles.xml
 programming-project.iml
+.idea
+logs/*
