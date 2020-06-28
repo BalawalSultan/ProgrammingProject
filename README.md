@@ -5,6 +5,10 @@ The Application of our Project has been structured by having one Java file that 
 The Activity class is the class which uses various getters/ setters for the Activities and is the basic building block for the program. The JsonSchemaValidator class focuses on making sure the Json File has been properly declared and formatted, and includes only two methods.
 The Analysis class is the class responsible for the computation of the data from the Activity json files.
 
+![alt text](img/BDCC7506-6C4D-43D9-BF29-92424FB6D059.jpg "Application Diagram")
+
+###### Please note that the structure of the Diagram is the Project Architectures and the arrows included in it do not reference to Inheritance 
+
 ### Application of different techniques in class
 The project uses as techniques taught in class the following:
 
