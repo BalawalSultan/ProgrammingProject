@@ -41,7 +41,7 @@ public class JsonSchemaValidatorTest {
       );
 
       boolean result = validator.validateSchema(jsonActivity, 0);
-      assertEquals(true, result, "The length of the ID should be 32 charcters.");
+        assertTrue(result, "The length of the ID should be 32 characters.");
     }
 
     @Test
@@ -52,7 +52,7 @@ public class JsonSchemaValidatorTest {
       );
 
       boolean result = validator.validateSchema(jsonActivity, 0);
-      assertEquals(false, result, "The length of the ID should be 32 charcters.");
+        assertFalse(result, "The length of the ID should be 32 characters.");
     }
 
     @Test
@@ -63,7 +63,7 @@ public class JsonSchemaValidatorTest {
       );
 
       boolean result = validator.validateSchema(jsonActivity, 0);
-      assertEquals(false, result, "The ID cannot be made out of numbers only.");
+        assertFalse(result, "The ID cannot be made out of numbers only.");
     }
 
     @Test
@@ -74,7 +74,7 @@ public class JsonSchemaValidatorTest {
       );
 
       boolean result = validator.validateSchema(jsonActivity, 0);
-      assertEquals(false, result, "The ID cannot be made out of characters only.");
+        assertFalse(result, "The ID cannot be made out of characters only.");
     }
 
     @Test
@@ -85,7 +85,7 @@ public class JsonSchemaValidatorTest {
       );
       
       boolean result = validator.validateSchema(jsonActivity, 0);
-      assertEquals(false, result, "The length of the ID must contain no special characters.");
+        assertFalse(result, "The length of the ID must contain no special characters.");
     }
 
     @Test
@@ -95,7 +95,7 @@ public class JsonSchemaValidatorTest {
       );
       
       boolean result = validator.validateSchema(jsonActivity, 0);
-      assertEquals(false, result, "The ID cannot be null.");
+        assertFalse(result, "The ID cannot be null.");
     }
 
     @Test
@@ -106,7 +106,7 @@ public class JsonSchemaValidatorTest {
       );
       
       boolean result = validator.validateSchema(jsonActivity, 0);
-      assertEquals(false, result, "The name cannot be null.");
+        assertFalse(result, "The name cannot be null.");
     }
 
     @Test
@@ -117,7 +117,7 @@ public class JsonSchemaValidatorTest {
       );
       
       boolean result = validator.validateSchema(jsonActivity, 0);
-      assertEquals(true, result, "The name 4-wins-13 should be valid.");
+        assertTrue(result, "The name 4-wins-13 should be valid.");
     }
 
     @Test
@@ -128,7 +128,7 @@ public class JsonSchemaValidatorTest {
       );
       
       boolean result = validator.validateSchema(jsonActivity, 0);
-      assertEquals(true, result, "The description \"description\" should be valid.");
+        assertTrue(result, "The description \"description\" should be valid.");
     }
 
     @Test
@@ -139,7 +139,7 @@ public class JsonSchemaValidatorTest {
       );
       
       boolean result = validator.validateSchema(jsonActivity, 0);
-      assertEquals(true, result, "The description can be null.");
+        assertTrue(result, "The description can be null.");
     }
 
     @Test
@@ -150,7 +150,7 @@ public class JsonSchemaValidatorTest {
       );
       
       boolean result = validator.validateSchema(jsonActivity, 0);
-      assertEquals(true, result, "Types is an array of strings.");
+        assertTrue(result, "Types is an array of strings.");
     }
 
     @Test
@@ -161,7 +161,7 @@ public class JsonSchemaValidatorTest {
       );
       
       boolean result = validator.validateSchema(jsonActivity, 0);
-      assertEquals(true, result, "Trentino-Alto Adige is a valid region name.");
+        assertTrue(result, "Trentino-Alto Adige is a valid region name.");
     }
 
     @Test
@@ -172,7 +172,7 @@ public class JsonSchemaValidatorTest {
       );
       
       boolean result = validator.validateSchema(jsonActivity, 0);
-      assertEquals(true, result, "The region name can be null.");
+        assertTrue(result, "The region name can be null.");
     }
 
     @Test
@@ -180,7 +180,7 @@ public class JsonSchemaValidatorTest {
       String jsonAnalysis = getAnalysisAsJson(" ", " ", "0", " ");
 
       boolean result = validator.validateSchema(jsonAnalysis, 1);
-      assertEquals(true, result, "An empty analysis.json should be valid.");
+        assertTrue(result, "An empty analysis.json should be valid.");
     }
 
     @Test
@@ -192,7 +192,7 @@ public class JsonSchemaValidatorTest {
       );
 
       boolean result = validator.validateSchema(jsonAnalysis, 1);
-      assertEquals(true, result, "This analysis.json should be valid.");
+        assertTrue(result, "This analysis.json should be valid.");
     }
 
     @Test
@@ -204,7 +204,7 @@ public class JsonSchemaValidatorTest {
       );
 
       boolean result = validator.validateSchema(jsonAnalysis, 1);
-      assertEquals(true, result, "This activitiesTypes object can be empty.");
+        assertTrue(result, "This activitiesTypes object can be empty.");
     }
 
     @Test
@@ -216,7 +216,7 @@ public class JsonSchemaValidatorTest {
       );
 
       boolean result = validator.validateSchema(jsonAnalysis, 1);
-      assertEquals(true, result, "This trackedActivities should be valid.");
+        assertTrue(result, "This trackedActivities should be valid.");
     }
 
     @Test
@@ -227,7 +227,7 @@ public class JsonSchemaValidatorTest {
       );
 
       boolean result = validator.validateSchema(jsonAnalysis, 1);
-      assertEquals(true, result, "This trackedActivities can be empty.");
+        assertTrue(result, "This trackedActivities can be empty.");
     }
 
     @Test
@@ -239,6 +239,6 @@ public class JsonSchemaValidatorTest {
       );
 
       boolean result = validator.validateSchema(jsonAnalysis, 1);
-      assertEquals(true, result, "This regionsWithLeastActivities and regionsWithMostActivities should be valid.");
+        assertTrue(result, "This regionsWithLeastActivities and regionsWithMostActivities should be valid.");
     }
 }

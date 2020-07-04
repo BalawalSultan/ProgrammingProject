@@ -27,11 +27,6 @@ public class MyLogger {
         logger.error(message);
     }
 
-    public void warn(Object obj){
-        String message = gson.toJson(obj);
-        logger.warn(message);
-    }
-
     public void debug(Object obj){
         String message = gson.toJson(obj);
         logger.debug(message);
