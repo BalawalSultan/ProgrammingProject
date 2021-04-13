@@ -10,11 +10,11 @@ The Analysis class is the class responsible for the computation of the data from
 ###### Please note that the structure of the Diagram is the Project Architectures and the arrows included in it do not reference to Inheritance 
 
 ### Application of different techniques in class
-The project uses as techniques taught in class the following:
+The project uses the following programming:
 
 - Java Collections
 - Data extraction 
-- reading/ writing to files
+- reading/writing to files
 - JSON Schema Validation
 - Logging
 - Unit Testing using JUnit
