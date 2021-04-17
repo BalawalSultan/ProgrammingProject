@@ -1,6 +1,6 @@
 # South Tyrol activities analyzer
 
-This Java application uses the [Open Data Hub](https://opendatahub.bz.it/) to retrive information about various activities that can be performed in South Tyrol, and stores the data into compact JSON files.
+This Java application uses the [Open Data Hub](https://opendatahub.bz.it/) to retrieve information about various activities that can be performed in South Tyrol, and stores the data into compact JSON files.
 
 ## Application Architecture
 To read the architecture open the [report.md](https://github.com/BalawalSultan/ProgrammingProject/blob/master/REPORT.md) file.
